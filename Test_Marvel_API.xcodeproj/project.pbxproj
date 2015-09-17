@@ -3,13 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4719CAAB1BAACE9600B37CD5 /* Teams.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CAAA1BAACE9600B37CD5 /* Teams.plist */; };
+		4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */; };
+		4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */; };
+		4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB71BAAED4700B37CD5 /* FSCharacter.m */; };
+		4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABA1BAAED4700B37CD5 /* FSTeam.m */; };
+		4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABD1BAAED4700B37CD5 /* FSComic.m */; };
+		4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */; };
+		4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */; };
+		4719CACD1BAB394A00B37CD5 /* FSBaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseCollectionViewController.m */; };
+		4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */; };
+		4719CAD21BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAD11BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m */; };
 		47BACAE91BAAB273005B2F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAE81BAAB273005B2F61 /* main.m */; };
 		47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAEB1BAAB273005B2F61 /* AppDelegate.m */; };
-		47BACAEF1BAAB273005B2F61 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAEE1BAAB273005B2F61 /* ViewController.m */; };
 		47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF01BAAB273005B2F61 /* Main.storyboard */; };
 		47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */; };
 		47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF61BAAB273005B2F61 /* Assets.xcassets */; };
@@ -20,12 +30,35 @@
 /* Begin PBXFileReference section */
 		0F9E913615790F0289C68541 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		20529E07818902C01AA94000 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4719CAAA1BAACE9600B37CD5 /* Teams.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Teams.plist; sourceTree = "<group>"; };
+		4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSThumbnailImage+CoreDataProperties.h"; sourceTree = "<group>"; };
+		4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSThumbnailImage.h; sourceTree = "<group>"; };
+		4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSThumbnailImage.m; sourceTree = "<group>"; };
+		4719CAAF1BAAEC7200B37CD5 /* FSBaseEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSBaseEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
+		4719CAB01BAAEC7200B37CD5 /* FSBaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseEntity.h; sourceTree = "<group>"; };
+		4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseEntity.m; sourceTree = "<group>"; };
+		4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSCharacter+CoreDataProperties.h"; sourceTree = "<group>"; };
+		4719CAB61BAAED4700B37CD5 /* FSCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharacter.h; sourceTree = "<group>"; };
+		4719CAB71BAAED4700B37CD5 /* FSCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharacter.m; sourceTree = "<group>"; };
+		4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSTeam+CoreDataProperties.h"; sourceTree = "<group>"; };
+		4719CAB91BAAED4700B37CD5 /* FSTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeam.h; sourceTree = "<group>"; };
+		4719CABA1BAAED4700B37CD5 /* FSTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeam.m; sourceTree = "<group>"; };
+		4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComic+CoreDataProperties.h"; sourceTree = "<group>"; };
+		4719CABC1BAAED4700B37CD5 /* FSComic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComic.h; sourceTree = "<group>"; };
+		4719CABD1BAAED4700B37CD5 /* FSComic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComic.m; sourceTree = "<group>"; };
+		4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDataManager.h; sourceTree = "<group>"; };
+		4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDataManager.m; sourceTree = "<group>"; };
+		4719CAC51BAAFAE400B37CD5 /* NSString+FSMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FSMD5.h"; sourceTree = "<group>"; };
+		4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FSMD5.m"; sourceTree = "<group>"; };
+		4719CACB1BAB394A00B37CD5 /* FSBaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseCollectionViewController.h; sourceTree = "<group>"; };
+		4719CACC1BAB394A00B37CD5 /* FSBaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseCollectionViewController.m; sourceTree = "<group>"; };
+		4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPI.plist; sourceTree = "<group>"; };
+		4719CAD01BAB55DB00B37CD5 /* FSBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseCollectionViewCell.h; sourceTree = "<group>"; };
+		4719CAD11BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseCollectionViewCell.m; sourceTree = "<group>"; };
 		47BACAE41BAAB273005B2F61 /* Test_Marvel_API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test_Marvel_API.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47BACAE81BAAB273005B2F61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47BACAEA1BAAB273005B2F61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		47BACAEB1BAAB273005B2F61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		47BACAED1BAAB273005B2F61 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		47BACAEE1BAAB273005B2F61 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		47BACAF11BAAB273005B2F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47BACAF41BAAB273005B2F61 /* Test_Marvel_API.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test_Marvel_API.xcdatamodel; sourceTree = "<group>"; };
 		47BACAF61BAAB273005B2F61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +88,57 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4719CAB41BAAEC7700B37CD5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */,
+				4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */,
+				4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */,
+				4719CAAF1BAAEC7200B37CD5 /* FSBaseEntity+CoreDataProperties.h */,
+				4719CAB01BAAEC7200B37CD5 /* FSBaseEntity.h */,
+				4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */,
+				4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */,
+				4719CAB91BAAED4700B37CD5 /* FSTeam.h */,
+				4719CABA1BAAED4700B37CD5 /* FSTeam.m */,
+				4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */,
+				4719CAB61BAAED4700B37CD5 /* FSCharacter.h */,
+				4719CAB71BAAED4700B37CD5 /* FSCharacter.m */,
+				4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */,
+				4719CABC1BAAED4700B37CD5 /* FSComic.h */,
+				4719CABD1BAAED4700B37CD5 /* FSComic.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4719CAC81BAAFAE900B37CD5 /* Cathegories */ = {
+			isa = PBXGroup;
+			children = (
+				4719CAC51BAAFAE400B37CD5 /* NSString+FSMD5.h */,
+				4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */,
+			);
+			name = Cathegories;
+			sourceTree = "<group>";
+		};
+		4719CAC91BAAFB1700B37CD5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */,
+				4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */,
+				4719CACB1BAB394A00B37CD5 /* FSBaseCollectionViewController.h */,
+				4719CACC1BAB394A00B37CD5 /* FSBaseCollectionViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		4719CAD31BAB55DF00B37CD5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4719CAD01BAB55DB00B37CD5 /* FSBaseCollectionViewCell.h */,
+				4719CAD11BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		47BACADB1BAAB273005B2F61 = {
 			isa = PBXGroup;
 			children = (
@@ -76,15 +160,6 @@
 		47BACAE61BAAB273005B2F61 /* Test_Marvel_API */ = {
 			isa = PBXGroup;
 			children = (
-				47BACAEA1BAAB273005B2F61 /* AppDelegate.h */,
-				47BACAEB1BAAB273005B2F61 /* AppDelegate.m */,
-				47BACAED1BAAB273005B2F61 /* ViewController.h */,
-				47BACAEE1BAAB273005B2F61 /* ViewController.m */,
-				47BACAF01BAAB273005B2F61 /* Main.storyboard */,
-				47BACAF61BAAB273005B2F61 /* Assets.xcassets */,
-				47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */,
-				47BACAFB1BAAB273005B2F61 /* Info.plist */,
-				47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */,
 				47BACAE71BAAB273005B2F61 /* Supporting Files */,
 			);
 			path = Test_Marvel_API;
@@ -93,7 +168,20 @@
 		47BACAE71BAAB273005B2F61 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4719CAC81BAAFAE900B37CD5 /* Cathegories */,
+				4719CAD31BAB55DF00B37CD5 /* View */,
+				4719CAB41BAAEC7700B37CD5 /* Model */,
+				4719CAC91BAAFB1700B37CD5 /* Controller */,
+				47BACAEA1BAAB273005B2F61 /* AppDelegate.h */,
+				47BACAEB1BAAB273005B2F61 /* AppDelegate.m */,
 				47BACAE81BAAB273005B2F61 /* main.m */,
+				47BACAF01BAAB273005B2F61 /* Main.storyboard */,
+				47BACAF61BAAB273005B2F61 /* Assets.xcassets */,
+				47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */,
+				47BACAFB1BAAB273005B2F61 /* Info.plist */,
+				4719CAAA1BAACE9600B37CD5 /* Teams.plist */,
+				4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */,
+				47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -144,7 +232,7 @@
 				};
 			};
 			buildConfigurationList = 47BACADF1BAAB273005B2F61 /* Build configuration list for PBXProject "Test_Marvel_API" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -166,9 +254,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */,
 				47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */,
 				47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */,
 				47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */,
+				4719CAAB1BAACE9600B37CD5 /* Teams.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,10 +302,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47BACAEF1BAAB273005B2F61 /* ViewController.m in Sources */,
+				4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */,
+				4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */,
+				4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */,
 				47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */,
+				4719CAD21BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m in Sources */,
+				4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */,
+				4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */,
 				47BACAE91BAAB273005B2F61 /* main.m in Sources */,
+				4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */,
+				4719CACD1BAB394A00B37CD5 /* FSBaseCollectionViewController.m in Sources */,
 				47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */,
+				4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

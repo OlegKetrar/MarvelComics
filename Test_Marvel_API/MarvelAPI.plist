@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>basepoint</key>
+	<string>http://gateway.marvel.com</string>
+	<key>apiPattern</key>
+	<string>/v1/public/</string>
+	<key>publicKey</key>
+	<string>ff60b6aae1b92cdba162d72eeb96ac98</string>
+	<key>privateKey</key>
+	<string>8bd33f90f71efd7c537fa9dac469d6929f0dd0e2</string>
+</dict>
+</plist>

@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8175.2" systemVersion="15A279b" minimumToolsVersion="Automatic">
+    <entity name="BaseEntity" representedClassName="FSBaseEntity" isAbstract="YES" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="thumbnail" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="thumbnailOwner" inverseEntity="Thumbnail" syncable="YES"/>
+    </entity>
+    <entity name="Character" representedClassName="FSCharacter" parentEntity="BaseEntity" syncable="YES">
+        <relationship name="comics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comic" inverseName="characters" inverseEntity="Comic" syncable="YES"/>
+        <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="characters" inverseEntity="Team" syncable="YES"/>
+    </entity>
+    <entity name="Comic" representedClassName="FSComic" parentEntity="BaseEntity" syncable="YES">
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="comics" inverseEntity="Character" syncable="YES"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="imageOwner" inverseEntity="Thumbnail" syncable="YES"/>
+    </entity>
+    <entity name="Team" representedClassName="FSTeam" parentEntity="BaseEntity" syncable="YES">
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Character" inverseName="team" inverseEntity="Character" syncable="YES"/>
+    </entity>
+    <entity name="Thumbnail" representedClassName="FSThumbnailImage" syncable="YES">
+        <attribute name="extension" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="imageOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Comic" inverseName="images" inverseEntity="Comic" syncable="YES"/>
+        <relationship name="thumbnailOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BaseEntity" inverseName="thumbnail" inverseEntity="BaseEntity" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BaseEntity" positionX="-6689" positionY="-31" width="128" height="103"/>
+        <element name="Character" positionX="-6732" positionY="156" width="128" height="73"/>
+        <element name="Comic" positionX="-6561" positionY="156" width="128" height="73"/>
+        <element name="Team" positionX="-6896" positionY="171" width="128" height="58"/>
+        <element name="Thumbnail" positionX="-6399" positionY="-9" width="128" height="103"/>
+    </elements>
 </model>

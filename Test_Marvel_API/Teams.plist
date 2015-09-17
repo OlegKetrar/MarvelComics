@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Titanic</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Avengers</string>
+			<key>description</key>
+			<string>Earth&apos;s Mightiest Heroes joined forces to take on threats that were too big for any one hero to tackle. With a roster that has included Captain America, Iron Man, Ant-Man, Hulk, Thor, Wasp and dozens more over the years, the Avengers have come to be regarded as Earth&apos;s No. 1 team.</string>
+			<key>image</key>
+			<string>avengers.jpg</string>
+			<key>characters</key>
+			<string>Black Panther,Black Widow,Capitan America,Captain Marvel,Falcon,Hank Pym,Hawkeye,Hulk,Iron Man,Luke Cage,Quicksilver,ScarletWitch,Sider-Woman,Thor,Vision,Wasp,Wonder Man</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Guardians of Galaxy</string>
+			<key>description</key>
+			<string>A group of cosmic adventurers led by Star-Lord, the Guardians of the Galaxy protect the universe from threats all across space. The team also includes Drax, Gamora, Groot and Rocket Raccoon!</string>
+			<key>image</key>
+			<string>guardians.jpg</string>
+			<key>characters</key>
+			<string>Drax,Gamora,Groot,Rocket Racoon,Star-Lord</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>X-Men</string>
+			<key>description</key>
+			<string>Feared and hated by humans because they&apos;re different, the X-Men are heroic mutants, individuals born with special powers who&apos;ve sworn to use their gifts to protect mutants as well as humans.</string>
+			<key>image</key>
+			<string>xmen.jpg</string>
+			<key>characters</key>
+			<string>Angel,Beast,Colossus,Cyclops,Emma Frost,Gambit,Iceman,Jean Grey,Jubilee,Kitty Pryde,Magik,Nightcrawler,Northstar,Psylocke,Rogue,Storm,Wolverine,X-23</string>
+		</dict>
+	</array>
+</dict>
+</plist>
