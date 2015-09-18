@@ -1,0 +1,77 @@
+{
+	"Titanic" : [
+		{
+			"id" : 0,
+			"name" : "Avengers",
+			"description" : "Earth's Mightiest Heroes joined forces to take on threats that were too big for any one hero to tackle. With a roster that has included Captain America, Iron Man, Ant-Man, Hulk, Thor, Wasp and dozens more over the years, the Avengers have come to be regarded as Earth's No. 1 team.",
+			"thumbnail" : {
+				"path" : "avengers",
+				"extension" : "jpg"
+			},
+			"characters" : [
+				"Black Panther",
+				"Black Widow",
+				"Capitan America",
+				"Captain Marvel",
+				"Falcon",
+				"Hank Pym",
+				"Hawkeye",
+				"Hulk",
+				"Iron Man",
+				"Luke Cage",
+				"Quicksilver",
+				"ScarletWitch",
+				"Sider-Woman",
+				"Thor",
+				"Vision",
+				"Wasp",
+				"Wonder Man"
+			]
+		},
+		{
+			"id" : 1,
+			"name" : "Guardians of Galaxy",
+			"description" : "A group of cosmic adventurers led by Star-Lord, the Guardians of the Galaxy protect the universe from threats all across space. The team also includes Drax, Gamora, Groot and Rocket Raccoon!",
+			"thumbnail" : {
+				"path" : "guardians",
+				"extension" : "jpg"
+			},
+			"characters" : [ 
+				"Drax",
+				"Gamora",
+				"Groot",
+				"Rocket Racoon",
+				"Star-Lord"
+			]
+		},
+					{
+			"id" : 2,
+			"name" : "X-Men",
+			"description" : "Feared and hated by humans because they're different, the X-Men are heroic mutants, individuals born with special powers who've sworn to use their gifts to protect mutants as well as humans.",
+			"thumbnail" : {
+				"path" : "xmen",
+				"extension" : "jpg"
+			},
+			"characters" : [
+				"Angel",
+				"Beast",
+				"Colossus",
+				"Cyclops",
+				"Emma Frost",
+				"Gambit",
+				"Iceman",
+				"Jean Grey",
+				"Jubilee",
+				"Kitty Pryde",
+				"Magik",
+				"Nightcrawler",
+				"Northstar",
+				"Psylocke",
+				"Rogue",
+				"Storm",
+				"Wolverine",
+				"X-23"
+			]
+		}
+	]
+}

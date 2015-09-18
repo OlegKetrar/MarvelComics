@@ -11,6 +11,8 @@
 
 @implementation FSTeam
 
+@synthesize charactersNames = _charactersNames;
+
 // Insert code here to add functionality to your managed object subclass
 
 @end

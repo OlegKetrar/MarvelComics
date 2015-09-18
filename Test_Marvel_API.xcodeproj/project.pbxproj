@@ -15,15 +15,19 @@
 		4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABD1BAAED4700B37CD5 /* FSComic.m */; };
 		4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */; };
 		4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */; };
-		4719CACD1BAB394A00B37CD5 /* FSBaseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseCollectionViewController.m */; };
+		4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */; };
 		4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */; };
-		4719CAD21BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAD11BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m */; };
+		4719CAD21BAB55DB00B37CD5 /* FSTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */; };
+		47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */; };
+		47B3DA6F1BAC879600970D12 /* FSCharactersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */; };
+		47B3DA711BAC8E4700970D12 /* Teams.json in Resources */ = {isa = PBXBuildFile; fileRef = 47B3DA701BAC8E4700970D12 /* Teams.json */; };
 		47BACAE91BAAB273005B2F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAE81BAAB273005B2F61 /* main.m */; };
 		47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAEB1BAAB273005B2F61 /* AppDelegate.m */; };
 		47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF01BAAB273005B2F61 /* Main.storyboard */; };
 		47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */; };
 		47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF61BAAB273005B2F61 /* Assets.xcassets */; };
 		47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */; };
+		47BE0BFE1BACAA34005EFC9F /* FSCharacterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */; };
 		FAB53BCB7A595E0EE790D5DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A818CAF43442C896C51E2CB /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -50,11 +54,16 @@
 		4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDataManager.m; sourceTree = "<group>"; };
 		4719CAC51BAAFAE400B37CD5 /* NSString+FSMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FSMD5.h"; sourceTree = "<group>"; };
 		4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FSMD5.m"; sourceTree = "<group>"; };
-		4719CACB1BAB394A00B37CD5 /* FSBaseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseCollectionViewController.h; sourceTree = "<group>"; };
-		4719CACC1BAB394A00B37CD5 /* FSBaseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseCollectionViewController.m; sourceTree = "<group>"; };
+		4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseViewController.h; sourceTree = "<group>"; };
+		4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseViewController.m; sourceTree = "<group>"; };
 		4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPI.plist; sourceTree = "<group>"; };
-		4719CAD01BAB55DB00B37CD5 /* FSBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseCollectionViewCell.h; sourceTree = "<group>"; };
-		4719CAD11BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseCollectionViewCell.m; sourceTree = "<group>"; };
+		4719CAD01BAB55DB00B37CD5 /* FSTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamCell.h; sourceTree = "<group>"; };
+		4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamCell.m; sourceTree = "<group>"; };
+		47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamsViewController.h; sourceTree = "<group>"; };
+		47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamsViewController.m; sourceTree = "<group>"; };
+		47B3DA6D1BAC879600970D12 /* FSCharactersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharactersViewController.h; sourceTree = "<group>"; };
+		47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharactersViewController.m; sourceTree = "<group>"; };
+		47B3DA701BAC8E4700970D12 /* Teams.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Teams.json; sourceTree = "<group>"; };
 		47BACAE41BAAB273005B2F61 /* Test_Marvel_API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test_Marvel_API.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47BACAE81BAAB273005B2F61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		47BACAEA1BAAB273005B2F61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -64,6 +73,8 @@
 		47BACAF61BAAB273005B2F61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47BACAF91BAAB273005B2F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47BACAFB1BAAB273005B2F61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47BE0BFC1BACAA34005EFC9F /* FSCharacterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharacterCell.h; sourceTree = "<group>"; };
+		47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharacterCell.m; sourceTree = "<group>"; };
 		6A818CAF43442C896C51E2CB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -124,8 +135,12 @@
 			children = (
 				4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */,
 				4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */,
-				4719CACB1BAB394A00B37CD5 /* FSBaseCollectionViewController.h */,
-				4719CACC1BAB394A00B37CD5 /* FSBaseCollectionViewController.m */,
+				4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */,
+				4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */,
+				47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */,
+				47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */,
+				47B3DA6D1BAC879600970D12 /* FSCharactersViewController.h */,
+				47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -133,8 +148,10 @@
 		4719CAD31BAB55DF00B37CD5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4719CAD01BAB55DB00B37CD5 /* FSBaseCollectionViewCell.h */,
-				4719CAD11BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m */,
+				4719CAD01BAB55DB00B37CD5 /* FSTeamCell.h */,
+				4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */,
+				47BE0BFC1BACAA34005EFC9F /* FSCharacterCell.h */,
+				47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -180,6 +197,7 @@
 				47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */,
 				47BACAFB1BAAB273005B2F61 /* Info.plist */,
 				4719CAAA1BAACE9600B37CD5 /* Teams.plist */,
+				47B3DA701BAC8E4700970D12 /* Teams.json */,
 				4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */,
 				47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */,
 			);
@@ -258,6 +276,7 @@
 				47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */,
 				47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */,
 				47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */,
+				47B3DA711BAC8E4700970D12 /* Teams.json in Resources */,
 				4719CAAB1BAACE9600B37CD5 /* Teams.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,15 +322,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */,
+				47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */,
 				4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */,
 				4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */,
+				47BE0BFE1BACAA34005EFC9F /* FSCharacterCell.m in Sources */,
 				47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */,
-				4719CAD21BAB55DB00B37CD5 /* FSBaseCollectionViewCell.m in Sources */,
+				4719CAD21BAB55DB00B37CD5 /* FSTeamCell.m in Sources */,
 				4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */,
 				4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */,
 				47BACAE91BAAB273005B2F61 /* main.m in Sources */,
 				4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */,
-				4719CACD1BAB394A00B37CD5 /* FSBaseCollectionViewController.m in Sources */,
+				4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */,
+				47B3DA6F1BAC879600970D12 /* FSCharactersViewController.m in Sources */,
 				47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */,
 				4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */,
 			);

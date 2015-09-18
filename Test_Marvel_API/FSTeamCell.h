@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-@interface FSBaseCollectionViewCell : UICollectionViewCell
+@interface FSTeamCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

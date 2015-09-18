@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSTeam : FSBaseEntity
 
-// Insert code here to declare functionality of your managed object subclass
+@property (nonatomic) NSArray <NSString *> *charactersNames;
 
 @end
 

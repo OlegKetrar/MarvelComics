@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
     </dependencies>
     <scenes>
-        <!--Base Collection View Controller-->
+        <!--Teams View Controller-->
         <scene sceneID="wdx-zi-xRg">
             <objects>
-                <collectionViewController id="W8X-Fr-jjT" customClass="FSBaseCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController id="W8X-Fr-jjT" customClass="FSTeamsViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="P4D-oJ-Dts">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,7 +19,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="eho-jg-Omr" customClass="FSBaseCollectionViewCell">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="teamCell" id="eho-jg-Omr" customClass="FSTeamCell">
                                 <rect key="frame" x="13" y="64" width="350" height="209"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -34,7 +34,7 @@
                                             <rect key="frame" x="22" y="180" width="306" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -45,6 +45,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="P5K-yw-7WY" id="DOe-LH-w0P"/>
                                     <outlet property="nameLabel" destination="Cu1-dy-Ofj" id="W9B-Pv-mPN"/>
+                                    <segue destination="rpq-pA-7WW" kind="show" identifier="showCharacters" id="6JZ-p1-KMc"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -58,6 +59,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDt-ZY-Ceu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1130.5" y="110.5"/>
+        </scene>
+        <!--Characters View Controller-->
+        <scene sceneID="Akf-Ix-8we">
+            <objects>
+                <collectionViewController id="rpq-pA-7WW" customClass="FSCharactersViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="FGe-dD-uMb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="j75-ER-QbN">
+                            <size key="itemSize" width="110" height="130"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="characterCell" id="fba-en-OKh" customClass="FSCharacterCell">
+                                <rect key="frame" x="0.0" y="64" width="110" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="110" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-YQ-6LY">
+                                            <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                            <animations/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8p-I9-i7V">
+                                            <rect key="frame" x="0.0" y="109" width="110" height="21"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <connections>
+                                    <outlet property="imageView" destination="evJ-YQ-6LY" id="ZxZ-2I-pRZ"/>
+                                    <outlet property="nameLabel" destination="X8p-I9-i7V" id="dsf-6d-30C"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="rpq-pA-7WW" id="gx0-Dg-Wku"/>
+                            <outlet property="delegate" destination="rpq-pA-7WW" id="Pp2-Ud-3ad"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gjN-ls-R5K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573.5" y="110.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A1x-wJ-mIB">

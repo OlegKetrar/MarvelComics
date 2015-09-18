@@ -6,8 +6,8 @@
 //  Copyright © 2015 Oleg Ketrar. All rights reserved.
 //
 
-#import "FSBaseCollectionViewCell.h"
+#import "FSTeamCell.h"
 
-@implementation FSBaseCollectionViewCell
+@implementation FSTeamCell
 
 @end

@@ -16,6 +16,8 @@
 #import "FSCharacter.h"
 #import "NSString+FSMD5.h"
 
+//TODO: add downloader for images
+
 #define FS_PRODUCT_NAME @"Test_Marvel_API"
 
 @interface FSDataManager()
@@ -70,6 +72,7 @@
 		self.manager.managedObjectStore = store;
 		
 			//Configure Mapping for Character entity
+			//TODO: move this to appropriate getMethod
 		[self.manager addResponseDescriptor:[self responseDescriptorWith:self.manager.managedObjectStore
 														   forEntityName:@"Character"]];
 	}
@@ -79,6 +82,8 @@
 - (RKResponseDescriptor *)responseDescriptorWith:(RKManagedObjectStore *)store
 								   forEntityName:(NSString *)entityName {
 
+		//TODO: should create descriptor for specific entity
+	
 	RKEntityMapping *characterMapping = [RKEntityMapping mappingForEntityForName:@"Character"
 															inManagedObjectStore:store];
 	characterMapping.identificationAttributes = @[@"id"];
@@ -114,30 +119,54 @@
 
 #pragma mark - Get 
 
+	// load all titanic teams from Teams.json to CoreData
+	// add to each team array property with members(characters) names
 - (void)getTeamsWithComplition:(nullable void(^)(NSError * _Nullable error))complition {
-	NSURL *pathToResource = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"plist"];
-	NSDictionary *teamsDictionary = [NSDictionary dictionaryWithContentsOfURL:pathToResource];
 	
-	NSArray *titanicTeams = [teamsDictionary objectForKey:@"Titanic"];
+	NSError *error;
+	NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"json"];
+	NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL options:NSDataReadingUncached error:&error];
 	
-	for (NSDictionary *team in titanicTeams) {
-		FSTeam *someTeam = [NSEntityDescription insertNewObjectForEntityForName:@"Team"
-														 inManagedObjectContext:self.managedObjectContext];
-		someTeam.id = [team objectForKey:@"id"];
-		someTeam.name = [team objectForKey:@"name"];
-		someTeam.text = [team objectForKey:@"description"];
+	if (!error) {
+		NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+		NSArray <NSDictionary *> *teams = [jsonObj objectForKey:@"Titanic"];
 		
-		someTeam.thumbnail = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
+		for (NSDictionary *teamDictionary in teams) {
+			FSTeam *team = [NSEntityDescription insertNewObjectForEntityForName:@"Team"
+														 inManagedObjectContext:self.managedObjectContext];
+			team.id = [teamDictionary objectForKey:@"id"];
+			team.name = [teamDictionary objectForKey:@"name"];
+			team.text = [teamDictionary objectForKey:@"description"];
+			team.thumbnail = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
 														   inManagedObjectContext:self.managedObjectContext];
-		someTeam.thumbnail.path = [team objectForKey:@"image"];
-		someTeam.thumbnail.extension = @"jpg";
+			team.thumbnail.path = [teamDictionary valueForKeyPath:@"thumbnail.path"];
+			team.thumbnail.extension = [teamDictionary valueForKeyPath:@"thumbnail.extension"];
+			team.charactersNames = [teamDictionary objectForKey:@"characters"];
+		}
 	}
 	
 	if (complition) {
-		complition(nil);
+		complition(error);
 	}
 }
-- (void)getCharactersByTeam:(FSTeam *)team withComplition:(nullable void(^)(NSError * _Nullable error))complition {
+
+- (void)getCharactersByTeam:(FSTeam *)team
+			 withComplition:(nullable void(^)(NSError * _Nullable error))complition {
+	
+	NSArray <NSString *> *names = team.charactersNames;
+
+//	NSString *characterName = [names objectAtIndex:0];
+	for (NSString *characterName in names) {
+	
+		//TODO: add some multithreading
+		//need to sleep between requests
+		[self getCharacterByName:characterName withComplition:complition];
+	}
+}
+
+- (void)getCharacterByName:(NSString *)name
+			withComplition:(nullable void(^)(NSError * _Nullable error))complition {
+	
 	[self.manager addResponseDescriptor:[self responseDescriptorWith:self.manager.managedObjectStore
 													   forEntityName:@"Character"]];
 	
@@ -145,44 +174,30 @@
 	[formatter setDateFormat:@"yyyyMMddHHmmss"];
 	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
 	
-	NSURL *pathToResource = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"plist"];
-	NSDictionary *teamsDictionary = [NSDictionary dictionaryWithContentsOfURL:pathToResource];
+	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
+	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
 	
-	NSArray *titanicTeams = [teamsDictionary objectForKey:@"Titanic"];
-	for (NSDictionary *dict in titanicTeams) {
-		
-		if ([[dict objectForKey:@"name"] isEqualToString:team.name]) {
-			NSArray <NSString *> *names = [[dict objectForKey:@"characters"] componentsSeparatedByString:@","];
-			
-			for (NSString *characterName in names) {
-				
-				NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
-				NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
-				
-				NSDictionary *queryParams = @{ @"name"   : characterName,
-											   @"ts"     : timeStamp,
-											   @"hash"   : [hash lowercaseString],
-											   @"apikey" : self.publicKey           };
-				
-				//TODO: enqueueBatch......
-				
-//				[self.manager getObjectsAtPath:pathPattern
-//									parameters:queryParams
-//									   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-//										   if (complition) complition(nil);
-//									   }
-//									   failure:^(RKObjectRequestOperation *operation, NSError *error) {
-//										   if (complition) complition(error);
-//									   }];
-				
-			}
-		}
-	}
+	NSDictionary *queryParams = @{ @"name"   : name,
+								   @"ts"     : timeStamp,
+								   @"hash"   : [hash lowercaseString],
+								   @"apikey" : self.publicKey           };
 	
-	
+	[self.manager getObjectsAtPath:pathPattern
+						parameters:queryParams
+						   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+							   if (complition) {
+								   complition(nil);
+							   }
+						
+						   }
+						   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+							   if (complition) {
+								   complition(error);
+							   }
+						   }];
 }
+
 - (void)getCharacterWithComplition:(nullable void(^)(NSError * _Nullable error))complition {
-	
 }
 
 #pragma mark -
@@ -218,26 +233,5 @@
 						   success:success
 						   failure:failure];
 }
-
-//- (FSCharacter *)characterWithID:(NSNumber*)id {
-//	FSCharacter *retVal = nil;
-//
-//	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-//	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Character"
-//											  inManagedObjectContext:[self managedObjectContext]];
-//	[request setEntity:entity];
-//	NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"id = %d", id];
-//	[request setPredicate:searchFilter];
-//	
-//	NSError *error;
-//	NSArray *results = [[self managedObjectContext] executeFetchRequest:request error:&error];
-//	if (results.count > 0)
-//		retVal = [results objectAtIndex:0];
-//	
-//	if (error)
-//		NSLog(@"Error: %@", [error localizedDescription]);
-//	
-//	return retVal;
-//}
 
 @end
