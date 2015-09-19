@@ -29,17 +29,6 @@
 	[super viewDidLoad];
 	
 	self.navigationItem.title = self.team.name;
-	
-//	self.data = [NSArray array];
-//	
-//	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:^(NSError *error) {
-//		if (error) {
-//			NSLog(@"error: %@", [error localizedDescription]);
-//		}
-//		[self.collectionView reloadData];
-//		
-//		self.data = [self.managedObjectContext executeFetchRequest:self.fetchRequest error:nil];
-//	}];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -54,34 +43,34 @@
 	_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Character"];
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
+	NSPredicate *teamPredicate = [NSPredicate predicateWithFormat:@"team.name like %@", self.team.name];
 	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
+	_fetchRequest.predicate = teamPredicate;
+	
 	return _fetchRequest;
 }
-
-//- (NSFetchedResultsController *)fetchedResultsController {
-//	return nil;
-//}
 
 - (void)shouldRequestMoreData {
 	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:^(NSError *error) {
 		if (error) {
 			NSLog(@"error: %@", [error localizedDescription]);
 		}
-//		[self.collectionView reloadData];
-//		
-//		self.data = [self.managedObjectContext executeFetchRequest:self.fetchRequest error:nil];
+		
+		NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Comic"];
+		NSSortDescriptor *idDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+		request.sortDescriptors = @[idDescriptor];
+		
+		NSError *error2;
+		NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:request error:&error2];
+		NSLog(@"results = %@", results);
+		
+		if (error2) {
+			NSLog(@"fetch error: %@", [error2 localizedDescription]);
+		}
 	}];
 }
 
 #pragma mark - UICollectionViewDataSource
-
-//- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-//	return 1;
-//}
-//
-//- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//	return self.data.count;
-//}
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -89,18 +78,23 @@
 	FSCharacterCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"characterCell"
 																	  forIndexPath:indexPath];
 	FSCharacter *character = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//	FSCharacter *character = [self.data objectAtIndex:indexPath.row];
 	
-//	cell.imageView.layer.cornerRadius = 10.0;
-//	cell.imageView.layer.borderWidth = 2.0;
-//	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
-//	cell.imageView.layer.masksToBounds = YES;
-//	cell.imageView.image = [UIImage imageNamed:team.imageUrl];
-	
-	cell.backgroundColor = [UIColor redColor];
+	cell.imageView.layer.cornerRadius = 10.0;
+	cell.imageView.layer.borderWidth = 2.0;
+	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.imageView.layer.masksToBounds = YES;
 	
 	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
 	cell.nameLabel.text = character.name;
+	
+	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
+									 withComplition:^(UIImage * _Nullable image) {
+										 
+										 if (!image) {
+											 NSLog(@"image url = %@", character.imageUrl);
+										 }
+										[cell setImage:image animated:YES];
+									 }];
 	
 	return cell;
 }

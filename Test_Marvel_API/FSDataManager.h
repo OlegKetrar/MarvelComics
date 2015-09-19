@@ -7,7 +7,7 @@
 //
 
 @import Foundation;
-@class NSManagedObjectContext, RKObjectRequestOperation, RKMappingResult, FSTeam;
+@class NSManagedObjectContext, RKObjectRequestOperation, RKMappingResult, FSTeam, FSCharacter, UIImage;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,15 +26,18 @@ NS_ASSUME_NONNULL_BEGIN
 ////send request for team by id
 //- (void)getTeamById:(NSUInteger *)teamId
 //	 withComplition:(nullable void(^)(NSError * _Nullable error))complition;
-//
-//
-////send requests: for names of team members(i.e. characters)
+
+
 - (void)getCharactersByTeam:(FSTeam *)team
 			 withComplition:(nullable void(^)(NSError * _Nullable error))complition;
-//
-////send request for character by name
+
 - (void)getCharacterByName:(NSString *)name
-			withComplition:(nullable void(^)(NSError * _Nullable error))complition;
+			withComplition:(nullable void(^)(FSCharacter * _Nullable character, NSError * _Nullable error))complition;
+
+- (void)getCharacterById:(NSUInteger)characterId
+		  withComplition:(nullable void(^)(FSCharacter * _Nullable character, NSError * _Nullable error))complition;
+
+- (void)loadImageFromURL:(NSURL *)url withComplition:(nullable void(^)(UIImage * _Nullable image))complition;
 //
 //
 //

@@ -10,4 +10,19 @@
 
 @implementation FSCharacterCell
 
+- (void)setImage:(UIImage *)image animated:(BOOL)animated {
+	
+	// TODO: create placeholder if image == nil
+	// or DataManager should it do?
+	if (image) {
+		[self.indicator stopAnimating];
+		self.imageView.image = image;
+	}
+}
+
+- (void)prepareForReuse {
+	self.imageView.image = nil;
+//	[self.indicator startAnimating];
+}
+
 @end

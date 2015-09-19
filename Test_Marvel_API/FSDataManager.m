@@ -9,14 +9,13 @@
 #import "FSDataManager.h"
 
 @import CoreData;
+@import UIKit;
 #import <RestKit/RestKit.h>
 
 #import "FSThumbnailImage.h"
 #import "FSTeam.h"
 #import "FSCharacter.h"
 #import "NSString+FSMD5.h"
-
-//TODO: add downloader for images
 
 #define FS_PRODUCT_NAME @"Test_Marvel_API"
 
@@ -29,6 +28,10 @@
 @property (nonatomic) NSString *privateKey;
 
 @property (strong, nonatomic) RKObjectManager *manager;
+
+@property (nonatomic) RKEntityMapping *thumbnailMapping;
+@property (nonatomic) RKEntityMapping *characterMapping;
+@property (nonatomic) RKEntityMapping *comicMapping;
 
 @end
 
@@ -73,40 +76,50 @@
 		
 			//Configure Mapping for Character entity
 			//TODO: move this to appropriate getMethod
-		[self.manager addResponseDescriptor:[self responseDescriptorWith:self.manager.managedObjectStore
-														   forEntityName:@"Character"]];
+		[self configureMappingWithStore:self.manager.managedObjectStore];
 	}
 	return self;
 }
 
-- (RKResponseDescriptor *)responseDescriptorWith:(RKManagedObjectStore *)store
-								   forEntityName:(NSString *)entityName {
+- (void)configureMappingWithStore:(RKManagedObjectStore *)store {
 
-		//TODO: should create descriptor for specific entity
+		//FSThumbnail ------------------------------
+	self.thumbnailMapping = [RKEntityMapping mappingForEntityForName:@"Thumbnail"
+												inManagedObjectStore:store];
 	
-	RKEntityMapping *characterMapping = [RKEntityMapping mappingForEntityForName:@"Character"
-															inManagedObjectStore:store];
-	characterMapping.identificationAttributes = @[@"id"];
-	[characterMapping addAttributeMappingsFromDictionary: @{ @"id"			: @"id",
-															 @"name"		: @"name",
-															 @"description"	: @"text" }];
+	[self.thumbnailMapping setIdentificationAttributes:@[@"path"]];
+	[self.thumbnailMapping addAttributeMappingsFromDictionary: @{ @"path"	  : @"path",
+																  @"extension" : @"extension" }];
 	
-	RKEntityMapping *thumbnailMapping = [RKEntityMapping mappingForEntityForName:@"Thumbnail"
-															inManagedObjectStore:self.manager.managedObjectStore];
-	thumbnailMapping.identificationAttributes = @[@"path"];
-	[thumbnailMapping addAttributeMappingsFromDictionary: @{ @"path"	  : @"path",
-															 @"extension" : @"extension" }];
+		// FSCharacter ------------------------------
+	self.characterMapping = [RKEntityMapping mappingForEntityForName:@"Character"
+												inManagedObjectStore:store];
+	[self.characterMapping setIdentificationAttributes:@[@"id"]];
+	[self.characterMapping addAttributeMappingsFromDictionary: @{ @"id"			: @"id",
+																  @"name"		: @"name",
+																  @"description"	: @"text" }];
 	
-	[characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
-																					 toKeyPath:@"thumbnail"
-																				   withMapping:thumbnailMapping]];
+		//FSComic ------------------------------
+	self.comicMapping = [RKEntityMapping mappingForEntityForName:@"Comic"
+											inManagedObjectStore:store];
+	[self.comicMapping setIdentificationAttributes:@[@"id"]];
+	[self.comicMapping addAttributeMappingsFromDictionary: @{ @"id" : @"id",
+															  @"title" : @"name",
+															  @"description" : @"text" }];
 	
-	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
-	return [RKResponseDescriptor responseDescriptorWithMapping:characterMapping
-														method:RKRequestMethodGET
-												   pathPattern:pathPattern
-													   keyPath:@"data.results"
-												   statusCodes:[NSIndexSet indexSetWithIndex:200]];
+		// add baseEntity relationship with thumbnail (1 to 1)
+	[self.characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
+																						  toKeyPath:@"thumbnail"
+																						withMapping:self.thumbnailMapping]];
+	
+	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
+																					  toKeyPath:@"thumbnail"
+																					withMapping:self.thumbnailMapping]];
+	
+	// add comic relationship with thumbnails (1 to many)
+	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"images"
+																					  toKeyPath:@"images"
+																					withMapping:self.thumbnailMapping]];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -155,24 +168,45 @@
 	
 	NSArray <NSString *> *names = team.charactersNames;
 
-//	NSString *characterName = [names objectAtIndex:0];
-	for (NSString *characterName in names) {
+		// TODO: complition should invoke when all responses have been fetched
+		// enqueue batch requests
+//	__weak FSTeam *weakTeam = team;
 	
-		//TODO: add some multithreading
-		//need to sleep between requests
-		[self getCharacterByName:characterName withComplition:complition];
+//	for (NSString *characterName in names) {
+	for (NSUInteger i=0; i<2; i++) {
+
+		NSString *characterName = [names objectAtIndex:i];
+
+		[self getCharacterByName:characterName withComplition:^(FSCharacter *character, NSError *error) {
+			
+			if (character) {
+				[team addCharactersObject:character];
+			}
+			else
+				NSLog(@"error: %@", [error localizedDescription]);
+		}];
 	}
 }
 
+	// remote request
+	// /v1/public/characters   "name" = name
+	// add thumbnail
 - (void)getCharacterByName:(NSString *)name
-			withComplition:(nullable void(^)(NSError * _Nullable error))complition {
+			withComplition:(void(^)(FSCharacter *character, NSError *error))complition {
 	
-	[self.manager addResponseDescriptor:[self responseDescriptorWith:self.manager.managedObjectStore
-													   forEntityName:@"Character"]];
+//	[self.characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"comics"
+//																						  toKeyPath:@"comics"
+//																						withMapping:self.comicMapping]];
+
+	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
+	[self.manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:self.characterMapping
+																					 method:RKRequestMethodGET
+																				pathPattern:@"/v1/public/characters"
+																					keyPath:@"data.results"
+																				statusCodes:[NSIndexSet indexSetWithIndex:200]]];
 	
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setDateFormat:@"yyyyMMddHHmmss"];
-	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
 	
 	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
 	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
@@ -186,21 +220,43 @@
 						parameters:queryParams
 						   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
 							   if (complition) {
-								   complition(nil);
+								   complition([mappingResult.array firstObject], nil);
 							   }
-						
 						   }
 						   failure:^(RKObjectRequestOperation *operation, NSError *error) {
 							   if (complition) {
-								   complition(error);
+								   complition(nil, error);
 							   }
 						   }];
 }
 
-- (void)getCharacterWithComplition:(nullable void(^)(NSError * _Nullable error))complition {
+- (void)getCharacterById:(NSUInteger)characterId
+		  withComplition:(void(^)(FSCharacter *character, NSError *error))complition {
+}
+
+- (void)loadImageFromURL:(NSURL *)url withComplition:(void(^)(UIImage *image))complition {
+	
+	NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
+	
+	if ([AFImageRequestOperation canProcessRequest:imageRequest]) {
+		AFImageRequestOperation *operation = [AFImageRequestOperation imageRequestOperationWithRequest:imageRequest
+			success:^(UIImage *image) {
+				if (complition) {
+					complition(image);
+				}
+			}];
+		
+		[operation start];
+	}
+	else if(complition) {
+		complition(nil); //error
+	}
 }
 
 #pragma mark -
+
+- (void)getCharacterWithComplition:(nullable void(^)(NSError * _Nullable error))complition {
+}
 
 - (void)loadDataWithComplition:(void(^)(NSArray *results, NSError *error))complition {
 	

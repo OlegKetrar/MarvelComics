@@ -93,6 +93,10 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LgQ-Yn-xhS">
+                                            <rect key="frame" x="37" y="37" width="37" height="37"/>
+                                            <animations/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -100,6 +104,7 @@
                                 <animations/>
                                 <connections>
                                     <outlet property="imageView" destination="evJ-YQ-6LY" id="ZxZ-2I-pRZ"/>
+                                    <outlet property="indicator" destination="LgQ-Yn-xhS" id="iIc-9p-NST"/>
                                     <outlet property="nameLabel" destination="X8p-I9-i7V" id="dsf-6d-30C"/>
                                 </connections>
                             </collectionViewCell>

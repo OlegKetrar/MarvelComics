@@ -25,7 +25,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
 	RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
-	RKLogConfigureByName("RestKit/CoreData", RKLogLevelOff);
+	RKLogConfigureByName("RestKit/CoreData", RKLogLevelDebug);
 	
 //	[[FSDataManager sharedManager] loadDataWithComplition:^(NSArray *results, NSError *error) {
 //		if (!error) {

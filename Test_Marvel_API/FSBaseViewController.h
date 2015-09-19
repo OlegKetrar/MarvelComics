@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSBaseViewController : UICollectionViewController
 
+@property (nonatomic, getter=isLoadMoreEnabled) BOOL loadMoreEnabled;
+
 //
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
