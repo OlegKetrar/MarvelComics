@@ -27,10 +27,15 @@
 @property (nonatomic) NSString *publicKey;
 @property (nonatomic) NSString *privateKey;
 
+@property (nonatomic) AFHTTPSessionManager *manager;
+@property (nonatomic) AFURLSessionManager *imageLoader;
+
 @end
 
 @implementation FSDataManager
 
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize managedObjectContext = _managedObjectContext;
 
 + (instancetype)sharedManager {
@@ -57,74 +62,16 @@
 		self.publicKey   = [apiConfiguration objectForKey:@"publicKey"];
 		self.privateKey  = [apiConfiguration objectForKey:@"privateKey"];
 		
-			//create ObjectManager
-//		self.manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:self.basepoint]];
-
-			//Create Model (nonnull)
-		NSURL *modelURL = [[NSBundle mainBundle] URLForResource:FS_PRODUCT_NAME withExtension:@"momd"];
-		NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+		NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+		configuration.requestCachePolicy = NSURLRequestReturnCacheDataElseLoad;
+		
+		self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:self.basepoint]
+												sessionConfiguration:configuration];
+		
+		self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
 		
 	}
 	return self;
-}
-
-//- (void)configureMappingWithStore:(RKManagedObjectStore *)store {
-//
-//		//FSThumbnail ------------------------------
-//	self.thumbnailMapping = [RKEntityMapping mappingForEntityForName:@"Thumbnail"
-//												inManagedObjectStore:store];
-//	
-//	[self.thumbnailMapping setIdentificationAttributes:@[@"path"]];
-//	[self.thumbnailMapping addAttributeMappingsFromDictionary: @{ @"path"	  : @"path",
-//																  @"extension" : @"extension" }];
-//	
-//		// FSTeam ------------------------------
-//	self.teamMapping = [RKEntityMapping mappingForEntityForName:@"Team"
-//													   inManagedObjectStore:self.manager.managedObjectStore];
-//	
-//	[self.teamMapping setIdentificationAttributes:@[@"id"]];
-//	[self.teamMapping addAttributeMappingsFromDictionary: @{ @"id" : @"id",
-//															 @"name" : @"name",
-//															 @"description" : @"text" }];
-//
-//	
-//		// FSCharacter ------------------------------
-//	self.characterMapping = [RKEntityMapping mappingForEntityForName:@"Character"
-//												inManagedObjectStore:store];
-//	[self.characterMapping setIdentificationAttributes:@[@"id"]];
-//	[self.characterMapping addAttributeMappingsFromDictionary: @{ @"id"			: @"id",
-//																  @"name"		: @"name",
-//																  @"description"	: @"text" }];
-//	
-//		//FSComic ------------------------------
-//	self.comicMapping = [RKEntityMapping mappingForEntityForName:@"Comic"
-//											inManagedObjectStore:store];
-//	[self.comicMapping setIdentificationAttributes:@[@"id"]];
-//	[self.comicMapping addAttributeMappingsFromDictionary: @{ @"id" : @"id",
-//															  @"title" : @"name",
-//															  @"description" : @"text" }];
-//	
-//		// add baseEntity relationship with thumbnail (1 to 1)
-//	[self.teamMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
-//																					 toKeyPath:@"thumbnail"
-//																				   withMapping:self.thumbnailMapping ]];
-//	
-//	[self.characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
-//																						  toKeyPath:@"thumbnail"
-//																						withMapping:self.thumbnailMapping]];
-//	
-//	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
-//																					  toKeyPath:@"thumbnail"
-//																					withMapping:self.thumbnailMapping]];
-//	
-//	// add comic relationship with thumbnails (1 to many)
-//	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"images"
-//																					  toKeyPath:@"images"
-//																					withMapping:self.thumbnailMapping]];
-//}
-
-- (NSManagedObjectContext *)managedObjectContext {
-	return nil;
 }
 
 - (NSUInteger)count {
@@ -148,13 +95,10 @@
 		for (NSDictionary *teamDictionary in teams) {
 			FSTeam *team = [NSEntityDescription insertNewObjectForEntityForName:@"Team"
 														 inManagedObjectContext:self.managedObjectContext];
-			team.id = [teamDictionary objectForKey:@"id"];
-			team.name = [teamDictionary objectForKey:@"name"];
-			team.text = [teamDictionary objectForKey:@"description"];
 			team.thumbnail = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
 														   inManagedObjectContext:self.managedObjectContext];
-			team.thumbnail.path = [teamDictionary valueForKeyPath:@"thumbnail.path"];
-			team.thumbnail.extension = [teamDictionary valueForKeyPath:@"thumbnail.extension"];
+			[team configureWithResponse:teamDictionary];
+			[team.thumbnail configureWithResponse:[teamDictionary objectForKey:@"thumbnail"]];
 			team.charactersNames = [teamDictionary objectForKey:@"characters"];
 		}
 	}
@@ -171,20 +115,13 @@
 
 		// TODO: complition should invoke when all responses have been fetched
 		// enqueue batch requests
-//	__weak FSTeam *weakTeam = team;
-	
-//	for (NSString *characterName in names) {
-	for (NSUInteger i=0; i<2; i++) {
-
-		NSString *characterName = [names objectAtIndex:i];
+	for (NSString *characterName in names) {
 
 		[self getCharacterByName:characterName withComplition:^(FSCharacter *character, NSError *error) {
 			
 			if (character) {
 				[team addCharactersObject:character];
 				complition(nil);
-				
-				
 			}
 			else
 				NSLog(@"error: %@", [error localizedDescription]);
@@ -192,62 +129,157 @@
 	}
 }
 
+	//TODO: handle status code
 - (void)getCharacterByName:(NSString *)name
 			withComplition:(void(^)(FSCharacter *character, NSError *error))complition {
 
-//	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
-//	[self.manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:self.characterMapping
-//																					 method:RKRequestMethodGET
-//																				pathPattern:@"/v1/public/characters"
-//																					keyPath:@"data.results"
-//																				statusCodes:[NSIndexSet indexSetWithIndex:200]]];
-//	
-//	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//	[formatter setDateFormat:@"yyyyMMddHHmmss"];
-//	
-//	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
-//	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
-//	
-//	NSDictionary *queryParams = @{ @"name"   : name,
-//								   @"ts"     : timeStamp,
-//								   @"hash"   : [hash lowercaseString],
-//								   @"apikey" : self.publicKey           };
-//	
-//	[self.manager getObjectsAtPath:pathPattern
-//						parameters:queryParams
-//						   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-//							   if (complition) {
-//								   complition([mappingResult.array firstObject], nil);
-//							   }
-//						   }
-//						   failure:^(RKObjectRequestOperation *operation, NSError *error) {
-//							   if (complition) {
-//								   complition(nil, error);
-//							   }
-//						   }];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+	[formatter setDateFormat:@"yyyyMMddHHmmss"];
+	
+	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
+	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
+	
+	NSDictionary *queryParams = @{ @"name"   : name,
+								   @"ts"     : timeStamp,
+								   @"hash"   : [hash lowercaseString],
+								   @"apikey" : self.publicKey           };
+	
+	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
+				  parameters:queryParams
+					 success:^(NSURLSessionDataTask *task, id responseObject) {
+						 
+						 NSDictionary *characterDictionary = [[responseObject valueForKeyPath:@"data.results"] firstObject];
+						 FSCharacter *character = [NSEntityDescription insertNewObjectForEntityForName:@"Character"
+																				inManagedObjectContext:self.managedObjectContext];
+						 [character configureWithResponse:characterDictionary];
+						 
+						 if (![[characterDictionary objectForKey:@"thumbnail"] isEqual:[NSNull null]]) {
+							 character.thumbnail = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
+																				 inManagedObjectContext:self.managedObjectContext];
+							 [character.thumbnail configureWithResponse:[characterDictionary objectForKey:@"thumbnail"]];
+						 }
+						 
+						 if (complition) {
+							 complition(character, nil);
+						 }
+					 }
+					 failure:^(NSURLSessionDataTask *task, NSError *error) {
+						 
+						 if (complition)
+							 complition(nil, error);
+						 
+					 }];
 }
 
 - (void)getCharacterById:(NSUInteger)characterId
 		  withComplition:(void(^)(FSCharacter *character, NSError *error))complition {
 }
 
-- (void)loadImageFromURL:(NSURL *)url withComplition:(void(^)(UIImage *image))complition {
+	//TODO: handle error
+- (NSURLSessionDataTask *)loadImageFromURL:(NSURL *)url withComplition:(void(^)(UIImage *image))complition {
 	
-//	NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
+	if (self.imageLoader == nil) {
+		NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+		self.imageLoader = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+		self.imageLoader.responseSerializer = [AFImageResponseSerializer serializer];
+	}
 	
-//	if ([AFImageRequestOperation canProcessRequest:imageRequest]) {
-//		AFImageRequestOperation *operation = [AFImageRequestOperation imageRequestOperationWithRequest:imageRequest
-//			success:^(UIImage *image) {
-//				if (complition) {
-//					complition(image);
-//				}
-//			}];
-//		
-//		[operation start];
-//	}
-//	else if(complition) {
-//		complition(nil); //error
-//	}
+	NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
+	
+	NSURLSessionDataTask *task = [self.imageLoader dataTaskWithRequest:imageRequest
+													 completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+														if (responseObject) {
+															if (complition) complition(responseObject);
+														}
+													 }];
+	[task resume];
+	return task;
+}
+
+#pragma mark - Core Data setup
+
+- (NSURL *)applicationDocumentsDirectory {
+	return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+	// The managed object model for the application.
+	// It is a fatal error for the application not to be able to find and load its model.
+	if (_managedObjectModel) {
+		return _managedObjectModel;
+	}
+	
+	NSURL *modelURL = [[NSBundle mainBundle] URLForResource:FS_PRODUCT_NAME withExtension:@"momd"];
+	_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+	
+	return _managedObjectModel;
+}
+
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
+	// The persistent store coordinator for the application. This implementation creates and returns a coordinator,
+	// having added the store for the application to it.
+	if (_persistentStoreCoordinator) {
+		return _persistentStoreCoordinator;
+	}
+	
+	// Create the coordinator and store
+	_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+	
+	//	NSString *storeFilename = [NSString stringWithFormat:@"%@.sqlite", FS_PRODUCT_NAME];
+	//	NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:storeFilename];
+	NSError *error = nil;
+	NSString *failureReason = @"There was an error creating or loading the application's saved data.";
+	
+	if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType
+												   configuration:nil
+															 URL:nil
+														 options:nil
+														   error:&error]) {
+		// Report any error we got.
+		NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+		dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
+		dict[NSLocalizedFailureReasonErrorKey] = failureReason;
+		dict[NSUnderlyingErrorKey] = error;
+		error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
+		// Replace this with code to handle the error appropriately.
+		// abort() causes the application to generate a crash log and terminate. You should not use this
+		// function in a shipping application, although it may be useful during development.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}
+	
+	return _persistentStoreCoordinator;
+}
+
+- (NSManagedObjectContext *)managedObjectContext {
+	// Returns the managed object context for the application (which is already bound
+	// to the persistent store coordinator for the application.)
+	if (_managedObjectContext) {
+		return _managedObjectContext;
+	}
+	
+	NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
+	if (!coordinator) {
+		return nil;
+	}
+	
+	_managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+	[_managedObjectContext setPersistentStoreCoordinator:coordinator];
+	
+	return _managedObjectContext;
+}
+
+- (void)saveContext {
+	if (self.managedObjectContext != nil) {
+		NSError *error = nil;
+		if ([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
+			// Replace this implementation with code to handle the error appropriately.
+			// abort() causes the application to generate a crash log and terminate.
+			// You should not use this function in a shipping application, although it may be useful during development.
+			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			abort();
+		}
+	}
 }
 
 @end

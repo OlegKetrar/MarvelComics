@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4719CAAB1BAACE9600B37CD5 /* Teams.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CAAA1BAACE9600B37CD5 /* Teams.plist */; };
 		4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */; };
 		4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */; };
 		4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB71BAAED4700B37CD5 /* FSCharacter.m */; };
@@ -35,7 +34,6 @@
 /* Begin PBXFileReference section */
 		0F9E913615790F0289C68541 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		20529E07818902C01AA94000 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		4719CAAA1BAACE9600B37CD5 /* Teams.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Teams.plist; sourceTree = "<group>"; };
 		4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSThumbnailImage+CoreDataProperties.h"; sourceTree = "<group>"; };
 		4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSThumbnailImage.h; sourceTree = "<group>"; };
 		4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSThumbnailImage.m; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 				47BACAF61BAAB273005B2F61 /* Assets.xcassets */,
 				47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */,
 				47BACAFB1BAAB273005B2F61 /* Info.plist */,
-				4719CAAA1BAACE9600B37CD5 /* Teams.plist */,
 				47B3DA701BAC8E4700970D12 /* Teams.json */,
 				4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */,
 				47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */,
@@ -282,7 +279,6 @@
 				47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */,
 				47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */,
 				47B3DA711BAC8E4700970D12 /* Teams.json in Resources */,
-				4719CAAB1BAACE9600B37CD5 /* Teams.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

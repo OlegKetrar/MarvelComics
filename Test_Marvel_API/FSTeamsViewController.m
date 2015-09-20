@@ -28,40 +28,6 @@
     [super viewDidLoad];
 	
 	self.navigationItem.title = @"Marvel Titanic Teams";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-																						   target:self
-																						   action:@selector(actionLoad:)];
-	
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-																						  target:self
-																						  action:@selector(actionReload:)];
-}
-
-- (void)actionLoad:(id)sender {
-	[[FSDataManager sharedManager] getTeamsWithComplition:^(NSError * _Nullable error) {
-		if (error) {
-			NSLog(@"error: %@", [error localizedDescription]);
-		}
-		
-		[self.collectionView reloadData];
-	}];
-}
-
-- (void)actionReload:(id)sender {
-	[self.collectionView reloadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	
-//	NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:self.fetchRequest error:nil];
-//	
-////	for (FSTeam *team in results) {
-////		NSLog(@"id = %@", team.id);
-////		NSLog(@"name = %@", team.name);
-////		NSLog(@"text = %@", team.text);
-////	}
-//	
-//	NSLog(@"count = %ld", results.count);
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -81,11 +47,11 @@
 }
 
 - (void)shouldRequestMoreData {
-//	[[FSDataManager sharedManager] getTeamsWithComplition:^(NSError * _Nullable error) {
-//		if (error) {
-//			NSLog(@"error: %@", [error localizedDescription]);
-//		}
-//	}];
+	[[FSDataManager sharedManager] getTeamsWithComplition:^(NSError * _Nullable error) {
+		if (error) {
+			NSLog(@"error: %@", [error localizedDescription]);
+		}
+	}];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -104,7 +70,7 @@
 	cell.imageView.image = [UIImage imageNamed:team.imageUrl];
 	
 	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
-	cell.nameLabel.text = [NSString stringWithFormat:@"id: %ld", [team.id unsignedIntegerValue]];
+	cell.nameLabel.text = team.name;
 	
 	return cell;
 }

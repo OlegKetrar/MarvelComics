@@ -31,6 +31,13 @@
 	self.navigationItem.title = self.team.name;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	
+	NSUInteger count = [[FSDataManager sharedManager].managedObjectContext countForFetchRequest:self.fetchRequest
+																						  error:nil];
+	NSLog(@"count = %ld", count);
+}
+
 - (NSManagedObjectContext *)managedObjectContext {
 	return [FSDataManager sharedManager].managedObjectContext;
 }
@@ -43,8 +50,17 @@
 	_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Character"];
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
+	NSSortDescriptor *imageDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbnail"
+																	  ascending:YES
+																	 comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+																		 
+																		 if (obj1) return NSOrderedAscending;
+																		 else return NSOrderedDescending;
+																			 
+																	 }];
+	
 	NSPredicate *teamPredicate = [NSPredicate predicateWithFormat:@"team.name like %@", self.team.name];
-	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
+	_fetchRequest.sortDescriptors = @[imageDescriptor, nameSortDescriptor];
 	_fetchRequest.predicate = teamPredicate;
 	
 	return _fetchRequest;
@@ -87,12 +103,14 @@
 	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
 	cell.nameLabel.text = character.name;
 	
+	NSLog(@"name: %@, url: %@", character.name, [character imageUrl]);
+	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
 										 
-//										 if (!image) {
-//											 NSLog(@"image url = %@", character.imageUrl);
-//										 }
+										 if (!image) {
+											 NSLog(@"image url = %@", character.imageUrl);
+										 }
 										[cell setImage:image animated:YES];
 									 }];
 	

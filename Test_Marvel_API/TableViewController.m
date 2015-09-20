@@ -108,7 +108,7 @@
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 	[self.tableView beginUpdates];
 	
-	NSLog(@"willChangeContent");
+//	NSLog(@"willChangeContent");
 }
 
 - (void)controller:(NSFetchedResultsController *)controller
@@ -117,10 +117,10 @@
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(nullable NSIndexPath *)newIndexPath {
 	
-	NSLog(@"didChangeObject index:(%ld,%ld) forChangeType:%ld newIndex:(%ld,%ld)", indexPath.section, indexPath.row,
-		  type, newIndexPath.section, newIndexPath.row);
-	
-	NSLog(@"object is %@", NSStringFromClass([anObject class]));
+//	NSLog(@"didChangeObject index:(%ld,%ld) forChangeType:%ld newIndex:(%ld,%ld)", indexPath.section, indexPath.row,
+//		  type, newIndexPath.section, newIndexPath.row);
+//	
+//	NSLog(@"object is %@", NSStringFromClass([anObject class]));
 	
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
@@ -150,13 +150,13 @@
 		   atIndex:(NSUInteger)sectionIndex
 	 forChangeType:(NSFetchedResultsChangeType)type {
 	
-	NSLog(@"didChangeSection atIndex:(%ld) forChangeType:%ld", sectionIndex, type);
+//	NSLog(@"didChangeSection atIndex:(%ld) forChangeType:%ld", sectionIndex, type);
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	[self.tableView endUpdates];
 	
-	NSLog(@"didChangeContent");
+//	NSLog(@"didChangeContent");
 }
 
 #pragma mark - Navigation
