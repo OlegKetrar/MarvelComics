@@ -56,17 +56,17 @@
 			NSLog(@"error: %@", [error localizedDescription]);
 		}
 		
-		NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Comic"];
-		NSSortDescriptor *idDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
-		request.sortDescriptors = @[idDescriptor];
-		
-		NSError *error2;
-		NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:request error:&error2];
-		NSLog(@"results = %@", results);
-		
-		if (error2) {
-			NSLog(@"fetch error: %@", [error2 localizedDescription]);
-		}
+//		NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Comic"];
+//		NSSortDescriptor *idDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+//		request.sortDescriptors = @[idDescriptor];
+//		
+//		NSError *error2;
+//		NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:request error:&error2];
+//		NSLog(@"results = %@", results);
+//		
+//		if (error2) {
+//			NSLog(@"fetch error: %@", [error2 localizedDescription]);
+//		}
 	}];
 }
 
@@ -90,9 +90,9 @@
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
 										 
-										 if (!image) {
-											 NSLog(@"image url = %@", character.imageUrl);
-										 }
+//										 if (!image) {
+//											 NSLog(@"image url = %@", character.imageUrl);
+//										 }
 										[cell setImage:image animated:YES];
 									 }];
 	

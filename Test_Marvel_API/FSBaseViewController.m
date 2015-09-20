@@ -41,7 +41,7 @@
 	if (_fetchedResultsController)
 		return _fetchedResultsController;
 	
-	NSLog(@"%@ fetchedResultsController", NSStringFromClass([self class]));
+//	NSLog(@"%@ fetchedResultsController", NSStringFromClass([self class]));
 	
 	NSManagedObjectContext *context = self.managedObjectContext;
 	NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
@@ -274,14 +274,14 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     NSUInteger sections = [[self.fetchedResultsController sections] count];
 	
-	NSLog(@"%@ sections = %ld", NSStringFromClass([self class]), sections);
+//	NSLog(@"%@ sections = %ld", NSStringFromClass([self class]), sections);
 	return sections;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 	
 	NSUInteger rows = [self.fetchedResultsController.sections objectAtIndex:section].numberOfObjects;
-	NSLog(@"%@ rows = %ld", NSStringFromClass([self class]), rows);
+//	NSLog(@"%@ rows = %ld", NSStringFromClass([self class]), rows);
 	
 	return rows;
 }

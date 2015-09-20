@@ -7,17 +7,17 @@
 //
 
 @import Foundation;
-@class NSManagedObjectContext, RKObjectRequestOperation, RKMappingResult, FSTeam, FSCharacter, UIImage;
+@class NSManagedObjectContext, UIImage, FSTeam, FSCharacter;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FSDataManager : NSObject
 
+@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic) NSUInteger batchSize;
 
 
 + (instancetype)sharedManager;
-- (NSManagedObjectContext *)managedObjectContext;
 - (NSUInteger)count;
 
 - (void)getTeamsWithComplition:(nullable void(^)(NSError * _Nullable error))complition;

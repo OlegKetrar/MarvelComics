@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSComic : FSBaseEntity
 
-// Insert code here to declare functionality of your managed object subclass
-
 @end
 
 NS_ASSUME_NONNULL_END

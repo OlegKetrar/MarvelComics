@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSThumbnailImage : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
+- (void)configureWithResponse:(NSDictionary *)response;
 
 @end
 

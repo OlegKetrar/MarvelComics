@@ -42,6 +42,8 @@
 		if (error) {
 			NSLog(@"error: %@", [error localizedDescription]);
 		}
+		
+		[self.collectionView reloadData];
 	}];
 }
 
@@ -51,15 +53,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	
-	NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:self.fetchRequest error:nil];
-	
-//	for (FSTeam *team in results) {
-//		NSLog(@"id = %@", team.id);
-//		NSLog(@"name = %@", team.name);
-//		NSLog(@"text = %@", team.text);
-//	}
-	
-	NSLog(@"count = %ld", results.count);
+//	NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:self.fetchRequest error:nil];
+//	
+////	for (FSTeam *team in results) {
+////		NSLog(@"id = %@", team.id);
+////		NSLog(@"name = %@", team.name);
+////		NSLog(@"text = %@", team.text);
+////	}
+//	
+//	NSLog(@"count = %ld", results.count);
 }
 
 - (NSManagedObjectContext *)managedObjectContext {

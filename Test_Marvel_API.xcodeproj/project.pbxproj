@@ -18,6 +18,7 @@
 		4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */; };
 		4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */; };
 		4719CAD21BAB55DB00B37CD5 /* FSTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */; };
+		476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 476F45351BAEBE9A00E3E638 /* TableViewController.m */; };
 		47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */; };
 		47B3DA6F1BAC879600970D12 /* FSCharactersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */; };
 		47B3DA711BAC8E4700970D12 /* Teams.json in Resources */ = {isa = PBXBuildFile; fileRef = 47B3DA701BAC8E4700970D12 /* Teams.json */; };
@@ -59,6 +60,8 @@
 		4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPI.plist; sourceTree = "<group>"; };
 		4719CAD01BAB55DB00B37CD5 /* FSTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamCell.h; sourceTree = "<group>"; };
 		4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamCell.m; sourceTree = "<group>"; };
+		476F45341BAEBE9A00E3E638 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		476F45351BAEBE9A00E3E638 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamsViewController.h; sourceTree = "<group>"; };
 		47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamsViewController.m; sourceTree = "<group>"; };
 		47B3DA6D1BAC879600970D12 /* FSCharactersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharactersViewController.h; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 				4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */,
 				47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */,
 				47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */,
+				476F45341BAEBE9A00E3E638 /* TableViewController.h */,
+				476F45351BAEBE9A00E3E638 /* TableViewController.m */,
 				47B3DA6D1BAC879600970D12 /* FSCharactersViewController.h */,
 				47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */,
 			);
@@ -328,6 +333,7 @@
 				47BE0BFE1BACAA34005EFC9F /* FSCharacterCell.m in Sources */,
 				47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */,
 				4719CAD21BAB55DB00B37CD5 /* FSTeamCell.m in Sources */,
+				476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */,
 				4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */,
 				4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */,
 				47BACAE91BAAB273005B2F61 /* main.m in Sources */,
@@ -449,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Test_Marvel_API/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.oleg.ketrar.Test-Marvel-API";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -461,6 +468,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Test_Marvel_API/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.oleg.ketrar.Test-Marvel-API";
 				PRODUCT_NAME = "$(TARGET_NAME)";

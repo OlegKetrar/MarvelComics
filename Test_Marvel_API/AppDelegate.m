@@ -24,18 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	RKLogConfigureByName("RestKit/Network", RKLogLevelDebug);
-	RKLogConfigureByName("RestKit/CoreData", RKLogLevelDebug);
-	
-//	[[FSDataManager sharedManager] loadDataWithComplition:^(NSArray *results, NSError *error) {
-//		if (!error) {
-//			for (FSCharacter *hero in results) {
-//				NSLog(@"%@", hero);
-//			}
-//		}
-//		else
-//			NSLog(@"error: %@", [error localizedDescription]);
-//	}];
+	RKLogConfigureByName("RestKit/Network", RKLogLevelOff);
+	RKLogConfigureByName("RestKit/CoreData", RKLogLevelOff);
 	
 	return YES;
 }

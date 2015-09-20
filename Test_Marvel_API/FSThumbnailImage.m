@@ -12,11 +12,14 @@
 
 @implementation FSThumbnailImage
 
-// Insert code here to add functionality to your managed object subclass
-
 - (NSString *)description
 {
 	return [NSString stringWithFormat:@"%@.%@", self.path, self.extension];
+}
+
+- (void)configureWithResponse:(NSDictionary *)response {
+	self.path = [response objectForKey:@"path"];
+	self.extension = [response objectForKey:@"extension"];
 }
 
 @end

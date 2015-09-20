@@ -8,9 +8,10 @@
 
 #import "FSDataManager.h"
 
-@import CoreData;
 @import UIKit;
-#import <RestKit/RestKit.h>
+@import CoreData;
+
+#import <AFNetworking/AFNetworking.h>
 
 #import "FSThumbnailImage.h"
 #import "FSTeam.h"
@@ -23,19 +24,14 @@
 
 @property (nonatomic) NSString *basepoint;
 @property (nonatomic) NSString *apiPattern;
-
 @property (nonatomic) NSString *publicKey;
 @property (nonatomic) NSString *privateKey;
-
-@property (strong, nonatomic) RKObjectManager *manager;
-
-@property (nonatomic) RKEntityMapping *thumbnailMapping;
-@property (nonatomic) RKEntityMapping *characterMapping;
-@property (nonatomic) RKEntityMapping *comicMapping;
 
 @end
 
 @implementation FSDataManager
+
+@synthesize managedObjectContext = _managedObjectContext;
 
 + (instancetype)sharedManager {
 	static id manager = nil;
@@ -62,72 +58,77 @@
 		self.privateKey  = [apiConfiguration objectForKey:@"privateKey"];
 		
 			//create ObjectManager
-		self.manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:self.basepoint]];
+//		self.manager = [RKObjectManager managerWithBaseURL:[NSURL URLWithString:self.basepoint]];
 
 			//Create Model (nonnull)
 		NSURL *modelURL = [[NSBundle mainBundle] URLForResource:FS_PRODUCT_NAME withExtension:@"momd"];
 		NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
 		
-			//Create Store (nonnul)
-		RKManagedObjectStore *store = [[RKManagedObjectStore alloc] initWithManagedObjectModel:model];
-		[store addInMemoryPersistentStore:nil];
-		[store createManagedObjectContexts];
-		self.manager.managedObjectStore = store;
-		
-			//Configure Mapping for Character entity
-			//TODO: move this to appropriate getMethod
-		[self configureMappingWithStore:self.manager.managedObjectStore];
 	}
 	return self;
 }
 
-- (void)configureMappingWithStore:(RKManagedObjectStore *)store {
-
-		//FSThumbnail ------------------------------
-	self.thumbnailMapping = [RKEntityMapping mappingForEntityForName:@"Thumbnail"
-												inManagedObjectStore:store];
-	
-	[self.thumbnailMapping setIdentificationAttributes:@[@"path"]];
-	[self.thumbnailMapping addAttributeMappingsFromDictionary: @{ @"path"	  : @"path",
-																  @"extension" : @"extension" }];
-	
-		// FSCharacter ------------------------------
-	self.characterMapping = [RKEntityMapping mappingForEntityForName:@"Character"
-												inManagedObjectStore:store];
-	[self.characterMapping setIdentificationAttributes:@[@"id"]];
-	[self.characterMapping addAttributeMappingsFromDictionary: @{ @"id"			: @"id",
-																  @"name"		: @"name",
-																  @"description"	: @"text" }];
-	
-		//FSComic ------------------------------
-	self.comicMapping = [RKEntityMapping mappingForEntityForName:@"Comic"
-											inManagedObjectStore:store];
-	[self.comicMapping setIdentificationAttributes:@[@"id"]];
-	[self.comicMapping addAttributeMappingsFromDictionary: @{ @"id" : @"id",
-															  @"title" : @"name",
-															  @"description" : @"text" }];
-	
-		// add baseEntity relationship with thumbnail (1 to 1)
-	[self.characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
-																						  toKeyPath:@"thumbnail"
-																						withMapping:self.thumbnailMapping]];
-	
-	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
-																					  toKeyPath:@"thumbnail"
-																					withMapping:self.thumbnailMapping]];
-	
-	// add comic relationship with thumbnails (1 to many)
-	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"images"
-																					  toKeyPath:@"images"
-																					withMapping:self.thumbnailMapping]];
-}
+//- (void)configureMappingWithStore:(RKManagedObjectStore *)store {
+//
+//		//FSThumbnail ------------------------------
+//	self.thumbnailMapping = [RKEntityMapping mappingForEntityForName:@"Thumbnail"
+//												inManagedObjectStore:store];
+//	
+//	[self.thumbnailMapping setIdentificationAttributes:@[@"path"]];
+//	[self.thumbnailMapping addAttributeMappingsFromDictionary: @{ @"path"	  : @"path",
+//																  @"extension" : @"extension" }];
+//	
+//		// FSTeam ------------------------------
+//	self.teamMapping = [RKEntityMapping mappingForEntityForName:@"Team"
+//													   inManagedObjectStore:self.manager.managedObjectStore];
+//	
+//	[self.teamMapping setIdentificationAttributes:@[@"id"]];
+//	[self.teamMapping addAttributeMappingsFromDictionary: @{ @"id" : @"id",
+//															 @"name" : @"name",
+//															 @"description" : @"text" }];
+//
+//	
+//		// FSCharacter ------------------------------
+//	self.characterMapping = [RKEntityMapping mappingForEntityForName:@"Character"
+//												inManagedObjectStore:store];
+//	[self.characterMapping setIdentificationAttributes:@[@"id"]];
+//	[self.characterMapping addAttributeMappingsFromDictionary: @{ @"id"			: @"id",
+//																  @"name"		: @"name",
+//																  @"description"	: @"text" }];
+//	
+//		//FSComic ------------------------------
+//	self.comicMapping = [RKEntityMapping mappingForEntityForName:@"Comic"
+//											inManagedObjectStore:store];
+//	[self.comicMapping setIdentificationAttributes:@[@"id"]];
+//	[self.comicMapping addAttributeMappingsFromDictionary: @{ @"id" : @"id",
+//															  @"title" : @"name",
+//															  @"description" : @"text" }];
+//	
+//		// add baseEntity relationship with thumbnail (1 to 1)
+//	[self.teamMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
+//																					 toKeyPath:@"thumbnail"
+//																				   withMapping:self.thumbnailMapping ]];
+//	
+//	[self.characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
+//																						  toKeyPath:@"thumbnail"
+//																						withMapping:self.thumbnailMapping]];
+//	
+//	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"thumbnail"
+//																					  toKeyPath:@"thumbnail"
+//																					withMapping:self.thumbnailMapping]];
+//	
+//	// add comic relationship with thumbnails (1 to many)
+//	[self.comicMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"images"
+//																					  toKeyPath:@"images"
+//																					withMapping:self.thumbnailMapping]];
+//}
 
 - (NSManagedObjectContext *)managedObjectContext {
-	return [RKObjectManager sharedManager].managedObjectStore.mainQueueManagedObjectContext;
+	return nil;
 }
 
 - (NSUInteger)count {
-	return [self.managedObjectContext countForEntityForName:@"Character" predicate:nil error:nil];
+	return 0;
 }
 
 #pragma mark - Get 
@@ -139,7 +140,7 @@
 	NSError *error;
 	NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"json"];
 	NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL options:NSDataReadingUncached error:&error];
-	
+
 	if (!error) {
 		NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
 		NSArray <NSDictionary *> *teams = [jsonObj objectForKey:@"Titanic"];
@@ -181,6 +182,9 @@
 			
 			if (character) {
 				[team addCharactersObject:character];
+				complition(nil);
+				
+				
 			}
 			else
 				NSLog(@"error: %@", [error localizedDescription]);
@@ -188,46 +192,39 @@
 	}
 }
 
-	// remote request
-	// /v1/public/characters   "name" = name
-	// add thumbnail
 - (void)getCharacterByName:(NSString *)name
 			withComplition:(void(^)(FSCharacter *character, NSError *error))complition {
-	
-//	[self.characterMapping addPropertyMapping:[RKRelationshipMapping relationshipMappingFromKeyPath:@"comics"
-//																						  toKeyPath:@"comics"
-//																						withMapping:self.comicMapping]];
 
-	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
-	[self.manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:self.characterMapping
-																					 method:RKRequestMethodGET
-																				pathPattern:@"/v1/public/characters"
-																					keyPath:@"data.results"
-																				statusCodes:[NSIndexSet indexSetWithIndex:200]]];
-	
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setDateFormat:@"yyyyMMddHHmmss"];
-	
-	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
-	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
-	
-	NSDictionary *queryParams = @{ @"name"   : name,
-								   @"ts"     : timeStamp,
-								   @"hash"   : [hash lowercaseString],
-								   @"apikey" : self.publicKey           };
-	
-	[self.manager getObjectsAtPath:pathPattern
-						parameters:queryParams
-						   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-							   if (complition) {
-								   complition([mappingResult.array firstObject], nil);
-							   }
-						   }
-						   failure:^(RKObjectRequestOperation *operation, NSError *error) {
-							   if (complition) {
-								   complition(nil, error);
-							   }
-						   }];
+//	NSString *pathPattern = [self.apiPattern stringByAppendingPathComponent:@"characters"];
+//	[self.manager addResponseDescriptor:[RKResponseDescriptor responseDescriptorWithMapping:self.characterMapping
+//																					 method:RKRequestMethodGET
+//																				pathPattern:@"/v1/public/characters"
+//																					keyPath:@"data.results"
+//																				statusCodes:[NSIndexSet indexSetWithIndex:200]]];
+//	
+//	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//	[formatter setDateFormat:@"yyyyMMddHHmmss"];
+//	
+//	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
+//	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
+//	
+//	NSDictionary *queryParams = @{ @"name"   : name,
+//								   @"ts"     : timeStamp,
+//								   @"hash"   : [hash lowercaseString],
+//								   @"apikey" : self.publicKey           };
+//	
+//	[self.manager getObjectsAtPath:pathPattern
+//						parameters:queryParams
+//						   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+//							   if (complition) {
+//								   complition([mappingResult.array firstObject], nil);
+//							   }
+//						   }
+//						   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+//							   if (complition) {
+//								   complition(nil, error);
+//							   }
+//						   }];
 }
 
 - (void)getCharacterById:(NSUInteger)characterId
@@ -236,58 +233,21 @@
 
 - (void)loadImageFromURL:(NSURL *)url withComplition:(void(^)(UIImage *image))complition {
 	
-	NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
+//	NSURLRequest *imageRequest = [NSURLRequest requestWithURL:url];
 	
-	if ([AFImageRequestOperation canProcessRequest:imageRequest]) {
-		AFImageRequestOperation *operation = [AFImageRequestOperation imageRequestOperationWithRequest:imageRequest
-			success:^(UIImage *image) {
-				if (complition) {
-					complition(image);
-				}
-			}];
-		
-		[operation start];
-	}
-	else if(complition) {
-		complition(nil); //error
-	}
-}
-
-#pragma mark -
-
-- (void)getCharacterWithComplition:(nullable void(^)(NSError * _Nullable error))complition {
-}
-
-- (void)loadDataWithComplition:(void(^)(NSArray *results, NSError *error))complition {
-	
-	[self loadDataWithOffset:[self count]
-		success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-			if (complition) complition(mappingResult.array, nil);
-		}
-		failure:^(RKObjectRequestOperation *operation, NSError *error) {
-			if (complition) complition(nil, error);
-		}];
-}
-
-- (void)loadDataWithOffset:(NSInteger)offset
-				   success:(void (^)(RKObjectRequestOperation *operation, RKMappingResult *mappingResult))success
-				   failure:(void (^)(RKObjectRequestOperation *operation, NSError *error))failure {
-	
-	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-	[formatter setDateFormat:@"yyyyMMddHHmmss"];
-	NSString *timeStamp = [formatter stringFromDate:[NSDate date]];
-	NSString *hash = [[timeStamp stringByAppendingFormat:@"%@%@", self.privateKey, self.publicKey] md5String];
-	
-	NSDictionary *queryParams = @{ @"offset" : @(offset),
-								   @"limit"  : @(self.batchSize),
-								   @"ts"     : timeStamp,
-								   @"hash"   : [hash lowercaseString],
-								   @"apikey" : self.publicKey           };
-
-	[self.manager getObjectsAtPath:@"/v1/public/characters"
-						parameters:queryParams
-						   success:success
-						   failure:failure];
+//	if ([AFImageRequestOperation canProcessRequest:imageRequest]) {
+//		AFImageRequestOperation *operation = [AFImageRequestOperation imageRequestOperationWithRequest:imageRequest
+//			success:^(UIImage *image) {
+//				if (complition) {
+//					complition(image);
+//				}
+//			}];
+//		
+//		[operation start];
+//	}
+//	else if(complition) {
+//		complition(nil); //error
+//	}
 }
 
 @end

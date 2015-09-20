@@ -12,6 +12,10 @@
 
 @implementation FSComic
 
-// Insert code here to add functionality to your managed object subclass
+- (void)configureWithResponse:(NSDictionary *)response {
+	self.id = [response objectForKey:@"id"];
+	self.name = [response objectForKey:@"title"];
+	self.text = [response objectForKey:@"description"];
+}
 
 @end
