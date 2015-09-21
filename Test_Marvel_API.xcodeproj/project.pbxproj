@@ -106,21 +106,11 @@
 		4719CAB41BAAEC7700B37CD5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */,
-				4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */,
-				4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */,
-				4719CAAF1BAAEC7200B37CD5 /* FSBaseEntity+CoreDataProperties.h */,
-				4719CAB01BAAEC7200B37CD5 /* FSBaseEntity.h */,
-				4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */,
-				4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */,
-				4719CAB91BAAED4700B37CD5 /* FSTeam.h */,
-				4719CABA1BAAED4700B37CD5 /* FSTeam.m */,
-				4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */,
-				4719CAB61BAAED4700B37CD5 /* FSCharacter.h */,
-				4719CAB71BAAED4700B37CD5 /* FSCharacter.m */,
-				4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */,
-				4719CABC1BAAED4700B37CD5 /* FSComic.h */,
-				4719CABD1BAAED4700B37CD5 /* FSComic.m */,
+				4742915E1BB08F5E00D7E757 /* Entities */,
+				4742915B1BB00C8900D7E757 /* FSDataParser.h */,
+				4742915C1BB00C8900D7E757 /* FSDataParser.m */,
+				4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */,
+				4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -138,12 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				4742915A1BB009CA00D7E757 /* tests */,
-				4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */,
-				4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */,
-				4742915B1BB00C8900D7E757 /* FSDataParser.h */,
-				4742915C1BB00C8900D7E757 /* FSDataParser.m */,
-				4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */,
-				4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */,
+				4742915F1BB08FC600D7E757 /* base */,
 				47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */,
 				47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */,
 				47B3DA6D1BAC879600970D12 /* FSCharactersViewController.h */,
@@ -170,6 +155,37 @@
 				476F45351BAEBE9A00E3E638 /* TableViewController.m */,
 			);
 			name = tests;
+			sourceTree = "<group>";
+		};
+		4742915E1BB08F5E00D7E757 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */,
+				4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */,
+				4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */,
+				4719CAAF1BAAEC7200B37CD5 /* FSBaseEntity+CoreDataProperties.h */,
+				4719CAB01BAAEC7200B37CD5 /* FSBaseEntity.h */,
+				4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */,
+				4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */,
+				4719CAB91BAAED4700B37CD5 /* FSTeam.h */,
+				4719CABA1BAAED4700B37CD5 /* FSTeam.m */,
+				4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */,
+				4719CAB61BAAED4700B37CD5 /* FSCharacter.h */,
+				4719CAB71BAAED4700B37CD5 /* FSCharacter.m */,
+				4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */,
+				4719CABC1BAAED4700B37CD5 /* FSComic.h */,
+				4719CABD1BAAED4700B37CD5 /* FSComic.m */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		4742915F1BB08FC600D7E757 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */,
+				4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */,
+			);
+			name = base;
 			sourceTree = "<group>";
 		};
 		47BACADB1BAAB273005B2F61 = {

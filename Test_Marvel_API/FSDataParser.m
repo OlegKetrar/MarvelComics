@@ -15,9 +15,15 @@
 @property (nonatomic) NSMutableDictionary *parsingParams;
 @property (nonatomic) NSMutableDictionary *identificationAttributes;
 
+@property (nonatomic) NSError *parseError;
+
 @end
 
 @implementation FSDataParser
+
++ (instancetype)parserWithManagedObjectContext:(NSManagedObjectContext *)context {
+	return [[self alloc] initWithManagedObjectContext:context];
+}
 
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)context {
 
@@ -31,8 +37,8 @@
 }
 
 - (void)addParsingForEntity:(NSString *)entityName
-				 parameters:(NSDictionary *)params
-			 identification:(NSArray *)attributes {
+			 identification:(NSArray *)attributes
+				 parameters:(NSDictionary *)params {
 	
 	NSDictionary *existingParsing = [self.parsingParams objectForKey:entityName];
 	NSArray *existingAttributes = [self.identificationAttributes objectForKey:entityName];
@@ -60,20 +66,20 @@
 
 - (void)parseData:(NSArray *)data
 	forEntityName:(NSString *)entityName
-   withComplition:(nullable void(^)(NSArray <NSManagedObject *> * _Nullable results))complition {
+   withComplition:(nullable void(^)(NSArray <__kindof NSManagedObject *> * _Nullable results))complition {
 	
 	NSMutableArray *objects = [NSMutableArray array];
 	
 	for (NSDictionary *dictionary in data) {
 		NSManagedObject *parsedObject = [self objectForEntityForName:entityName withDictionary:dictionary];
 		
-		if (![self validateObject:parsedObject forEntityName:entityName]) {
+		if ([self validateObject:parsedObject forEntityName:entityName]) {
 			[self.managedObjectContext insertObject:parsedObject];
 			[objects addObject:parsedObject];
 		}
 	}
 	
-	[self.managedObjectContext save:nil];
+//	[self.managedObjectContext save:nil];
 	
 	if (complition) {
 		complition(objects);
@@ -93,6 +99,16 @@
 		//TODO: handle error if dictionary is nil
 	NSDictionary *currentParsing = [self.parsingParams objectForKey:entityName];
 	
+	if (!currentParsing) {
+		self.parseError = [[NSError alloc] initWithDomain:@"empty parsing" code:0 userInfo:nil];
+		return nil;
+	}
+	
+	if (!dictionary) {
+		self.parseError = [[NSError alloc] initWithDomain:@"empty data" code:1 userInfo:nil];
+		return nil;
+	}
+	
 		//TODO: validate dictionary (may content NSNull values)
 	NSMutableDictionary *currentObject = [NSMutableDictionary dictionaryWithDictionary:dictionary];
 	for (NSString *key in [currentObject allKeys]) {
@@ -100,11 +116,11 @@
 			[currentObject removeObjectForKey:key];
 	}
 	
-		//simple parsing without relationships
+		//TODO: add more flexible relationships parsing
 	NSArray <NSString *> *keysToParse = [currentParsing allKeys];
 	for (NSString *key in keysToParse) {
 		id value = [currentObject valueForKey:key];
-		
+	
 			// setup relationship (1 to 1)
 		if ([value isKindOfClass:[NSDictionary class]]) {
 			[managedObject setValue:[self objectForEntityForName:[currentParsing valueForKey:key] withDictionary:value]
@@ -146,7 +162,10 @@
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
 	request.predicate = predicate;
 	
-	return (BOOL)[self.managedObjectContext countForFetchRequest:request error:nil];
+	if ([self.managedObjectContext countForFetchRequest:request error:nil])
+		return NO;
+	else
+		return YES;
 }
 
 @end

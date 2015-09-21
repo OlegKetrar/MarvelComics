@@ -7,7 +7,7 @@
 //
 
 @import Foundation;
-@class NSManagedObjectContext, NSManagedObjectModel, NSPersistentStoreCoordinator, UIImage, FSTeam, FSCharacter;
+@class NSManagedObjectContext, NSManagedObjectModel, NSPersistentStoreCoordinator, UIImage, FSTeam, FSCharacter, FSComic;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,25 +22,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedManager;
 
-- (void)getTeamsWithComplition:(nullable void(^)(NSError * _Nullable error))complition;
-
-//
-////send request for team by id
-//- (void)getTeamById:(NSUInteger *)teamId
-//	 withComplition:(nullable void(^)(NSError * _Nullable error))complition;
-
+- (void)getTeamsWithComplition:(void(^)(void))complition;
 
 - (void)getCharactersByTeam:(FSTeam *)team
-			 withComplition:(nullable void(^)(NSError * _Nullable error))complition;
+			 withComplition:(void(^)(void))complition;
 
 - (void)getCharacterByName:(NSString *)name
-			withComplition:(nullable void(^)(FSCharacter * _Nullable character, NSError * _Nullable error))complition;
+			   withSuccess:(nullable void(^)(FSCharacter *character))success
+				   failure:(nullable void(^)(NSUInteger statusCode))failure;
 
 - (void)getCharacterById:(NSUInteger)characterId
-		  withComplition:(nullable void(^)(FSCharacter * _Nullable character, NSError * _Nullable error))complition;
+			 withSuccess:(nullable void(^)(FSCharacter *character))success
+				 failure:(nullable void(^)(NSUInteger statusCode))failure;
+
+- (void)getComicsByCharacter:(FSCharacter *)character
+			  withComplition:(void(^)(void))complition;
+
+- (void)getComicById:(NSUInteger *)comicId
+		 withSuccess:(nullable void(^)(FSComic *comic))success
+			 failure:(nullable void(^)(NSUInteger statusCode))failure;
 
 - (NSURLSessionDataTask *)loadImageFromURL:(NSURL *)url
 							withComplition:(nullable void(^)(UIImage * _Nullable image))complition;
+
+- (NSError *)lastError;
 
 @end
 

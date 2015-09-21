@@ -48,10 +48,16 @@
 	_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Character"];
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
+	NSSortDescriptor *imageSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbnail"
+																		  ascending:YES
+																		 comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+																			 
+																			 return NSOrderedSame;
+																		 }];
 	
 		//TODO: add sorting by image presenting
-	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
-//	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"team.name like %@", self.team.name];
+	_fetchRequest.sortDescriptors = @[nameSortDescriptor, imageSortDescriptor];
+	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"team.name = %@", self.team.name];
 	
 	return _fetchRequest;
 }
@@ -81,7 +87,7 @@
 	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
 	cell.nameLabel.text = character.name;
 	
-	NSLog(@"name: %@, url: %@", character.name, [character imageUrl]);
+//	NSLog(@"name: %@, url: %@", character.name, [character imageUrl]);
 	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {

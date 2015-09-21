@@ -14,17 +14,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSDataParser : NSObject
 
++ (instancetype)parserWithManagedObjectContext:(NSManagedObjectContext *)context;
+
 - (instancetype)initWithManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)addParsingForEntity:(NSString *)entityName
-				 parameters:(NSDictionary *)params
-			 identification:(NSArray *)attributes;
+			 identification:(NSArray *)attributes
+				 parameters:(NSDictionary *)params;
 
 - (void)removeParsingForEntity:(NSString *)entityName;
 
 - (void)parseData:(NSArray *)data
 	forEntityName:(NSString *)entityName
-   withComplition:(nullable void(^)(NSArray <NSManagedObject *> * _Nullable results))complition;
+   withComplition:(nullable void(^)(NSArray <__kindof NSManagedObject *> * _Nullable results))complition;
 
 @end
 
