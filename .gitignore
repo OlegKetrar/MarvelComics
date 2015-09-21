@@ -25,5 +25,6 @@ DerivedData
 #
 Pods/
 Marvel_images/
+Podfile.lock
 
 

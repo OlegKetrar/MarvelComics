@@ -47,11 +47,7 @@
 }
 
 - (void)shouldRequestMoreData {
-	[[FSDataManager sharedManager] getTeamsWithComplition:^(NSError * _Nullable error) {
-		if (error) {
-			NSLog(@"error: %@", [error localizedDescription]);
-		}
-	}];
+	[[FSDataManager sharedManager] getTeamsWithComplition:nil];
 }
 
 #pragma mark - UICollectionViewDataSource

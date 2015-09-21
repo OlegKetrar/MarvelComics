@@ -22,10 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)sharedManager;
 
-- (void)getTeamsWithComplition:(void(^)(void))complition;
+- (void)getTeamsWithComplition:(nullable void(^)(void))complition;
 
 - (void)getCharactersByTeam:(FSTeam *)team
-			 withComplition:(void(^)(void))complition;
+			 withComplition:(nullable void(^)(void))complition;
 
 - (void)getCharacterByName:(NSString *)name
 			   withSuccess:(nullable void(^)(FSCharacter *character))success

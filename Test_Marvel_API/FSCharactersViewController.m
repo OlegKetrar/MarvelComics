@@ -63,11 +63,7 @@
 }
 
 - (void)shouldRequestMoreData {
-	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:^(NSError *error) {
-		if (error) {
-			NSLog(@"error: %@", [error localizedDescription]);
-		}
-	}];
+	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:nil];
 }
 
 #pragma mark - UICollectionViewDataSource

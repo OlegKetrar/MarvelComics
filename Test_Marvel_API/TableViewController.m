@@ -36,13 +36,7 @@
 
 - (void)actionAdd:(id)sender {
 
-	[[FSDataManager sharedManager] getTeamsWithComplition:^(NSError * _Nullable error) {
-		if (error) {
-			NSLog(@"error: %@", [error localizedDescription]);
-		}
-		
-		[self.tableView reloadData];
-	}];
+	[[FSDataManager sharedManager] getTeamsWithComplition:nil];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
