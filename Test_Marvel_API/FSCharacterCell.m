@@ -22,7 +22,7 @@
 
 - (void)prepareForReuse {
 	self.imageView.image = nil;
-//	[self.indicator startAnimating];
+	[self.indicator startAnimating];
 }
 
 @end

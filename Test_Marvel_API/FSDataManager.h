@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getTeamsWithComplition:(nullable void(^)(void))complition;
 
+- (void)getCharactersWithComplition:(nullable void(^)(void))complition;
+
 - (void)getCharactersByTeam:(FSTeam *)team
 			 withComplition:(nullable void(^)(void))complition;
 

@@ -39,6 +39,8 @@
 
 @property (nonatomic) NSError *error;
 
+@property (nonatomic) NSUInteger charactersCount;
+
 @end
 
 @implementation FSDataManager
@@ -60,7 +62,8 @@
 	self = [super init];
 	if (self) {
 		
-		self.batchSize = 10;
+		self.batchSize = 20;
+		self.charactersCount = 0;
 		
 			//Read marvel api configuration from plist
 		NSURL *pathToConfiguration = [[NSBundle mainBundle] URLForResource:@"MarvelAPI"
@@ -139,6 +142,41 @@
 					complition();
 				}
 			}];
+}
+
+- (void)getCharactersWithComplition:(nullable void(^)(void))complition {
+
+	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
+	[queryParams addEntriesFromDictionary:@{ @"offset" : @(self.charactersCount), @"limit" : @(self.batchSize) }];
+	
+	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
+		   parameters:queryParams
+			  success:^(NSURLSessionDataTask *task, id responseObject) {
+				  
+				  NSNumber *total = [responseObject valueForKeyPath:@"data.total"];
+				  NSLog(@"total = %@, count = %ld", total, self.charactersCount);
+				  
+				  [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+						   forEntityName:@"Character"
+						  withComplition:^(NSArray *results) {
+							  if (complition) complition();
+						  }];
+			  }
+			  failure:^(NSURLSessionDataTask *task, NSError *error) {
+				  
+				  NSUInteger statusCode = ((NSHTTPURLResponse*)(task.response)).statusCode;
+				  
+					// There is an internal error with status code 500.
+					// It take place if there is a null object in specified range (offset, count)
+				  NSLog(@"got 500");
+				  
+				  if (statusCode == 500) {
+					  [self getCharactersWithComplition:nil];
+				  }
+			  }];
+	
+	NSLog(@"characters offset = %ld", self.charactersCount);
+	self.charactersCount += self.batchSize;
 }
 
 - (void)getCharactersByTeam:(FSTeam *)team
