@@ -209,6 +209,10 @@
 		47BACAE61BAAB273005B2F61 /* Test_Marvel_API */ = {
 			isa = PBXGroup;
 			children = (
+				4719CAC81BAAFAE900B37CD5 /* Cathegories */,
+				4719CAD31BAB55DF00B37CD5 /* View */,
+				4719CAB41BAAEC7700B37CD5 /* Model */,
+				4719CAC91BAAFB1700B37CD5 /* Controller */,
 				47BACAE71BAAB273005B2F61 /* Supporting Files */,
 			);
 			path = Test_Marvel_API;
@@ -217,10 +221,6 @@
 		47BACAE71BAAB273005B2F61 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4719CAC81BAAFAE900B37CD5 /* Cathegories */,
-				4719CAD31BAB55DF00B37CD5 /* View */,
-				4719CAB41BAAEC7700B37CD5 /* Model */,
-				4719CAC91BAAFB1700B37CD5 /* Controller */,
 				47BACAEA1BAAB273005B2F61 /* AppDelegate.h */,
 				47BACAEB1BAAB273005B2F61 /* AppDelegate.m */,
 				47BACAE81BAAB273005B2F61 /* main.m */,
