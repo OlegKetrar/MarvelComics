@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter=isLoadMoreEnabled) BOOL loadMoreEnabled;
 
 //
-@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 // setup requests to your specific data model
 @property (nonatomic, readonly) NSFetchRequest *fetchRequest;

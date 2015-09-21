@@ -32,8 +32,7 @@
 }
 
 - (NSUInteger)dataCount {
-	return [self.fetchedResultsController.managedObjectContext countForFetchRequest:self.fetchRequest
-																			  error:nil];
+	return [self.managedObjectContext countForFetchRequest:self.fetchRequest error:nil];
 }
 
 - (NSFetchedResultsController *)fetchedResultsController

@@ -16,8 +16,6 @@
 
 @interface FSCharactersViewController ()
 
-@property (nonatomic) NSArray *data;
-
 @end
 
 @implementation FSCharactersViewController
@@ -29,17 +27,17 @@
 	[super viewDidLoad];
 	
 	self.navigationItem.title = self.team.name;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	
-	NSUInteger count = [[FSDataManager sharedManager].managedObjectContext countForFetchRequest:self.fetchRequest
-																						  error:nil];
-	NSLog(@"count = %ld", count);
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+																						   target:self
+																						   action:@selector(actionCalc:)];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
 	return [FSDataManager sharedManager].managedObjectContext;
+}
+
+- (void)actionCalc:(id)sender {
+	NSLog(@"count is %ld", self.dataCount);
 }
 
 - (NSFetchRequest *)fetchRequest {
@@ -50,18 +48,10 @@
 	_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Character"];
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
-	NSSortDescriptor *imageDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbnail"
-																	  ascending:YES
-																	 comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-																		 
-																		 if (obj1) return NSOrderedAscending;
-																		 else return NSOrderedDescending;
-																			 
-																	 }];
 	
-	NSPredicate *teamPredicate = [NSPredicate predicateWithFormat:@"team.name like %@", self.team.name];
-	_fetchRequest.sortDescriptors = @[imageDescriptor, nameSortDescriptor];
-	_fetchRequest.predicate = teamPredicate;
+		//TODO: add sorting by image presenting
+	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
+//	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"team.name like %@", self.team.name];
 	
 	return _fetchRequest;
 }
@@ -71,18 +61,6 @@
 		if (error) {
 			NSLog(@"error: %@", [error localizedDescription]);
 		}
-		
-//		NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Comic"];
-//		NSSortDescriptor *idDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
-//		request.sortDescriptors = @[idDescriptor];
-//		
-//		NSError *error2;
-//		NSArray *results = [[FSDataManager sharedManager].managedObjectContext executeFetchRequest:request error:&error2];
-//		NSLog(@"results = %@", results);
-//		
-//		if (error2) {
-//			NSLog(@"fetch error: %@", [error2 localizedDescription]);
-//		}
 	}];
 }
 

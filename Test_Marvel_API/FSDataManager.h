@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (instancetype)sharedManager;
-- (NSUInteger)count;
 
 - (void)getTeamsWithComplition:(nullable void(^)(NSError * _Nullable error))complition;
 

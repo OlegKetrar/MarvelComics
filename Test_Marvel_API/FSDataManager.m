@@ -18,6 +18,8 @@
 #import "FSCharacter.h"
 #import "NSString+FSMD5.h"
 
+#import "FSDataParser.h"
+
 #define FS_PRODUCT_NAME @"Test_Marvel_API"
 
 @interface FSDataManager()
@@ -29,6 +31,8 @@
 
 @property (nonatomic) AFHTTPSessionManager *manager;
 @property (nonatomic) AFURLSessionManager *imageLoader;
+
+@property (nonatomic) FSDataParser *parser;
 
 @end
 
@@ -54,11 +58,12 @@
 		self.batchSize = 10;
 		
 			//Read marvel api configuration from plist
-		NSURL *pathToConfiguration = [[NSBundle mainBundle] URLForResource:@"MarvelAPI" withExtension:@"plist"];
+		NSURL *pathToConfiguration = [[NSBundle mainBundle] URLForResource:@"MarvelAPI"
+															 withExtension:@"plist"];
 		NSDictionary *apiConfiguration = [NSDictionary dictionaryWithContentsOfURL:pathToConfiguration];
 		
 		self.basepoint   = [apiConfiguration objectForKey:@"basepoint"];
-		self.apiPattern = [apiConfiguration objectForKey:@"apiPattern"];
+		self.apiPattern	 = [apiConfiguration objectForKey:@"apiPattern"];
 		self.publicKey   = [apiConfiguration objectForKey:@"publicKey"];
 		self.privateKey  = [apiConfiguration objectForKey:@"privateKey"];
 		
@@ -69,13 +74,9 @@
 												sessionConfiguration:configuration];
 		
 		self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
-		
+		self.parser = [[FSDataParser alloc] initWithManagedObjectContext:self.managedObjectContext];
 	}
 	return self;
-}
-
-- (NSUInteger)count {
-	return 0;
 }
 
 #pragma mark - Get 
@@ -90,42 +91,40 @@
 
 	if (!error) {
 		NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-		NSArray <NSDictionary *> *teams = [jsonObj objectForKey:@"Titanic"];
 		
-		for (NSDictionary *teamDictionary in teams) {
-			FSTeam *team = [NSEntityDescription insertNewObjectForEntityForName:@"Team"
-														 inManagedObjectContext:self.managedObjectContext];
-			team.thumbnail = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
-														   inManagedObjectContext:self.managedObjectContext];
-			[team configureWithResponse:teamDictionary];
-			[team.thumbnail configureWithResponse:[teamDictionary objectForKey:@"thumbnail"]];
-			team.charactersNames = [teamDictionary objectForKey:@"characters"];
-		}
+		[self.parser addParsingForEntity:@"Team"
+							  parameters:@{@"id" : @"id", @"name" : @"name", @"description" : @"text", @"thumbnail" : @"Thumbnail"}
+						  identification:@[@"id"]];
+		
+		[self.parser addParsingForEntity:@"Thumbnail"
+							  parameters:@{@"path" : @"path", @"extension" : @"extension"}
+						  identification:@[@"path"]];
+		
+		[self.parser parseData:[jsonObj objectForKey:@"Titanic"]
+				 forEntityName:@"Team"
+				withComplition:^(NSArray<NSManagedObject *> * _Nullable results) {
+					if (complition) {
+						complition(nil);
+					}
+				}];
 	}
-	
-	if (complition) {
+	else if (complition)
 		complition(error);
-	}
 }
 
 - (void)getCharactersByTeam:(FSTeam *)team
 			 withComplition:(nullable void(^)(NSError * _Nullable error))complition {
-	
-	NSArray <NSString *> *names = team.charactersNames;
+
+		// TODO: parse characters names for given team
+	NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"json"];
+	NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL options:NSDataReadingUncached error:nil];
+	NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+	NSArray <NSString *> *names = [[[jsonObj valueForKey:@"Titanic"] objectAtIndex:[team.id unsignedIntegerValue]] valueForKey:@"characters"];
 
 		// TODO: complition should invoke when all responses have been fetched
 		// enqueue batch requests
 	for (NSString *characterName in names) {
-
-		[self getCharacterByName:characterName withComplition:^(FSCharacter *character, NSError *error) {
-			
-			if (character) {
-				[team addCharactersObject:character];
-				complition(nil);
-			}
-			else
-				NSLog(@"error: %@", [error localizedDescription]);
-		}];
+		[self getCharacterByName:characterName withComplition:nil];
 	}
 }
 
@@ -148,32 +147,28 @@
 				  parameters:queryParams
 					 success:^(NSURLSessionDataTask *task, id responseObject) {
 						 
-						 NSDictionary *characterDictionary = [[responseObject valueForKeyPath:@"data.results"] firstObject];
-						 FSCharacter *character = [NSEntityDescription insertNewObjectForEntityForName:@"Character"
-																				inManagedObjectContext:self.managedObjectContext];
-						 [character configureWithResponse:characterDictionary];
+						 NSArray *results = [responseObject valueForKeyPath:@"data.results"];
 						 
-						 if (![[characterDictionary objectForKey:@"thumbnail"] isEqual:[NSNull null]]) {
-							 character.thumbnail = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
-																				 inManagedObjectContext:self.managedObjectContext];
-							 [character.thumbnail configureWithResponse:[characterDictionary objectForKey:@"thumbnail"]];
-						 }
-						 
-						 if (complition) {
-							 complition(character, nil);
-						 }
+						 [self.parser addParsingForEntity:@"Character"
+											   parameters:@{@"id" : @"id", @"name" : @"name", @"description" : @"text", @"thumbnail" : @"Thumbnail"}
+										   identification:@[@"id"]];
+						 [self.parser parseData:results forEntityName:@"Character" withComplition:^(NSArray<NSManagedObject *> *results) {
+							 
+							 NSLog(@"first name: %@", [[results firstObject] valueForKey:@"name"]);
+						 }];
 					 }
 					 failure:^(NSURLSessionDataTask *task, NSError *error) {
-						 
-						 if (complition)
-							 complition(nil, error);
-						 
+//						 
+//						 if (complition)
+//							 complition(nil, error);
 					 }];
 }
 
 - (void)getCharacterById:(NSUInteger)characterId
 		  withComplition:(void(^)(FSCharacter *character, NSError *error))complition {
 }
+
+#pragma mark - Image loading
 
 	//TODO: handle error
 - (NSURLSessionDataTask *)loadImageFromURL:(NSURL *)url withComplition:(void(^)(UIImage *image))complition {

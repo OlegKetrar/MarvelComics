@@ -17,6 +17,7 @@
 		4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */; };
 		4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */; };
 		4719CAD21BAB55DB00B37CD5 /* FSTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */; };
+		4742915D1BB00C8900D7E757 /* FSDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4742915C1BB00C8900D7E757 /* FSDataParser.m */; settings = {ASSET_TAGS = (); }; };
 		476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 476F45351BAEBE9A00E3E638 /* TableViewController.m */; };
 		47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */; };
 		47B3DA6F1BAC879600970D12 /* FSCharactersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */; };
@@ -58,6 +59,8 @@
 		4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPI.plist; sourceTree = "<group>"; };
 		4719CAD01BAB55DB00B37CD5 /* FSTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamCell.h; sourceTree = "<group>"; };
 		4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamCell.m; sourceTree = "<group>"; };
+		4742915B1BB00C8900D7E757 /* FSDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDataParser.h; sourceTree = "<group>"; };
+		4742915C1BB00C8900D7E757 /* FSDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDataParser.m; sourceTree = "<group>"; };
 		476F45341BAEBE9A00E3E638 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		476F45351BAEBE9A00E3E638 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamsViewController.h; sourceTree = "<group>"; };
@@ -134,14 +137,15 @@
 		4719CAC91BAAFB1700B37CD5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				4742915A1BB009CA00D7E757 /* tests */,
 				4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */,
 				4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */,
+				4742915B1BB00C8900D7E757 /* FSDataParser.h */,
+				4742915C1BB00C8900D7E757 /* FSDataParser.m */,
 				4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */,
 				4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */,
 				47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */,
 				47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */,
-				476F45341BAEBE9A00E3E638 /* TableViewController.h */,
-				476F45351BAEBE9A00E3E638 /* TableViewController.m */,
 				47B3DA6D1BAC879600970D12 /* FSCharactersViewController.h */,
 				47B3DA6E1BAC879600970D12 /* FSCharactersViewController.m */,
 			);
@@ -157,6 +161,15 @@
 				47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		4742915A1BB009CA00D7E757 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				476F45341BAEBE9A00E3E638 /* TableViewController.h */,
+				476F45351BAEBE9A00E3E638 /* TableViewController.m */,
+			);
+			name = tests;
 			sourceTree = "<group>";
 		};
 		47BACADB1BAAB273005B2F61 = {
@@ -336,6 +349,7 @@
 				4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */,
 				4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */,
 				47B3DA6F1BAC879600970D12 /* FSCharactersViewController.m in Sources */,
+				4742915D1BB00C8900D7E757 /* FSDataParser.m in Sources */,
 				47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */,
 				4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */,
 			);
