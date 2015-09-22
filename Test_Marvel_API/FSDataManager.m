@@ -109,8 +109,7 @@
 
 #pragma mark - Get 
 
-	// load all titanic teams from Teams.json to CoreData
-	// add to each team array property with members(characters) names
+	// load all titanic teams from local Teams.json to CoreData
 - (void)getTeamsWithComplition:(void(^)(void))complition {
 	
 	NSError *error;
@@ -144,36 +143,26 @@
 			}];
 }
 
+	// load all characters from server
 - (void)getCharactersWithComplition:(nullable void(^)(void))complition {
-
+	
 	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
 	[queryParams addEntriesFromDictionary:@{ @"offset" : @(self.charactersCount), @"limit" : @(self.batchSize) }];
 	
-	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
-		   parameters:queryParams
-			  success:^(NSURLSessionDataTask *task, id responseObject) {
-				  
-				  NSNumber *total = [responseObject valueForKeyPath:@"data.total"];
-				  NSLog(@"total = %@, count = %ld", total, self.charactersCount);
-				  
-				  [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-						   forEntityName:@"Character"
-						  withComplition:^(NSArray *results) {
-							  if (complition) complition();
-						  }];
-			  }
-			  failure:^(NSURLSessionDataTask *task, NSError *error) {
-				  
-				  NSUInteger statusCode = ((NSHTTPURLResponse*)(task.response)).statusCode;
-				  
-					// There is an internal error with status code 500.
-					// It take place if there is a null object in specified range (offset, count)
-				  NSLog(@"got 500");
-				  
-				  if (statusCode == 500) {
-					  [self getCharactersWithComplition:nil];
-				  }
-			  }];
+	[self getCharactersWithQueryParameters:queryParams withSuccess:^(FSCharacter *character) {
+		if (complition) {
+			complition();
+		}
+	} failure:^(NSUInteger statusCode) {
+		
+		// There is an internal error with status code 500.
+		// It take place if there is a null object in specified range (offset, count)
+		NSLog(@"got 500");
+		
+		if (statusCode == 500) {
+			[self getCharactersWithComplition:nil];
+		}
+	}];
 	
 	NSLog(@"characters offset = %ld", self.charactersCount);
 	self.charactersCount += self.batchSize;
@@ -182,7 +171,7 @@
 - (void)getCharactersByTeam:(FSTeam *)team
 			 withComplition:(void(^)(void))complition {
 
-		// TODO: parse characters names for given team
+		// Parse characters names for given team from Teams.json
 	NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"json"];
 	NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL options:NSDataReadingUncached error:nil];
 	NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
@@ -211,26 +200,9 @@
 	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
 	[queryParams addEntriesFromDictionary:@{ @"name" : name }];
 	
-	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
-				  parameters:queryParams
-					 success:^(NSURLSessionDataTask *task, id responseObject) {
-						 
-						 [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-								  forEntityName:@"Character"
-								 withComplition:^(NSArray *results) {
-									 if (success) {
-										 success([results firstObject]);
-									 }
-								 }];
-					 }
-					 failure:^(NSURLSessionDataTask *task, NSError *error) {
-						 
-						 self.error = error;
-						 
-						 if (failure) {
-							 failure(((NSHTTPURLResponse*)(task.response)).statusCode);
-						 }
-					 }];
+	[self getCharactersWithQueryParameters:queryParams
+							   withSuccess:success
+								   failure:failure];
 }
 
 - (void)getCharacterById:(NSUInteger)characterId
@@ -240,8 +212,28 @@
 	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
 	[queryParams addEntriesFromDictionary:@{ @"id" : @(characterId) }];
 	
+	[self getCharactersWithQueryParameters:queryParams
+							   withSuccess:success
+								   failure:failure];
+}
+
+- (void)getComicsByCharacter:(FSCharacter *)character
+			  withComplition:(void(^)(void))complition {
+	
+}
+
+- (void)getComicById:(NSUInteger *)comicId
+		 withSuccess:(nullable void(^)(FSComic *comic))success
+			 failure:(nullable void(^)(NSUInteger statusCode))failure {
+	
+}
+
+- (void)getCharactersWithQueryParameters:(NSDictionary *)params
+							 withSuccess:(nullable void(^)(FSCharacter *character))success
+								 failure:(nullable void(^)(NSUInteger statusCode))failure {
+	
 	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
-		   parameters:queryParams
+		   parameters:params
 			  success:^(NSURLSessionDataTask *task, id responseObject) {
 				  
 				  [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
@@ -260,17 +252,6 @@
 					  failure(((NSHTTPURLResponse*)(task.response)).statusCode);
 				  }
 			  }];
-}
-
-- (void)getComicsByCharacter:(FSCharacter *)character
-			  withComplition:(void(^)(void))complition {
-	
-}
-
-- (void)getComicById:(NSUInteger *)comicId
-		 withSuccess:(nullable void(^)(FSComic *comic))success
-			 failure:(nullable void(^)(NSUInteger statusCode))failure {
-	
 }
 
 - (NSDictionary *)baseParameters {
@@ -302,9 +283,14 @@
 	
 	NSURLSessionDataTask *task = [self.imageLoader dataTaskWithRequest:imageRequest
 													 completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-														if (responseObject) {
-															if (complition) complition(responseObject);
-														}
+														 if (responseObject) {
+															 if (complition) complition(responseObject);
+														 }
+														 
+														 if (error) {
+															 self.error = error;
+															 if (complition) complition(nil);
+														 }
 													 }];
 	[task resume];
 	return task;
@@ -323,6 +309,22 @@
 #ifdef FS_DATA_MANAGER_LOG_ENABLED
 	NSLog(@"error: %@", [error localizedDescription]);
 #endif
+}
+
+- (void)printJSONString:(id)response {
+	NSData *jsonData = [NSJSONSerialization dataWithJSONObject:response
+													   options:NSJSONWritingPrettyPrinted
+														 error:nil];
+	NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+}
+
+- (void)printCacheCapacity {
+	NSLog(@"cache usage: disk = %ld, memory = %ld",
+		  self.manager.session.configuration.URLCache.currentDiskUsage,
+		  self.manager.session.configuration.URLCache.currentMemoryUsage);
+	
+	NSURLCache *cache = [NSURLCache sharedURLCache];
+	NSLog(@"shared cache: disk = %ld, memory = %ld", cache.diskCapacity, cache.memoryCapacity);
 }
 
 #pragma mark - Core Data setup

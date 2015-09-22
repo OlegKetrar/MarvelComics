@@ -7,12 +7,14 @@
 //
 
 #import "FSCharactersViewController.h"
-#import <CoreData/CoreData.h>
-#import "FSDataManager.h"
+#import "FSCharacterCell.h"
+#import "FSCharacterDetailViewController.h"
 
+@import CoreData;
+
+#import "FSDataManager.h"
 #import "FSTeam.h"
 #import "FSCharacter.h"
-#import "FSCharacterCell.h"
 
 @interface FSCharactersViewController ()
 
@@ -83,17 +85,21 @@
 	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
 	cell.nameLabel.text = character.name;
 	
-//	NSLog(@"name: %@, url: %@", character.name, [character imageUrl]);
-	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
-										 
-										 if (!image) {
-											 NSLog(@"image url = %@", character.imageUrl);
-										 }
 										[cell setImage:image animated:YES];
 									 }];
 	
 	return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"showDetail"]) {
+		
+		NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+		FSCharacter *selectedCharacter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		FSCharacterDetailViewController *dvc = segue.destinationViewController;
+		dvc.character = selectedCharacter;
+	}
 }
 @end

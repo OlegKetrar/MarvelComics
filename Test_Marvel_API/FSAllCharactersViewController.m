@@ -8,6 +8,7 @@
 
 #import "FSAllCharactersViewController.h"
 #import "FSCharacterCell.h"
+#import "FSCharacterDetailViewController.h"
 
 @import CoreData;
 
@@ -85,6 +86,16 @@
 										 [cell setImage:image animated:YES];
 									 }];
 	return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"showDetail"]) {
+		
+		NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+		FSCharacter *selectedCharacter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		FSCharacterDetailViewController *dvc = segue.destinationViewController;
+		dvc.character = selectedCharacter;
+	}
 }
 
 

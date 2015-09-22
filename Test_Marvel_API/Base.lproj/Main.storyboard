@@ -58,7 +58,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDt-ZY-Ceu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1942.5" y="110.5"/>
+            <point key="canvasLocation" x="1976.5" y="110.5"/>
         </scene>
         <!--Characters View Controller-->
         <scene sceneID="Akf-Ix-8we">
@@ -106,6 +106,7 @@
                                     <outlet property="imageView" destination="evJ-YQ-6LY" id="ZxZ-2I-pRZ"/>
                                     <outlet property="indicator" destination="LgQ-Yn-xhS" id="iIc-9p-NST"/>
                                     <outlet property="nameLabel" destination="X8p-I9-i7V" id="dsf-6d-30C"/>
+                                    <segue destination="Q0h-hv-OhV" kind="show" identifier="showDetail" id="0RW-5q-QdK"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -117,7 +118,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gjN-ls-R5K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2379.5" y="110.5"/>
+            <point key="canvasLocation" x="2458.5" y="110.5"/>
         </scene>
         <!--Titanic teams-->
         <scene sceneID="A1x-wJ-mIB">
@@ -138,7 +139,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0E-ol-Bdv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1504.5" y="110.5"/>
+            <point key="canvasLocation" x="1496.5" y="110.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="TUP-fj-CD3">
@@ -158,7 +159,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m2c-Gn-hJK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055.5" y="110.5"/>
+            <point key="canvasLocation" x="1014.5" y="881.5"/>
         </scene>
         <!--All characters-->
         <scene sceneID="5a3-B7-o4D">
@@ -173,12 +174,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="4w2-aX-NaV" kind="relationship" relationship="rootViewController" id="jlo-8e-sfL"/>
+                        <segue destination="4w2-aX-NaV" kind="relationship" relationship="rootViewController" id="Edl-r6-9S2"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ktd-5y-HwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1513.5" y="897.5"/>
+            <point key="canvasLocation" x="1496.5" y="881.5"/>
         </scene>
         <!--All Characters View Controller-->
         <scene sceneID="SR8-hT-1xk">
@@ -226,6 +227,7 @@
                                     <outlet property="imageView" destination="jcT-pb-1Vg" id="E0k-k5-1EU"/>
                                     <outlet property="indicator" destination="bfE-xN-7wa" id="Bqm-wL-2kU"/>
                                     <outlet property="nameLabel" destination="ChQ-Zi-BTN" id="gFD-Gr-HYf"/>
+                                    <segue destination="Q0h-hv-OhV" kind="show" identifier="showDetail" id="quC-YZ-1Ir"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -238,7 +240,69 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wGy-vp-J9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1942.5" y="897.5"/>
+            <point key="canvasLocation" x="2458.5" y="881.5"/>
+        </scene>
+        <!--Character Detail View Controller-->
+        <scene sceneID="wB8-5R-qRs">
+            <objects>
+                <viewController id="Q0h-hv-OhV" customClass="FSCharacterDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a3p-Da-1FD"/>
+                        <viewControllerLayoutGuide type="bottom" id="tVm-Fb-eBG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wEM-Sk-7kB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="char ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgO-V0-Q1y">
+                                <rect key="frame" x="174" y="72" width="181" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.94999998807907104" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h81-Xn-JzO" userLabel="background view">
+                                <rect key="frame" x="0.0" y="64" width="166" height="241"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KSP-W5-llr">
+                                <rect key="frame" x="8" y="72" width="150" height="225"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Lhu-wB-v9t">
+                                <rect key="frame" x="65" y="166" width="37" height="37"/>
+                                <animations/>
+                            </activityIndicatorView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" semanticContentAttribute="forceLeftToRight" fixedFrame="YES" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" indicatorStyle="black" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOm-sN-sdH">
+                                <rect key="frame" x="0.0" y="101" width="375" height="350"/>
+                                <animations/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="h81-Xn-JzO" id="gBo-5A-GAw"/>
+                        <outlet property="charIdLabel" destination="BgO-V0-Q1y" id="w14-0d-gGd"/>
+                        <outlet property="descriptionView" destination="oOm-sN-sdH" id="btG-aW-tOp"/>
+                        <outlet property="imageView" destination="KSP-W5-llr" id="WKK-NF-IEv"/>
+                        <outlet property="indicator" destination="Lhu-wB-v9t" id="gNN-oq-rri"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MM9-br-wcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2942.5" y="110.5"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="0RW-5q-QdK"/>
+    </inferredMetricsTieBreakers>
 </document>
