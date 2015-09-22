@@ -15,9 +15,6 @@
 #import "FSCharacter.h"
 #import "FSDataManager.h"
 
-#define FS_IMAGE_NOT_AVAILABLE_1 @"http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
-#define FS_IMAGE_NOT_AVAILABLE_2 @"http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708"
-
 @interface FSAllCharactersViewController ()
 
 @end
@@ -74,7 +71,8 @@
 	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	
-	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
+	cell.nameLabel.backgroundColor = [UIColor blackColor];
+	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = character.name;
 
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
@@ -97,7 +95,5 @@
 		dvc.character = selectedCharacter;
 	}
 }
-
-
 
 @end

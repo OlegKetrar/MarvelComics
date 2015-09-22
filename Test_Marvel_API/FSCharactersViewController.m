@@ -82,7 +82,8 @@
 	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	
-	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
+	cell.nameLabel.backgroundColor = [UIColor blackColor];
+	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = character.name;
 	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]

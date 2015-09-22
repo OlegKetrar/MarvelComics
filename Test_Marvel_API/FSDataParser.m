@@ -68,6 +68,10 @@
 	forEntityName:(NSString *)entityName
    withComplition:(nullable void(^)(NSArray <__kindof NSManagedObject *> * _Nullable results))complition {
 	
+	if (self.parseError) {
+		self.parseError = nil;
+	}
+	
 	NSMutableArray *objects = [NSMutableArray array];
 	
 	for (NSDictionary *dictionary in data) {
@@ -81,6 +85,10 @@
 	
 //	[self.managedObjectContext save:nil];
 	
+	if (self.parseError) {
+		return;
+	}
+	
 	if (complition) {
 		complition(objects);
 	}
@@ -88,6 +96,10 @@
 
 - (NSManagedObject *)objectForEntityForName:(NSString *)entityName
 							 withDictionary:(NSDictionary *)dictionary {
+	
+	if (self.parseError) {
+		return nil;
+	}
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
 														 inManagedObjectContext:self.managedObjectContext];
@@ -99,12 +111,12 @@
 		//TODO: handle error if dictionary is nil
 	NSDictionary *currentParsing = [self.parsingParams objectForKey:entityName];
 	
-	if (!currentParsing) {
+	if ( currentParsing == nil ) {
 		self.parseError = [[NSError alloc] initWithDomain:@"empty parsing" code:0 userInfo:nil];
 		return nil;
 	}
 	
-	if (!dictionary) {
+	if ( dictionary == nil ) {
 		self.parseError = [[NSError alloc] initWithDomain:@"empty data" code:1 userInfo:nil];
 		return nil;
 	}
@@ -143,6 +155,10 @@
 }
 
 - (BOOL)validateObject:(NSManagedObject *)object forEntityName:(NSString *)entityName {
+	
+	if (self.parseError) {
+		return NO;
+	}
 	
 	NSArray *properties = [self.identificationAttributes objectForKey:entityName];
 	NSString *predicateString = [NSString string];

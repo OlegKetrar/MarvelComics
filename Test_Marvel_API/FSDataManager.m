@@ -40,6 +40,7 @@
 @property (nonatomic) NSError *error;
 
 @property (nonatomic) NSUInteger charactersCount;
+@property (nonatomic) NSUInteger comicsCount;
 
 @end
 
@@ -64,6 +65,7 @@
 		
 		self.batchSize = 20;
 		self.charactersCount = 0;
+		self.comicsCount = 0;
 		
 			//Read marvel api configuration from plist
 		NSURL *pathToConfiguration = [[NSBundle mainBundle] URLForResource:@"MarvelAPI"
@@ -103,11 +105,18 @@
 										   @"name"		  : @"name",
 										   @"description" : @"text",
 										   @"thumbnail"	  : @"Thumbnail" }];
+		
+		[self.parser addParsingForEntity:@"Comic"
+						  identification:@[@"id"]
+							  parameters:@{@"id"		  : @"id",
+										   @"title"		  : @"name",
+										   @"description" : @"text",
+										   @"thumbnail"	  : @"Thumbnail" }];
 	}
 	return self;
 }
 
-#pragma mark - Get 
+#pragma mark - GET Teams
 
 	// load all titanic teams from local Teams.json to CoreData
 - (void)getTeamsWithComplition:(void(^)(void))complition {
@@ -143,28 +152,28 @@
 			}];
 }
 
+#pragma mark - GET Characters
+
 	// load all characters from server
 - (void)getCharactersWithComplition:(nullable void(^)(void))complition {
-	
-	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
-	[queryParams addEntriesFromDictionary:@{ @"offset" : @(self.charactersCount), @"limit" : @(self.batchSize) }];
-	
-	[self getCharactersWithQueryParameters:queryParams withSuccess:^(FSCharacter *character) {
-		if (complition) {
-			complition();
-		}
-	} failure:^(NSUInteger statusCode) {
-		
-		// There is an internal error with status code 500.
-		// It take place if there is a null object in specified range (offset, count)
-		NSLog(@"got 500");
-		
-		if (statusCode == 500) {
-			[self getCharactersWithComplition:nil];
-		}
-	}];
-	
-	NSLog(@"characters offset = %ld", self.charactersCount);
+
+	[self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"characters"]
+	   forEntityForName:@"Character"
+		 withParameters:@{ @"offset" : @(self.charactersCount), @"limit" : @(self.batchSize) }
+				success:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+					if (complition) {
+						complition();
+					}
+				}
+				failure:^(NSUInteger statusCode) {
+					
+					// There is an internal error with status code 500.
+					// It take place if there is a null object in specified range (offset, count)
+					if (statusCode == 500) {
+						[self getCharactersWithComplition:complition];
+					}
+				}];
+
 	self.charactersCount += self.batchSize;
 }
 
@@ -194,64 +203,148 @@
 }
 
 - (void)getCharacterByName:(NSString *)name
-			   withSuccess:(nullable void(^)(FSCharacter *character))success
+			   withSuccess:(nullable void(^)(FSCharacter * _Nullable character))success
 				   failure:(nullable void(^)(NSUInteger statusCode))failure {
-
-	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
-	[queryParams addEntriesFromDictionary:@{ @"name" : name }];
 	
-	[self getCharactersWithQueryParameters:queryParams
-							   withSuccess:success
-								   failure:failure];
+	[self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"characters"]
+	   forEntityForName:@"Character"
+		 withParameters:@{ @"name" : name }
+				success:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+					if (success) {
+						success([results firstObject]);
+					}
+				}
+				failure:failure];
 }
 
 - (void)getCharacterById:(NSUInteger)characterId
-			 withSuccess:(nullable void(^)(FSCharacter *character))success
+			 withSuccess:(nullable void(^)(FSCharacter * _Nullable character))success
 				 failure:(nullable void(^)(NSUInteger statusCode))failure {
 	
+	[self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"characters"]
+	   forEntityForName:@"Character"
+		 withParameters:@{ @"id" : @(characterId) }
+				success:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+					if (success) {
+						success([results firstObject]);
+					}
+				}
+				failure:failure];
+}
+
+#pragma mark - GET Comics
+
+- (nullable NSURLSessionDataTask *)getComicsByCharacter:(FSCharacter *)character
+										 withComplition:(void(^)(void))complition {
+	
+	NSString *path = [self.apiPattern stringByAppendingFormat:@"characters/%@/comics", character.id.stringValue];
+	
+	NSDictionary *params = @{ @"offset" : @(self.comicsCount),
+							  @"limit" : @(self.batchSize),
+							  @"orderBy" : @"title" };
+
+	return [self getDataAtPath:path
+			  forEntityForName:@"Comic"
+				withParameters:params
+					   success:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+						   
+						   for (FSComic *comic in results) {
+							   [character addComicsObject:comic];
+							   
+							   NSLog(@"%@ comics:%ld", character.name, [character.comics count]);
+						   }
+						   
+						   self.comicsCount += self.batchSize;
+						   
+						   if (complition) {
+							   complition();
+						   }
+					   }
+					   failure:^(NSUInteger statusCode) {
+						   
+						   NSLog(@"status code is %ld", statusCode);
+						   
+						   if (statusCode == 500) {
+							   self.comicsCount += self.batchSize;
+							   [self getComicsByCharacter:character withComplition:complition];
+						   }
+					   }];
+}
+
+- (nullable NSURLSessionDataTask *)getComicById:(NSUInteger)comicId
+									withSuccess:(nullable void(^)(FSComic *comic))success
+										failure:(nullable void(^)(NSUInteger statusCode))failure {
+	
+	NSString *path = [self.apiPattern stringByAppendingFormat:@"comics/%ld", comicId];
+	
+	return [self getDataAtPath:path
+			  forEntityForName:@"Comic"
+				withParameters:nil
+					   success:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+						   
+					   }
+					   failure:^(NSUInteger statusCode) {
+						   
+					   }];
+	
+}
+
+//- (void)getCharactersWithQueryParameters:(NSDictionary *)params
+//							 withSuccess:(nullable void(^)(FSCharacter *character))success
+//								 failure:(nullable void(^)(NSUInteger statusCode))failure {
+//	
+//	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
+//		   parameters:params
+//			  success:^(NSURLSessionDataTask *task, id responseObject) {
+//				  
+//				  [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+//						   forEntityName:@"Character"
+//						  withComplition:^(NSArray *results) {
+//							  if (success) {
+//								  success([results firstObject]);
+//							  }
+//						  }];
+//			  }
+//			  failure:^(NSURLSessionDataTask *task, NSError *error) {
+//				  
+//				  self.error = error;
+//				  
+//				  if (failure) {
+//					  failure(((NSHTTPURLResponse*)(task.response)).statusCode);
+//				  }
+//			  }];
+//}
+
+#pragma mark - GET base methods
+
+- (nullable NSURLSessionDataTask *)getDataAtPath:(NSString *)path
+								forEntityForName:(NSString *)entityName
+								  withParameters:(nullable NSDictionary *)params
+										 success:(nullable void(^)(NSArray <__kindof NSManagedObject *> * _Nullable results))success
+										 failure:(nullable void(^)(NSUInteger statusCode))failure {
+	
 	NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithDictionary:[self baseParameters]];
-	[queryParams addEntriesFromDictionary:@{ @"id" : @(characterId) }];
 	
-	[self getCharactersWithQueryParameters:queryParams
-							   withSuccess:success
-								   failure:failure];
-}
-
-- (void)getComicsByCharacter:(FSCharacter *)character
-			  withComplition:(void(^)(void))complition {
+	if (params) {
+		[queryParams addEntriesFromDictionary:params];
+	}
 	
-}
-
-- (void)getComicById:(NSUInteger *)comicId
-		 withSuccess:(nullable void(^)(FSComic *comic))success
-			 failure:(nullable void(^)(NSUInteger statusCode))failure {
-	
-}
-
-- (void)getCharactersWithQueryParameters:(NSDictionary *)params
-							 withSuccess:(nullable void(^)(FSCharacter *character))success
-								 failure:(nullable void(^)(NSUInteger statusCode))failure {
-	
-	[self.manager GET:[self.apiPattern stringByAppendingPathComponent:@"characters"]
-		   parameters:params
-			  success:^(NSURLSessionDataTask *task, id responseObject) {
+	return [self.manager GET:path
+				  parameters:queryParams
+					 success:^(NSURLSessionDataTask *task, id responseObject) {
+						 
+						 [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+								  forEntityName:entityName
+								 withComplition:success];
+					 }
+					 failure:^(NSURLSessionDataTask *task, NSError *error) {
 				  
-				  [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-						   forEntityName:@"Character"
-						  withComplition:^(NSArray *results) {
-							  if (success) {
-								  success([results firstObject]);
-							  }
-						  }];
-			  }
-			  failure:^(NSURLSessionDataTask *task, NSError *error) {
+						 self.error = error;
 				  
-				  self.error = error;
-				  
-				  if (failure) {
-					  failure(((NSHTTPURLResponse*)(task.response)).statusCode);
-				  }
-			  }];
+						 if (failure) {
+							 failure(((NSHTTPURLResponse*)(task.response)).statusCode);
+						 }
+					 }];
 }
 
 - (NSDictionary *)baseParameters {

@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @property (nonatomic) FSCharacter *character;
 
 @end

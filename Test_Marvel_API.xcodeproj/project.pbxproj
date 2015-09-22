@@ -31,6 +31,7 @@
 		47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF61BAAB273005B2F61 /* Assets.xcassets */; };
 		47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */; };
 		47BE0BFE1BACAA34005EFC9F /* FSCharacterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */; };
+		47F0EB471BB1E5BF00DF30B8 /* FSComicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47F0EB461BB1E5BF00DF30B8 /* FSComicCell.m */; settings = {ASSET_TAGS = (); }; };
 		FAB53BCB7A595E0EE790D5DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A818CAF43442C896C51E2CB /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,8 @@
 		47BACAFB1BAAB273005B2F61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47BE0BFC1BACAA34005EFC9F /* FSCharacterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharacterCell.h; sourceTree = "<group>"; };
 		47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharacterCell.m; sourceTree = "<group>"; };
+		47F0EB451BB1E5BF00DF30B8 /* FSComicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComicCell.h; sourceTree = "<group>"; };
+		47F0EB461BB1E5BF00DF30B8 /* FSComicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComicCell.m; sourceTree = "<group>"; };
 		6A818CAF43442C896C51E2CB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -154,6 +157,8 @@
 				4719CAD11BAB55DB00B37CD5 /* FSTeamCell.m */,
 				47BE0BFC1BACAA34005EFC9F /* FSCharacterCell.h */,
 				47BE0BFD1BACAA34005EFC9F /* FSCharacterCell.m */,
+				47F0EB451BB1E5BF00DF30B8 /* FSComicCell.h */,
+				47F0EB461BB1E5BF00DF30B8 /* FSComicCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -361,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F0EB471BB1E5BF00DF30B8 /* FSComicCell.m in Sources */,
 				4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */,
 				47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */,
 				4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */,

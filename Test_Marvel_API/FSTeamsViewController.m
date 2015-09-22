@@ -65,7 +65,8 @@
 	cell.imageView.layer.masksToBounds = YES;
 	cell.imageView.image = [UIImage imageNamed:team.imageUrl];
 	
-	cell.nameLabel.backgroundColor = [UIColor lightGrayColor];
+	cell.nameLabel.backgroundColor = [UIColor blackColor];
+	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = team.name;
 	
 	return cell;
