@@ -28,6 +28,7 @@
     [super viewDidLoad];
 	
 	self.navigationItem.title = @"Marvel Titanic Teams";
+	self.tabBarController.tabBar.tintColor = [UIColor whiteColor];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -61,7 +62,7 @@
 	
 	cell.imageView.layer.cornerRadius = 10.0;
 	cell.imageView.layer.borderWidth = 2.0;
-	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	cell.imageView.image = [UIImage imageNamed:team.imageUrl];
 	

@@ -48,7 +48,8 @@
 	rect.origin.y -= self.descriptionView.frame.origin.y + 15.f;
 	
 	if ([self.character.text isEqualToString:@""])
-		self.descriptionView.text = @"Oops... Marvel do not provide a description data:(";
+		self.descriptionView.text = @"Oops... Marvel has not provided a description:(\nFor more "
+									 "information, please visit www.marvel.com";
 	else
 		self.descriptionView.text = self.character.text;
 	
@@ -177,7 +178,7 @@
 	
 	cell.imageView.layer.cornerRadius = 10.0;
 	cell.imageView.layer.borderWidth = 2.0;
-	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.imageView.layer.borderColor = [UIColor  whiteColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	
 	cell.nameLabel.text = comic.name;

@@ -79,7 +79,7 @@
 	
 	cell.imageView.layer.cornerRadius = 10.0;
 	cell.imageView.layer.borderWidth = 2.0;
-	cell.imageView.layer.borderColor = [UIColor grayColor].CGColor;
+	cell.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	
 	cell.nameLabel.backgroundColor = [UIColor blackColor];

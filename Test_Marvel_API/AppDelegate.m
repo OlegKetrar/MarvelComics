@@ -8,11 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "FSDataManager.h"
-#import "FSDataParser.h"
-
-#import "FSTeam.h"
-#import "FSThumbnailImage.h"
+#import <AFNetworking/AFNetworkActivityIndicatorManager.h>
 
 @import CoreData;
 
@@ -24,6 +20,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	
+	[[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 	
 //	NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"json"];
 //	NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL options:NSDataReadingUncached error:nil];
