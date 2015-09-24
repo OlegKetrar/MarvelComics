@@ -17,7 +17,9 @@
 
 @interface FSCharactersViewController ()
 
+@property (nonatomic) BOOL loadMore;
 @property (nonatomic) NSUInteger currentOffset;
+@property (nonatomic) NSURLSessionDataTask *currentDataTask;
 
 @end
 
@@ -28,10 +30,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.currentOffset = 0;
+	self.loadMore = YES;
 	
 	self.navigationItem.title = @"All Marvel Characters";
 	
-	[FSDataManager sharedManager].batchSize = 20;
 	[self shouldRequestMoreData];
 }
 
@@ -59,15 +61,25 @@
 
 - (void)shouldRequestMoreData {
 	
-	__weak FSCharactersViewController *currentVC = self;
+	__weak FSCharactersViewController *weakSelf = self;
 	
-	[[FSDataManager sharedManager] getCharactersWithOffset:self.currentOffset success:nil failure:^(NSUInteger statusCode) {
-		if (statusCode == 500) {
-			[currentVC shouldRequestMoreData];
-		}
-	}];
+	self.currentDataTask = [[FSDataManager sharedManager] getCharactersWithOffset:self.currentOffset
+																		  success:^(NSUInteger total, NSUInteger count) {
+																			  if (weakSelf.currentOffset >= total) {
+																				  weakSelf.loadMore = NO;
+																			  }
+																		  }
+																		  failure:^(NSUInteger statusCode) {
+																			  if (statusCode == 500) {
+																				  [weakSelf shouldRequestMoreData];
+																			  }
+																		  }];
 	
 	self.currentOffset += [FSDataManager sharedManager].batchSize;
+}
+
+- (void)dealloc {
+	[self.currentDataTask cancel];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -87,14 +99,13 @@
 	cell.nameLabel.backgroundColor = [UIColor blackColor];
 	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = character.name;
+	
+	__weak FSBaseCell *weakCell = cell;
 
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
 										 
-										 if (!image) {
-											 NSLog(@"image url = %@", character.imageUrl);
-										 }
-										 [cell setImage:image animated:YES];
+										 [weakCell setImage:image animated:YES];
 									 }];
 	return cell;
 }
@@ -105,8 +116,9 @@
 	   willDisplayCell:(UICollectionViewCell *)cell
 	forItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (indexPath.row == self.dataCount - 10 ) {
-		[self shouldRequestMoreData];
+	if (self.loadMore && self.currentDataTask.state == NSURLSessionTaskStateCompleted) {
+		if (indexPath.row == self.dataCount - 10 )
+			[self shouldRequestMoreData];
 	}
 }
 

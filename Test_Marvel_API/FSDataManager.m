@@ -166,7 +166,7 @@
 				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
 					
 					if (success) {
-						NSUInteger total = [[responseObject objectForKey:@"total"] unsignedIntegerValue];
+						NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
 						success(total, results.count);
 					}
 				}];
@@ -204,20 +204,22 @@
 			};
 		}
 		
-		NSURLSessionDataTask *task = [self getCharacterByName:characterName
+		/*NSURLSessionDataTask *task =*/ [self getCharacterByName:characterName
 												  withSuccess:^(FSCharacter * _Nonnull character) {
 													  character.team = team;
 													  addedCharacersCount++;
+													  
+													  NSLog(@"%@ -> %@", team.name, character.name);
 			
-													  if (complition) complitionBlock();
+													  if (complitionBlock) complitionBlock();
 			
 												  } failure:^(NSUInteger statusCode) {
-													  NSLog(@"status code %ld", statusCode);
+//													  NSLog(@"status code %ld", statusCode);
 			
-													  if (complition)  complitionBlock();
+													  if (complitionBlock)  complitionBlock();
 												  }];
 		
-		NSLog(@"response: %@", task.originalRequest.URL.absoluteString);
+//		NSLog(@"response: %@", task.originalRequest.URL.absoluteString);
 	}
 }
 
@@ -232,8 +234,14 @@
 				 forEntityName:@"Character"
 				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
 
-					if (success) {
-						success([results firstObject]);
+					if (results.count) {
+						if (success)
+							success([results firstObject]);
+					}
+					else {
+						//TODO: set up error
+						if (failure)
+							failure(9999);
 					}
 				}];
 	};
@@ -304,9 +312,8 @@
 							  @"limit"	 : @(self.batchSize),
 							  @"orderBy" : @"title" };
 	
-	void (^successBlock)(NSURLSessionDataTask *task, id responseObject);
-	
-	successBlock = ^(NSURLSessionDataTask *task, id responseObject) {
+	void (^successBlock)(NSURLSessionDataTask*, id) = ^(NSURLSessionDataTask *task, id responseObject) {
+		
 		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
 				 forEntityName:@"Comic"
 				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
@@ -315,7 +322,7 @@
 					}
 					
 					if (success) {
-						NSUInteger total = [[responseObject objectForKey:@"total"] unsignedIntegerValue];
+						NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
 						success(total, results.count);
 					}
 				}];

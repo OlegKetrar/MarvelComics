@@ -30,7 +30,11 @@
 	
 	self.navigationItem.title = self.team.name;
 	
-	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:nil];
+	__weak FSCharactersByTeamViewController *weakSelf = self;
+	
+	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:^(NSUInteger count) {
+		NSLog(@"achive %ld characters by %@ team", count, weakSelf.team.name);
+	}];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -45,7 +49,6 @@
 	_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Character"];
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
-	
 		//TODO: add sorting by image presenting
 	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
 	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"team.name = %@", self.team.name];
@@ -71,11 +74,12 @@
 	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = character.name;
 	
+	__weak FSBaseCell *weakCell = cell;
+	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
-										[cell setImage:image animated:YES];
+										[weakCell setImage:image animated:YES];
 									 }];
-	
 	return cell;
 }
 

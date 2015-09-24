@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
 	[AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-	[FSDataManager sharedManager].logEnabled = YES;
+	[FSDataManager sharedManager].logEnabled = NO;
 
 	return YES;
 }
