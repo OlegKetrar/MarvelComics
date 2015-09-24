@@ -6,33 +6,31 @@
 //  Copyright © 2015 Oleg Ketrar. All rights reserved.
 //
 
+/* In subclass you must:
+ - link collectionView property in IB to your collection view and configure it yourself
+ - set managedObjectContext property
+ - set and configure fetchRequest property
+ - override method shouldRequestMoreData() to insert your specified data into CoreData context
+ - override collectionView:cellForItemAtIndexPath: method to setup your cell
+ */
+
 @import UIKit;
 
 @class NSManagedObjectContext, NSFetchRequest, NSFetchedResultsController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FSBaseViewController : UICollectionViewController
+@interface FSBaseViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, getter=isLoadMoreEnabled) BOOL loadMoreEnabled;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-//
+
 @property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
-
-// setup requests to your specific data model
 @property (nonatomic, readonly) NSFetchRequest *fetchRequest;
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 
-// needs for automatic loading of content while scroll down
-// setup in viewDidLoad method
-@property (nonatomic) NSUInteger spareDataCount;
-
 // count of entity in managedObjectContext for fetchRequest
 - (NSUInteger)dataCount;
-
-// should be overridden
-// send data request to your DataController
-- (void)shouldRequestMoreData;
 
 @end
 

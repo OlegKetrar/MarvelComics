@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSDataManager : NSObject
 
+@property (nonatomic) BOOL logEnabled;
+
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -29,27 +31,34 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getTeamsWithComplition:(nullable void(^)(void))complition;
 
 //---------------characters-----------------------------------------------------------------
-- (void)getCharactersWithComplition:(nullable void(^)(void))complition; // load all characters
+- (nullable NSURLSessionDataTask *)getCharactersWithOffset:(NSUInteger)offset
+												   success:(nullable void(^)(NSUInteger total, NSUInteger count))success
+												   failure:(nullable void(^)(NSUInteger statusCode))failure;
 
 - (void)getCharactersByTeam:(FSTeam *)team
-			 withComplition:(nullable void(^)(void))complition; // load characters by specified team
+			 withComplition:(nullable void(^)(NSUInteger count))complition; // load characters by specified team
 
-- (void)getCharacterByName:(NSString *)name
-			   withSuccess:(nullable void(^)(FSCharacter *character))success
-				   failure:(nullable void(^)(NSUInteger statusCode))failure; //load single character
+- (nullable NSURLSessionDataTask *)getCharacterByName:(NSString *)name
+										  withSuccess:(nullable void(^)(FSCharacter *character))success
+											  failure:(nullable void(^)(NSUInteger statusCode))failure;
 
-- (void)getCharacterById:(NSUInteger)characterId
-			 withSuccess:(nullable void(^)(FSCharacter *character))success
-				 failure:(nullable void(^)(NSUInteger statusCode))failure; // load single character
+- (nullable NSURLSessionDataTask *)getCharacterById:(NSUInteger)characterId
+										withSuccess:(nullable void(^)(FSCharacter *character))success
+											failure:(nullable void(^)(NSUInteger statusCode))failure;
 
 //---------------comics----------------------------------------------------------------------
 - (nullable NSURLSessionDataTask *)getComicsByCharacter:(FSCharacter *)character
-										 withComplition:(void(^)(void))complition;
+											 withOffset:(NSUInteger)offset
+												success:(nullable void(^)(NSUInteger total, NSUInteger count))success
+												failure:(nullable void(^)(NSUInteger statusCode))failure;
+
+- (nullable NSURLSessionDataTask *)getComicsWithOffset:(NSUInteger)offset
+											   success:(nullable void(^)(NSUInteger total, NSUInteger count))success
+											   failure:(nullable void(^)(NSUInteger statusCode))failure;
 
 - (nullable NSURLSessionDataTask *)getComicById:(NSUInteger)comicId
 									withSuccess:(nullable void(^)(FSComic *comic))success
 										failure:(nullable void(^)(NSUInteger statusCode))failure;
-
 
 //---------------other-----------------------------------------------------------------------
 - (NSURLSessionDataTask *)loadImageFromURL:(NSURL *)url

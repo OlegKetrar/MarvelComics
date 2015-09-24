@@ -1,45 +1,42 @@
 //
-//  FSCharactersViewController.m
+//  FSAllCharactersViewController.m
 //  Test_Marvel_API
 //
-//  Created by Oleg Ketrar on 18.09.15.
+//  Created by Oleg Ketrar on 22.09.15.
 //  Copyright © 2015 Oleg Ketrar. All rights reserved.
 //
 
 #import "FSCharactersViewController.h"
-#import "FSCharacterCell.h"
+#import "FSBaseCell.h"
 #import "FSCharacterDetailViewController.h"
 
 @import CoreData;
 
-#import "FSDataManager.h"
-#import "FSTeam.h"
 #import "FSCharacter.h"
+#import "FSDataManager.h"
 
 @interface FSCharactersViewController ()
+
+@property (nonatomic) NSUInteger currentOffset;
 
 @end
 
 @implementation FSCharactersViewController
 
 @synthesize fetchRequest = _fetchRequest;
-@synthesize managedObjectContext = _managedObjectContext;
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
+    [super viewDidLoad];
+	self.currentOffset = 0;
 	
-	self.navigationItem.title = self.team.name;
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-																						   target:self
-																						   action:@selector(actionCalc:)];
+	self.navigationItem.title = @"All Marvel Characters";
+	
+	[FSDataManager sharedManager].batchSize = 20;
+	[self shouldRequestMoreData];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
 	return [FSDataManager sharedManager].managedObjectContext;
-}
-
-- (void)actionCalc:(id)sender {
-	NSLog(@"count is %ld", self.dataCount);
 }
 
 - (NSFetchRequest *)fetchRequest {
@@ -50,22 +47,27 @@
 	_fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Character"];
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
-	NSSortDescriptor *imageSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"thumbnail"
-																		  ascending:YES
-																		 comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-																			 
-																			 return NSOrderedSame;
-																		 }];
+	
 	
 		//TODO: add sorting by image presenting
-	_fetchRequest.sortDescriptors = @[nameSortDescriptor, imageSortDescriptor];
-	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"team.name = %@", self.team.name];
+	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
+	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"thumbnail.path != %@ AND thumbnail.path != %@",
+							   FS_IMAGE_NOT_AVAILABLE_1, FS_IMAGE_NOT_AVAILABLE_2];
 	
 	return _fetchRequest;
 }
 
 - (void)shouldRequestMoreData {
-	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:nil];
+	
+	__weak FSCharactersViewController *currentVC = self;
+	
+	[[FSDataManager sharedManager] getCharactersWithOffset:self.currentOffset success:nil failure:^(NSUInteger statusCode) {
+		if (statusCode == 500) {
+			[currentVC shouldRequestMoreData];
+		}
+	}];
+	
+	self.currentOffset += [FSDataManager sharedManager].batchSize;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -73,7 +75,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	FSCharacterCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"characterCell"
+	FSBaseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"characterCell"
 																	  forIndexPath:indexPath];
 	FSCharacter *character = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
@@ -85,14 +87,30 @@
 	cell.nameLabel.backgroundColor = [UIColor blackColor];
 	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = character.name;
-	
+
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
-										[cell setImage:image animated:YES];
+										 
+										 if (!image) {
+											 NSLog(@"image url = %@", character.imageUrl);
+										 }
+										 [cell setImage:image animated:YES];
 									 }];
-	
 	return cell;
 }
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView
+	   willDisplayCell:(UICollectionViewCell *)cell
+	forItemAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (indexPath.row == self.dataCount - 10 ) {
+		[self shouldRequestMoreData];
+	}
+}
+
+#pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"showDetail"]) {
@@ -103,4 +121,5 @@
 		dvc.character = selectedCharacter;
 	}
 }
+
 @end

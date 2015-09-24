@@ -11,9 +11,9 @@
 #import "FSDataManager.h"
 
 #import "FSTeam.h"
-#import "FSTeamCell.h"
+#import "FSBaseCell.h"
 
-#import "FSCharactersViewController.h"
+#import "FSCharactersByTeamViewController.h"
 
 @interface FSTeamsViewController ()
 
@@ -29,6 +29,8 @@
 	
 	self.navigationItem.title = @"Marvel Titanic Teams";
 	self.tabBarController.tabBar.tintColor = [UIColor whiteColor];
+	
+	[[FSDataManager sharedManager] getTeamsWithComplition:nil];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -47,16 +49,12 @@
 	return _fetchRequest;
 }
 
-- (void)shouldRequestMoreData {
-	[[FSDataManager sharedManager] getTeamsWithComplition:nil];
-}
-
 #pragma mark - UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	FSTeamCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"teamCell"
+	FSBaseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"teamCell"
 																 forIndexPath:indexPath];
 	FSTeam *team = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
@@ -79,10 +77,10 @@
 	
 	if ([segue.identifier isEqualToString:@"showCharacters"]) {
 		
-		NSIndexPath *indexPath = [self.collectionView indexPathsForSelectedItems][0];
+		NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 		FSTeam *selectedTeam = [self.fetchedResultsController objectAtIndexPath:indexPath];
 		
-		FSCharactersViewController *vc = segue.destinationViewController;
+		FSCharactersByTeamViewController *vc = segue.destinationViewController;
 		vc.team = selectedTeam;
 	}
 }

@@ -15,7 +15,6 @@
 @interface FSBaseViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic) NSMutableDictionary *contentChanges;
-@property (nonatomic) NSMutableDictionary *sectionChanges;
 
 @end
 
@@ -26,9 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.loadMoreEnabled = NO;
 	
-	[self shouldRequestMoreData];
+	self.collectionView.delegate = self;
+	self.collectionView.dataSource = self;
 }
 
 - (NSUInteger)dataCount {
@@ -48,6 +47,7 @@
 	frc.delegate = self;
 	_fetchedResultsController = frc;
 	
+		//TODO: handle error
 	NSError *error;
 	if (![_fetchedResultsController performFetch:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -57,9 +57,20 @@
 	return _fetchedResultsController;
 }
 
-#pragma mark - should be overridden
+#pragma mark - UICollectionViewDataSource
 
-- (void)shouldRequestMoreData {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+	return self.fetchedResultsController.sections.count;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+	return [self.fetchedResultsController.sections objectAtIndex:section].numberOfObjects;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+	
+	return nil;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -257,28 +268,5 @@
 //	self.contentChanges = nil;
 //	self.sectionChanges = nil;
 //}
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return self.fetchedResultsController.sections.count;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return [self.fetchedResultsController.sections objectAtIndex:section].numberOfObjects;
-}
-
-#pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView *)collectionView
-	   willDisplayCell:(UICollectionViewCell *)cell
-	forItemAtIndexPath:(NSIndexPath *)indexPath {
-
-	if (self.loadMoreEnabled) {
-		if (indexPath.row == self.dataCount - self.spareDataCount ) {
-			[self shouldRequestMoreData];
-		}
-	}
-}
 
 @end

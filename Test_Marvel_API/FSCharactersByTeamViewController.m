@@ -1,34 +1,36 @@
 //
-//  FSAllCharactersViewController.m
+//  FSCharactersViewController.m
 //  Test_Marvel_API
 //
-//  Created by Oleg Ketrar on 22.09.15.
+//  Created by Oleg Ketrar on 18.09.15.
 //  Copyright © 2015 Oleg Ketrar. All rights reserved.
 //
 
-#import "FSAllCharactersViewController.h"
-#import "FSCharacterCell.h"
+#import "FSCharactersByTeamViewController.h"
+#import "FSBaseCell.h"
 #import "FSCharacterDetailViewController.h"
 
 @import CoreData;
 
-#import "FSCharacter.h"
 #import "FSDataManager.h"
+#import "FSTeam.h"
+#import "FSCharacter.h"
 
-@interface FSAllCharactersViewController ()
+@interface FSCharactersByTeamViewController ()
 
 @end
 
-@implementation FSAllCharactersViewController
+@implementation FSCharactersByTeamViewController
 
 @synthesize fetchRequest = _fetchRequest;
+@synthesize managedObjectContext = _managedObjectContext;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
-	self.navigationItem.title = @"All Marvel Characters";
-	self.loadMoreEnabled = YES;
-	self.spareDataCount = 5;
+	self.navigationItem.title = self.team.name;
+	
+	[[FSDataManager sharedManager] getCharactersByTeam:self.team withComplition:nil];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -44,17 +46,11 @@
 	NSSortDescriptor *nameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name"
 																		 ascending:YES];
 	
-	
 		//TODO: add sorting by image presenting
 	_fetchRequest.sortDescriptors = @[nameSortDescriptor];
-	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"thumbnail.path != %@ AND thumbnail.path != %@",
-							   FS_IMAGE_NOT_AVAILABLE_1, FS_IMAGE_NOT_AVAILABLE_2];
+	_fetchRequest.predicate = [NSPredicate predicateWithFormat:@"team.name = %@", self.team.name];
 	
 	return _fetchRequest;
-}
-
-- (void)shouldRequestMoreData {
-	[[FSDataManager sharedManager] getCharactersWithComplition:nil];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -62,7 +58,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	FSCharacterCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"characterCell"
+	FSBaseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"characterCell"
 																	  forIndexPath:indexPath];
 	FSCharacter *character = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
@@ -74,15 +70,12 @@
 	cell.nameLabel.backgroundColor = [UIColor blackColor];
 	cell.nameLabel.textColor = [UIColor whiteColor];
 	cell.nameLabel.text = character.name;
-
+	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:character.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
-										 
-										 if (!image) {
-											 NSLog(@"image url = %@", character.imageUrl);
-										 }
-										 [cell setImage:image animated:YES];
+										[cell setImage:image animated:YES];
 									 }];
+	
 	return cell;
 }
 
@@ -91,9 +84,9 @@
 		
 		NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 		FSCharacter *selectedCharacter = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		
 		FSCharacterDetailViewController *dvc = segue.destinationViewController;
 		dvc.character = selectedCharacter;
 	}
 }
-
 @end

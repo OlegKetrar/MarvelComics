@@ -13,7 +13,7 @@
 #import "FSDataManager.h"
 
 #import "FSTeam.h"
-#import "FSCharactersViewController.h"
+#import "FSCharactersByTeamViewController.h"
 
 @interface TableViewController () <NSFetchedResultsControllerDelegate>
 
@@ -162,7 +162,7 @@
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 		FSTeam *selectedTeam = [self.fetchedResultsController objectAtIndexPath:indexPath];
 		
-		FSCharactersViewController *dvc = segue.destinationViewController;
+		FSCharactersByTeamViewController *dvc = segue.destinationViewController;
 		dvc.team = selectedTeam;
 	}
 }

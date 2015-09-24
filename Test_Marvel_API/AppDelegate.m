@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import <AFNetworking/AFNetworkActivityIndicatorManager.h>
+#import "FSDataManager.h"
 
 @import CoreData;
 
@@ -21,38 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
-	[[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-	
-//	NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"Teams" withExtension:@"json"];
-//	NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL options:NSDataReadingUncached error:nil];
-//	
-//	NSDictionary *jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-//	NSArray <NSDictionary *> *teams = [jsonObj objectForKey:@"Titanic"];
-//	
-//	NSManagedObjectContext *context = [FSDataManager sharedManager].managedObjectContext;
-//	
-//	FSDataParser *parser = [[FSDataParser alloc] initWithManagedObjectContext:context];
-//	[parser addParsingForEntity:@"Team"
-//					 parameters:@{@"id" : @"id", @"name" : @"name", @"description" : @"text", @"thumbnail" : @"Thumbnail"}
-//				 identification:@[@"id"]];
-//	
-//	[parser addParsingForEntity:@"Thumbnail"
-//					 parameters:@{@"path" : @"path", @"extension" : @"extension"}
-//				 identification:@[@"path"]];
-//	
-//	[parser parseData:teams forEntityName:@"Team" withComplition:^(NSArray<NSManagedObject *> * _Nullable results) {
-//		
-//		NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Team"];
-//		request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-//		
-//		NSArray *fetchedResults = [context executeFetchRequest:request error:nil];
-//		NSLog(@"count: %ld", fetchedResults.count);
-//		
-//		for (FSTeam *team in fetchedResults) {
-//			NSLog(@"id: %@, name: %@, description: %@", team.id, team.name, team.text);
-//			NSLog(@"url: %@", [team imageUrl]);
-//		}
-//	}];
+	[AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+	[FSDataManager sharedManager].logEnabled = YES;
 
 	return YES;
 }

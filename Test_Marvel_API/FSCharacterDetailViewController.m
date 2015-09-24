@@ -11,33 +11,29 @@
 #import "FSDataManager.h"
 
 #import "FSComic.h"
-#import "FSComicCell.h"
+#import "FSBaseCell.h"
 #import "FSCharacter.h"
 
-@interface FSCharacterDetailViewController () <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
+@interface FSCharacterDetailViewController ()
 
-@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, readonly) NSFetchRequest *fetchRequest;
-@property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
-
-@property (nonatomic) NSMutableDictionary *contentChanges;
-@property (nonatomic) NSMutableDictionary *sectionChanges;
+@property (weak, nonatomic) UIActivityIndicatorView *collectionViewIndicator;
 
 @property (nonatomic) NSMutableArray <NSURLSessionTask *> *tasks;
 
-@property (nonatomic) BOOL loadMoreEnabled;
+@property (nonatomic) NSUInteger currentOffset;
+@property (nonatomic) NSURLSessionDataTask *lastTask;
 
 @end
 
 @implementation FSCharacterDetailViewController
 
 @synthesize fetchRequest = _fetchRequest;
-@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	self.tasks = [NSMutableArray array];
+	self.currentOffset = 0;
 	
 	self.navigationItem.title = self.character.name;
 	self.charIdLabel.text = self.character.id.stringValue;
@@ -57,9 +53,7 @@
 	self.descriptionView.textContainer.exclusionPaths = @[imgRect];
 	self.descriptionView.font = [UIFont systemFontOfSize:18.f];
 	self.descriptionView.textColor = [UIColor whiteColor];
-	
-	self.loadMoreEnabled = YES;
-	
+
 	self.imageView.layer.cornerRadius = 10;
 	self.imageView.layer.masksToBounds = YES;
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -80,20 +74,9 @@
 	[collectionViewIndicator startAnimating];
 	collectionViewIndicator.hidesWhenStopped = YES;
 	[self.collectionView addSubview:collectionViewIndicator];
+	self.collectionViewIndicator = collectionViewIndicator;
 	
-	NSURLSessionTask *task = [[FSDataManager sharedManager] getComicsByCharacter:self.character
-																  withComplition:^{
-		[collectionViewIndicator stopAnimating];
-		[collectionViewIndicator removeFromSuperview];
-																		  
-		[self.tasks removeObject:task];
-	}];
-	
-	[self.tasks addObject:task];
-}
-
-- (NSUInteger)dataCount {
-	return [self.managedObjectContext countForFetchRequest:self.fetchRequest error:nil];
+	[self shouldRequestMoreData];
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -118,61 +101,52 @@
 	return _fetchRequest;
 }
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
-	if (_fetchedResultsController)
-		return _fetchedResultsController;
-	
-	NSManagedObjectContext *context = self.managedObjectContext;
-	NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
-																		  managedObjectContext:context
-																			sectionNameKeyPath:nil
-																					 cacheName:nil];
-	frc.delegate = self;
-	_fetchedResultsController = frc;
-	
-	NSError *error;
-	if (![_fetchedResultsController performFetch:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}
-	
-	return _fetchedResultsController;
-}
-
 - (void)shouldRequestMoreData {
-	NSURLSessionTask *task = [[FSDataManager sharedManager] getComicsByCharacter:self.character
-																  withComplition:^{
-																	  [self.tasks removeObject:task];
-																  }];
-	[self.tasks addObject:task];
+	
+	__weak FSCharacterDetailViewController *weakSelf = self;
+	
+	void (^successBlock)(NSUInteger, NSUInteger) = ^(NSUInteger total, NSUInteger count) {
+		weakSelf.relatedComicsLabel.text = [NSString stringWithFormat:@"Related comics (%ld total):", total];
+		[weakSelf.collectionViewIndicator stopAnimating];
+	};
+	
+	void (^failureBlock)(NSUInteger) = ^(NSUInteger statusCode) {
+		if (statusCode == 500) {
+			weakSelf.relatedComicsLabel.text = @"Loading...";
+			[weakSelf shouldRequestMoreData];
+		}
+		else
+			weakSelf.relatedComicsLabel.text = @"Related comics not found :(";
+	};
+	
+	self.lastTask = [[FSDataManager sharedManager] getComicsByCharacter:self.character
+															 withOffset:self.currentOffset
+																success:successBlock
+																failure:failureBlock];
+	
+	self.currentOffset += [FSDataManager sharedManager].batchSize;
+	
+	NSLog(@"send more request: %@", self.lastTask.originalRequest.URL.absoluteString);
+	
 }
 
 - (void)dealloc {
-	for (NSURLSessionTask *task in self.tasks) {
-		
-		NSURLSessionDataTask *dataTask = (NSURLSessionDataTask *)task;
-		
-		NSLog(@"request: %@, state: %ld", dataTask.originalRequest.URL.absoluteString, dataTask.state);
-		
-		[task cancel];
-	}
+//	for (NSURLSessionTask *task in self.tasks) {
+//		
+//		NSURLSessionDataTask *dataTask = (NSURLSessionDataTask *)task;
+//		
+//		NSLog(@"request: %@, state: %ld", dataTask.originalRequest.URL.absoluteString, dataTask.state);
+//		
+//		[task cancel];
+//	}
 }
 
-#pragma mark - UICollectionViewDataSource 
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-	return self.fetchedResultsController.sections.count;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-	return [self.fetchedResultsController.sections objectAtIndex:section].numberOfObjects;
-}
+#pragma mark - UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
 				  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	FSComicCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"comicCell"
+	FSBaseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"comicCell"
 																	  forIndexPath:indexPath];
 	FSComic *comic = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
@@ -183,9 +157,11 @@
 	
 	cell.nameLabel.text = comic.name;
 	
+	__weak FSBaseCell *weakCell = cell;
+	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:comic.imageUrl]
 									 withComplition:^(UIImage * _Nullable image) {
-										 [cell setImage:image animated:YES];
+										 [weakCell setImage:image animated:YES];
 									 }];
 	
 	return cell;
@@ -197,60 +173,11 @@
 	   willDisplayCell:(UICollectionViewCell *)cell
 	forItemAtIndexPath:(NSIndexPath *)indexPath {
 	
-	if (self.loadMoreEnabled) {
-		if (indexPath.row == self.dataCount - 10 ) {
+	if ( self.lastTask && (self.lastTask.state == NSURLSessionTaskStateCompleted)) {
+		if ( indexPath.row == self.dataCount - 10 ) {
 			[self shouldRequestMoreData];
 		}
 	}
-}
-
-#pragma mark - NSFetchedResultsControllerDelegate
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-	self.contentChanges = [NSMutableDictionary dictionary];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-		   atIndex:(NSUInteger)sectionIndex
-	 forChangeType:(NSFetchedResultsChangeType)type {
-}
-
-- (void)controller:(NSFetchedResultsController *)controller
-   didChangeObject:(id)anObject
-	   atIndexPath:(nullable NSIndexPath *)indexPath
-	 forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(nullable NSIndexPath *)newIndexPath {
-	
-	if (type == NSFetchedResultsChangeInsert) {
-		NSArray *array = [self.contentChanges objectForKey:@(type)];
-		if ( array )
-			[self.contentChanges setObject:[array arrayByAddingObject:newIndexPath]
-									forKey:@(type)];
-		else
-			[self.contentChanges setObject:@[newIndexPath] forKey:@(type)];
-	}
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	
-	[self.collectionView performBatchUpdates:^{
-		
-		for ( NSNumber *changeType in self.contentChanges.keyEnumerator.allObjects ) {
-			
-			switch ([changeType unsignedIntegerValue]) {
-				case NSFetchedResultsChangeInsert:
-					[self.collectionView insertItemsAtIndexPaths:[self.contentChanges objectForKey:changeType]];
-					break;
-					
-				default:
-					break;
-			}
-		}
-		
-	} completion:^(BOOL finished) {}];
-	
-	self.contentChanges = nil;
 }
 
 @end
