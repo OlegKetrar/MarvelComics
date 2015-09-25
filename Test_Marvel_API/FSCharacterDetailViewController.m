@@ -120,8 +120,8 @@
 				weakSelf.loadMore = NO;
 			}
 			
-			weakSelf.relatedComicsLabel.text = [NSString stringWithFormat:@"Related comics (%ld of %ld):",
-																			weakSelf.dataCount, total];
+			weakSelf.relatedComicsLabel.text = [NSString stringWithFormat:@"Related comics (%ld received):",
+																			weakSelf.dataCount];
 		}
 
 		[weakSelf.collectionViewIndicator stopAnimating];
@@ -185,7 +185,7 @@
 	forItemAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if ( self.loadMore && self.currentDataTask.state == NSURLSessionTaskStateCompleted ) {
-		if ( indexPath.row == self.dataCount - 10 ) {
+		if ( indexPath.row > self.dataCount - 10 ) {
 			[self shouldRequestMoreData];
 		}
 	}

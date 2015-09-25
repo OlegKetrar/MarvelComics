@@ -117,7 +117,7 @@
 	forItemAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (self.loadMore && self.currentDataTask.state == NSURLSessionTaskStateCompleted) {
-		if (indexPath.row == self.dataCount - 10 )
+		if (indexPath.row > self.dataCount - 10 )
 			[self shouldRequestMoreData];
 	}
 }
