@@ -158,11 +158,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KSP-W5-llr">
-                                <rect key="frame" x="8" y="72" width="150" height="225"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Lhu-wB-v9t">
                                 <rect key="frame" x="65" y="166" width="37" height="37"/>
                                 <animations/>
@@ -182,11 +177,12 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h81-Xn-JzO" userLabel="background view">
                                 <rect key="frame" x="0.0" y="64" width="166" height="241"/>
                                 <animations/>
+                                <gestureRecognizers/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QWB-f7-Ep9">
                                 <rect key="frame" x="0.0" y="398" width="375" height="220"/>
                                 <animations/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="5" id="y4i-qW-1nZ">
                                     <size key="itemSize" width="150" height="210"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -236,6 +232,14 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KSP-W5-llr">
+                                <rect key="frame" x="8" y="72" width="150" height="225"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="RIs-by-DuI" appends="YES" id="Qsn-G0-kX2"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -251,8 +255,21 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MM9-br-wcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RIs-by-DuI">
+                    <connections>
+                        <segue destination="WIM-es-zH9" kind="show" identifier="showImageDetail" id="0Iu-pb-5sG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2942.5" y="110.5"/>
+        </scene>
+        <!--ImageContainer-->
+        <scene sceneID="HiC-lK-NXi">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ImageContainer" id="WIM-es-zH9" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q7J-1W-MnA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3311.5" y="111"/>
         </scene>
         <!--Teams View Controller-->
         <scene sceneID="fld-K7-oGg">

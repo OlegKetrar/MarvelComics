@@ -14,6 +14,8 @@
 #import "FSBaseCell.h"
 #import "FSCharacter.h"
 
+#import "FSPageContainer.h"
+
 @interface FSCharacterDetailViewController ()
 
 @property (weak, nonatomic) UIActivityIndicatorView *collectionViewIndicator;
@@ -191,4 +193,23 @@
 	}
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	
+	if ([segue.identifier isEqualToString:@"showImageDetail"]) {
+		
+		FSPageContainer *pageVC = segue.destinationViewController;
+		NSString *urlString = [self.character imageUrlWithVariaton:kFSImageVariationsDetail];
+		
+		if (urlString)
+			pageVC.imageURLs = @[urlString];
+	}
+}
+
 @end
+
+
+
+
+

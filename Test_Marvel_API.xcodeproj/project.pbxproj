@@ -30,6 +30,9 @@
 		47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */; };
 		47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF61BAAB273005B2F61 /* Assets.xcassets */; };
 		47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */; };
+		47DD4B8A1BB5BE5D00A6776D /* ImageContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */; settings = {ASSET_TAGS = (); }; };
+		47DD4B8D1BB5BF3E00A6776D /* FSImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		47DD4B901BB5C14B00A6776D /* FSPageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */; settings = {ASSET_TAGS = (); }; };
 		FAB53BCB7A595E0EE790D5DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A818CAF43442C896C51E2CB /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +85,11 @@
 		47BACAF61BAAB273005B2F61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47BACAF91BAAB273005B2F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47BACAFB1BAAB273005B2F61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ImageContainer.storyboard; sourceTree = "<group>"; };
+		47DD4B8B1BB5BF3E00A6776D /* FSImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSImageDetailViewController.h; sourceTree = "<group>"; };
+		47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSImageDetailViewController.m; sourceTree = "<group>"; };
+		47DD4B8E1BB5C14B00A6776D /* FSPageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPageContainer.h; sourceTree = "<group>"; };
+		47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContainer.m; sourceTree = "<group>"; };
 		6A818CAF43442C896C51E2CB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -130,6 +138,10 @@
 		4719CAC91BAAFB1700B37CD5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				47DD4B8E1BB5C14B00A6776D /* FSPageContainer.h */,
+				47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */,
+				47DD4B8B1BB5BF3E00A6776D /* FSImageDetailViewController.h */,
+				47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */,
 				4742915A1BB009CA00D7E757 /* test */,
 				4742915F1BB08FC600D7E757 /* base */,
 				47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */,
@@ -230,6 +242,7 @@
 				47BACAEB1BAAB273005B2F61 /* AppDelegate.m */,
 				47BACAE81BAAB273005B2F61 /* main.m */,
 				47BACAF01BAAB273005B2F61 /* Main.storyboard */,
+				47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */,
 				47BACAF61BAAB273005B2F61 /* Assets.xcassets */,
 				47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */,
 				47BACAFB1BAAB273005B2F61 /* Info.plist */,
@@ -308,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47DD4B8A1BB5BE5D00A6776D /* ImageContainer.storyboard in Resources */,
 				4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */,
 				47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */,
 				47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */,
@@ -371,7 +385,9 @@
 				4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */,
 				4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */,
 				47B3DA6F1BAC879600970D12 /* FSCharactersByTeamViewController.m in Sources */,
+				47DD4B8D1BB5BF3E00A6776D /* FSImageDetailViewController.m in Sources */,
 				4742915D1BB00C8900D7E757 /* FSDataParser.m in Sources */,
+				47DD4B901BB5C14B00A6776D /* FSPageContainer.m in Sources */,
 				47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */,
 				4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */,
 			);
