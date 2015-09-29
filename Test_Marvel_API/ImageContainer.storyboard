@@ -7,17 +7,17 @@
         <!--Page Container-->
         <scene sceneID="bv7-m9-kEP">
             <objects>
-                <viewController id="3rm-2K-Ii8" customClass="FSPageContainer" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="3rm-2K-Ii8" customClass="FSPageContainer" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sfT-vB-CgA"/>
                         <viewControllerLayoutGuide type="bottom" id="2GK-8N-KEx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eHH-zO-uUy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLf-Lb-LHQ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LLf-Lb-LHQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="Cjb-Wd-ztL" kind="embed" id="CSe-j9-1e9"/>
@@ -26,12 +26,17 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LLf-Lb-LHQ" firstAttribute="centerX" secondItem="eHH-zO-uUy" secondAttribute="centerX" id="0EA-ia-q0f"/>
+                            <constraint firstItem="LLf-Lb-LHQ" firstAttribute="height" secondItem="eHH-zO-uUy" secondAttribute="height" id="jyv-HH-yvD"/>
+                            <constraint firstItem="LLf-Lb-LHQ" firstAttribute="width" secondItem="eHH-zO-uUy" secondAttribute="width" id="p9B-sn-r9P"/>
+                            <constraint firstItem="LLf-Lb-LHQ" firstAttribute="centerY" secondItem="eHH-zO-uUy" secondAttribute="centerY" id="tQG-AQ-6fQ"/>
+                        </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y54-ti-rmn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="832.5" y="350.5"/>
+            <point key="canvasLocation" x="612" y="343"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="Hgz-8O-XSp">
@@ -39,42 +44,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Cjb-Wd-ztL" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1on-mf-Fol" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1270.5" y="350.5"/>
-        </scene>
-        <!--Image Detail View Controller-->
-        <scene sceneID="hyj-jz-nPM">
-            <objects>
-                <viewController storyboardIdentifier="imageDetailVC" id="yjM-3b-uOd" customClass="FSImageDetailViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SXl-Qu-0Ac"/>
-                        <viewControllerLayoutGuide type="bottom" id="eeU-qk-giz"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EBK-sX-c4r">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m0e-KF-cRZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <animations/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="wLa-A5-fMB">
-                                <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <animations/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="activityIndicator" destination="wLa-A5-fMB" id="D4T-61-vq6"/>
-                        <outlet property="imageView" destination="m0e-KF-cRZ" id="S0G-PM-4eZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aaS-qN-7e4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1724.5" y="350.5"/>
+            <point key="canvasLocation" x="1278" y="343"/>
         </scene>
     </scenes>
 </document>

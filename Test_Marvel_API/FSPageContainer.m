@@ -9,8 +9,6 @@
 #import "FSPageContainer.h"
 #import "FSImageDetailViewController.h"
 
-#define FS_CHILD_VC_ID @"imageDetailVC"
-
 @interface FSPageContainer () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @end
@@ -30,7 +28,7 @@
 	pageVC.delegate = self;
 	pageVC.view.backgroundColor = [UIColor blackColor];
 	
-	FSImageDetailViewController *firstVC = [self.storyboard instantiateViewControllerWithIdentifier:FS_CHILD_VC_ID];
+	FSImageDetailViewController *firstVC = [[FSImageDetailViewController alloc] init];
 	firstVC.imageUrl = [self.imageURLs firstObject];
 	firstVC.index = 0;
 	
@@ -55,7 +53,7 @@
 	else
 		newIndex = self.imageURLs.count - 1;
 	
-	FSImageDetailViewController *newVC = [self.storyboard instantiateViewControllerWithIdentifier:FS_CHILD_VC_ID];
+	FSImageDetailViewController *newVC = [[FSImageDetailViewController alloc] init];
 	newVC.imageUrl = [self.imageURLs objectAtIndex:newIndex];
 	newVC.index = newIndex;
 	
@@ -75,7 +73,7 @@
 	else
 		newIndex = 0;
 	
-	FSImageDetailViewController *newVC = [self.storyboard instantiateViewControllerWithIdentifier:FS_CHILD_VC_ID];
+	FSImageDetailViewController *newVC = [[FSImageDetailViewController alloc] init];
 	newVC.imageUrl = [self.imageURLs objectAtIndex:newIndex];
 	newVC.index = newIndex;
 	
