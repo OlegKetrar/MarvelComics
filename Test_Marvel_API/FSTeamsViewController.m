@@ -59,8 +59,8 @@
 	FSTeam *team = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
 	cell.imageView.layer.cornerRadius = 10.0;
-	cell.imageView.layer.borderWidth = 2.0;
-	cell.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+//	cell.imageView.layer.borderWidth = 1.0;
+//	cell.imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	cell.imageView.image = [UIImage imageNamed:team.imageUrl];
 	

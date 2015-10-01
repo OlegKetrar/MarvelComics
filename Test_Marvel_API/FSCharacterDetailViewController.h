@@ -14,13 +14,6 @@
 
 @interface FSCharacterDetailViewController : FSBaseViewController
 
-@property (weak, nonatomic) IBOutlet UITextView *descriptionView;
-@property (weak, nonatomic) IBOutlet UILabel *charIdLabel;
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
-@property (weak, nonatomic) IBOutlet UILabel *relatedComicsLabel;
-
 @property (nonatomic) FSCharacter *character;
 
 @end

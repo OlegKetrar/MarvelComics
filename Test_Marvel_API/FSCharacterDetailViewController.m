@@ -18,7 +18,12 @@
 
 @interface FSCharacterDetailViewController ()
 
-@property (weak, nonatomic) UIActivityIndicatorView *collectionViewIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UILabel *relatedComicsLabel;
+
+@property (weak, nonatomic) UIActivityIndicatorView *comicsIndicatorView;
 
 @property (nonatomic) BOOL loadMore;
 @property (nonatomic) NSUInteger currentOffset;
@@ -36,51 +41,115 @@
 	self.currentOffset = 0;
 	self.loadMore = YES;
 	
-	self.navigationItem.title = self.character.name;
-	self.charIdLabel.text = self.character.id.stringValue;
+	self.nameLabel.text = self.character.name;
 	
-		//wrapped text view
-		//TODO: rewrite it with CoreText
-	CGRect rect = self.backgroundView.frame;
-	rect.origin.y -= self.descriptionView.frame.origin.y + 15.f;
+		//some bug. Character Hank Pym, description is [NSTaggedPointerString class], length = 1
 	
-	if ([self.character.text isEqualToString:@""])
-		self.descriptionView.text = @"Oops... Marvel has not provided a description:( For more "
-									 "information, please visit www.marvel.com";
+	if ([self.character.text length] > 1) {
+		self.descriptionTextView.text = self.character.text;
+	}
 	else
-		self.descriptionView.text = self.character.text;
+		self.descriptionTextView.text = @"Oops... Marvel has not provided a description :("
+												 " For more information, please visit www.marvel.com";
 	
-	UIBezierPath * imgRect = [UIBezierPath bezierPathWithRect:rect];
-	self.descriptionView.textContainer.exclusionPaths = @[imgRect];
-	self.descriptionView.font = [UIFont systemFontOfSize:18.f];
-	self.descriptionView.textColor = [UIColor whiteColor];
+	self.descriptionTextView.layer.cornerRadius = 5.0;
+	self.descriptionTextView.layer.borderWidth = 1.0;
+	self.descriptionTextView.layer.borderColor = [UIColor grayColor].CGColor;
 
 	self.imageView.layer.cornerRadius = 10;
+	self.imageView.layer.borderWidth = 1.0;
+	self.imageView.layer.borderColor = [UIColor grayColor].CGColor;
 	self.imageView.layer.masksToBounds = YES;
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+	
+	UIActivityIndicatorView *imageIndicatorView = [[UIActivityIndicatorView alloc]
+													initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	[self.view addSubview:imageIndicatorView];
+	[imageIndicatorView startAnimating];
+	
+	imageIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:imageIndicatorView
+														   attribute:NSLayoutAttributeCenterX
+														   relatedBy:NSLayoutRelationEqual
+																	   toItem:self.imageView
+														   attribute:NSLayoutAttributeCenterX
+																   multiplier:1.0
+																	 constant:0.0]];
+	
+	[self.view addConstraint:[NSLayoutConstraint constraintWithItem:imageIndicatorView
+														   attribute:NSLayoutAttributeCenterY
+														   relatedBy:NSLayoutRelationEqual
+																	   toItem:self.imageView
+														   attribute:NSLayoutAttributeCenterY
+																   multiplier:1.0
+																	 constant:0.0]];
 	
 		//load image
 		//TODO: cache image data, do not save to CoreData
 		//TODO: add animation when image appear
 	NSString *urlString = [self.character imageUrlWithVariaton:kFSImageVariationsPortraitIncredible];
 	__weak FSCharacterDetailViewController *weakSelf = self;
+	__weak UIActivityIndicatorView *weakIndicator = imageIndicatorView;
 	
 	[[FSDataManager sharedManager] loadImageFromURL:[NSURL URLWithString:urlString]
 									 withComplition:^(UIImage * _Nullable image) {
 										 if (image) {
 											 weakSelf.imageView.image = image;
-											 [weakSelf.indicator stopAnimating];
+											 [weakIndicator stopAnimating];
 										 }
 									 }];
 	
-	UIActivityIndicatorView *collectionViewIndicator = [[UIActivityIndicatorView alloc] initWithFrame:self.collectionView.bounds];
-	collectionViewIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-	[collectionViewIndicator startAnimating];
-	collectionViewIndicator.hidesWhenStopped = YES;
-	[self.collectionView addSubview:collectionViewIndicator];
-	self.collectionViewIndicator = collectionViewIndicator;
+	UIActivityIndicatorView *comicsIndicatorView = [[UIActivityIndicatorView alloc]
+										initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+	[self.collectionView addSubview:comicsIndicatorView];
+	
+	comicsIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
+	
+	[self.collectionView addConstraint:[NSLayoutConstraint constraintWithItem:comicsIndicatorView
+														   attribute:NSLayoutAttributeCenterX
+														   relatedBy:NSLayoutRelationEqual
+															  toItem:self.collectionView
+														   attribute:NSLayoutAttributeCenterX
+														  multiplier:1.0
+															constant:0.0]];
+	
+	[self.collectionView addConstraint:[NSLayoutConstraint constraintWithItem:comicsIndicatorView
+														   attribute:NSLayoutAttributeCenterY
+														   relatedBy:NSLayoutRelationEqual
+															  toItem:self.collectionView
+														   attribute:NSLayoutAttributeCenterY
+														  multiplier:1.0
+															constant:0.0]];
+	
+	self.comicsIndicatorView = comicsIndicatorView;
+	[self.comicsIndicatorView startAnimating];
 	
 	[self shouldRequestMoreData];
+}
+
+- (void)updateViewConstraints {
+	
+	[super updateViewConstraints];
+	
+	UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)[self.collectionView collectionViewLayout];
+	UIEdgeInsets scrollInsets = self.collectionView.contentInset;
+	
+	if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+		flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+		scrollInsets.top = self.navigationController.navigationBar.frame.size.height;
+		self.collectionView.contentInset = scrollInsets;
+		
+		scrollInsets.left = 5;
+		self.collectionView.scrollIndicatorInsets = scrollInsets;
+	}
+	else {
+		flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+		scrollInsets.top = 0;
+		self.collectionView.contentInset = scrollInsets;
+		
+		scrollInsets.left = 0;
+		self.collectionView.scrollIndicatorInsets = scrollInsets;
+	}
 }
 
 - (NSManagedObjectContext *)managedObjectContext {
@@ -122,11 +191,15 @@
 				weakSelf.loadMore = NO;
 			}
 			
-			weakSelf.relatedComicsLabel.text = [NSString stringWithFormat:@"Related comics (%ld received):",
-																			weakSelf.dataCount];
+			if (weakSelf.dataCount) {
+				weakSelf.relatedComicsLabel.text = [NSString stringWithFormat:@"Related comics (%ld received):", weakSelf.dataCount];
+			}
+			else
+				weakSelf.relatedComicsLabel.text = @"Related comics not found :(";
+			
 		}
 
-		[weakSelf.collectionViewIndicator stopAnimating];
+		[weakSelf.comicsIndicatorView stopAnimating];
 	};
 	
 	void (^failureBlock)(NSUInteger) = ^(NSUInteger statusCode) {
@@ -159,8 +232,8 @@
 	FSComic *comic = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
 	cell.imageView.layer.cornerRadius = 10.0;
-	cell.imageView.layer.borderWidth = 2.0;
-	cell.imageView.layer.borderColor = [UIColor  whiteColor].CGColor;
+//	cell.imageView.layer.borderWidth = 2.0;
+//	cell.imageView.layer.borderColor = [UIColor  whiteColor].CGColor;
 	cell.imageView.layer.masksToBounds = YES;
 	
 	cell.nameLabel.text = comic.name;
