@@ -33,7 +33,7 @@
 		return;
 	}
 	
-		// Create the scroll view and the image view.
+		// create & set up scroll view
 	UIScrollView *scrollView  = [[UIScrollView alloc] init];
 	scrollView.delegate = self;
 	scrollView.alwaysBounceVertical = YES;

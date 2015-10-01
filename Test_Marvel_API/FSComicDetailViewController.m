@@ -45,6 +45,7 @@
 	
 	self.currentOffset = 0;
 	self.loadMore = YES;
+	self.collectionView.bounces = YES;
 	
 	self.nameLabel.text = self.comic.name;
 
@@ -99,9 +100,8 @@
 			// collection view
 		flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
 		collectionInsets.top = self.navigationController.navigationBar.frame.size.height;
-//		self.collectionView.contentInset = collectionInsets;
-//		collectionInsets.left = 5;
-//		self.collectionView.scrollIndicatorInsets = collectionInsets;
+		self.collectionView.alwaysBounceVertical = YES;
+		self.collectionView.alwaysBounceHorizontal = NO;
 		
 			// scroll view 
 		self.relatedLabelConstraint.constant = - self.tabBarController.tabBar.frame.size.height;
@@ -110,19 +110,17 @@
 	else {
 			//collection view
 		flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-		scrollInsets.top = 0;
-//		self.collectionView.contentInset = scrollInsets;
-		
-//		scrollInsets.left = 0;
-//		self.collectionView.scrollIndicatorInsets = scrollInsets;
+		collectionInsets.top = 0;
+		self.collectionView.alwaysBounceHorizontal = YES;
+		self.collectionView.alwaysBounceVertical = NO;
 		
 			// scroll view
 		self.relatedLabelConstraint.constant = 0;
 		scrollInsets.bottom = self.relatedBackgroundView.frame.size.height;
 	}
 	
-	self.collectionView.contentInset = scrollInsets;
-	self.collectionView.scrollIndicatorInsets = scrollInsets;
+	self.collectionView.contentInset = collectionInsets;
+	self.collectionView.scrollIndicatorInsets = collectionInsets;
 	
 	self.scrollView.contentInset = scrollInsets;
 }

@@ -157,7 +157,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-Ny-Nxf">
-                                <rect key="frame" x="20" y="74" width="560" height="247"/>
+                                <rect key="frame" x="20" y="30" width="560" height="340"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BgO-V0-Q1y" userLabel="name Label">
                                         <rect key="frame" x="256" y="0.0" width="48" height="26"/>
@@ -167,10 +167,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cZn-H9-Ggc">
-                                        <rect key="frame" x="0.0" y="36" width="560" height="181"/>
+                                        <rect key="frame" x="0.0" y="36" width="560" height="274"/>
                                         <subviews>
                                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="150" placeholderIntrinsicHeight="182" translatesAutoresizingMaskIntoConstraints="NO" id="KSP-W5-llr">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="181"/>
+                                                <rect key="frame" x="0.0" y="46" width="150" height="182"/>
                                                 <animations/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -181,7 +181,7 @@
                                                 </connections>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" semanticContentAttribute="forceLeftToRight" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOm-sN-sdH">
-                                                <rect key="frame" x="160" y="0.0" width="400" height="181"/>
+                                                <rect key="frame" x="160" y="0.0" width="400" height="274"/>
                                                 <animations/>
                                                 <accessibility key="accessibilityConfiguration">
                                                     <bool key="isElement" value="NO"/>
@@ -211,7 +211,7 @@
                                         </variation>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Related comics:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcG-Fr-ZBq">
-                                        <rect key="frame" x="221" y="227" width="119" height="20"/>
+                                        <rect key="frame" x="221" y="320" width="119" height="20"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -221,7 +221,7 @@
                                 <animations/>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QWB-f7-Ep9">
-                                <rect key="frame" x="0.0" y="331" width="600" height="220"/>
+                                <rect key="frame" x="0.0" y="380" width="600" height="220"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -375,8 +375,8 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p9k-Xx-JFF">
-                                                        <rect key="frame" x="0.0" y="-63" width="150" height="151"/>
+                                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p9k-Xx-JFF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                         <animations/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="QHn-vk-1GP"/>
@@ -391,7 +391,7 @@
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="4nZ-qA-tI7" firstAttribute="bottom" secondItem="35i-3g-2eh" secondAttribute="bottom" id="BWv-6j-plc"/>
-                                                    <constraint firstItem="p9k-Xx-JFF" firstAttribute="centerY" secondItem="4nZ-qA-tI7" secondAttribute="centerY" id="Gkr-yz-T6A"/>
+                                                    <constraint firstItem="p9k-Xx-JFF" firstAttribute="top" secondItem="4nZ-qA-tI7" secondAttribute="top" id="Gkr-yz-T6A"/>
                                                     <constraint firstItem="4nZ-qA-tI7" firstAttribute="top" secondItem="35i-3g-2eh" secondAttribute="top" id="MRA-1h-gUs"/>
                                                     <constraint firstItem="4nZ-qA-tI7" firstAttribute="leading" secondItem="p9k-Xx-JFF" secondAttribute="trailing" constant="10" id="MUh-e9-muI"/>
                                                     <constraint firstItem="p9k-Xx-JFF" firstAttribute="leading" secondItem="35i-3g-2eh" secondAttribute="leading" id="aVu-Dy-aC2"/>
@@ -502,7 +502,7 @@
                                     <constraint firstItem="jPl-uG-Rff" firstAttribute="bottom" secondItem="pHD-k0-Pjo" secondAttribute="bottom" id="zWA-5L-G5Q"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uVw-9l-xM3">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uVw-9l-xM3">
                                 <rect key="frame" x="0.0" y="380" width="600" height="220"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -786,7 +786,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="35m-L7-GOo"/>
         <segue reference="IqC-BP-Elc"/>
+        <segue reference="35m-L7-GOo"/>
     </inferredMetricsTieBreakers>
 </document>
