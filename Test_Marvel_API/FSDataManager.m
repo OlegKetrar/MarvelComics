@@ -275,6 +275,38 @@
 					   failure:failure];
 }
 
+- (nullable NSURLSessionDataTask *)getCharactersByComic:(FSComic *)comic
+											 withOffset:(NSUInteger)offset
+												success:(nullable void(^)(NSUInteger total, NSUInteger count))success
+												failure:(nullable void(^)(NSUInteger statusCode))failure {
+	
+	NSString *path = [self.apiPattern stringByAppendingFormat:@"comics/%@/characters", comic.id];
+	
+	NSLog(@"comic id = %@", comic.id);
+	
+	NSDictionary *params = @{ @"offset"  : @(offset),
+							  @"limit"	 : @(self.batchSize),
+							  @"orderBy" : @"name" };
+	
+	void (^successBlock)(NSURLSessionDataTask*, id) = ^(NSURLSessionDataTask *task, id responseObject) {
+		
+		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+				 forEntityName:@"Character"
+				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+					for (FSCharacter *character in results) {
+						[comic addCharactersObject:character];
+					}
+					
+					if (success) {
+						NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
+						success(total, results.count);
+					}
+				}];
+	};
+	
+	return [self getDataAtPath:path withParameters:params success:successBlock failure:failure];
+}
+
 #pragma mark - GET Comics
 
 - (nullable NSURLSessionDataTask *)getComicsWithOffset:(NSUInteger)offset

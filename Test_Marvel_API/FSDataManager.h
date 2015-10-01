@@ -46,12 +46,12 @@ NS_ASSUME_NONNULL_BEGIN
 										withSuccess:(nullable void(^)(FSCharacter *character))success
 											failure:(nullable void(^)(NSUInteger statusCode))failure;
 
-//---------------comics----------------------------------------------------------------------
-- (nullable NSURLSessionDataTask *)getComicsByCharacter:(FSCharacter *)character
+- (nullable NSURLSessionDataTask *)getCharactersByComic:(FSComic *)comic
 											 withOffset:(NSUInteger)offset
 												success:(nullable void(^)(NSUInteger total, NSUInteger count))success
 												failure:(nullable void(^)(NSUInteger statusCode))failure;
 
+//---------------comics----------------------------------------------------------------------
 - (nullable NSURLSessionDataTask *)getComicsWithOffset:(NSUInteger)offset
 											   success:(nullable void(^)(NSUInteger total, NSUInteger count))success
 											   failure:(nullable void(^)(NSUInteger statusCode))failure;
@@ -59,6 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSURLSessionDataTask *)getComicById:(NSUInteger)comicId
 									withSuccess:(nullable void(^)(FSComic *comic))success
 										failure:(nullable void(^)(NSUInteger statusCode))failure;
+
+- (nullable NSURLSessionDataTask *)getComicsByCharacter:(FSCharacter *)character
+											 withOffset:(NSUInteger)offset
+												success:(nullable void(^)(NSUInteger total, NSUInteger count))success
+												failure:(nullable void(^)(NSUInteger statusCode))failure;
 
 //---------------other-----------------------------------------------------------------------
 - (NSURLSessionDataTask *)loadImageFromURL:(NSURL *)url

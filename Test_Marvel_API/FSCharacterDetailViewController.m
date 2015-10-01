@@ -15,6 +15,7 @@
 #import "FSCharacter.h"
 
 #import "FSPageContainer.h"
+#import "FSComicDetailViewController.h"
 
 @interface FSCharacterDetailViewController ()
 
@@ -277,6 +278,14 @@
 		
 		if (urlString)
 			pageVC.imageURLs = @[urlString];
+	}
+	else if ([segue.identifier isEqualToString:@"showComic"]) {
+		
+		NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+		FSComic *selectedComic = [self.fetchedResultsController objectAtIndexPath:indexPath];
+		
+		FSComicDetailViewController *dvc = segue.destinationViewController;
+		dvc.comic = selectedComic;
 	}
 }
 
