@@ -41,6 +41,8 @@
 
 @end
 
+//TODO: parse 1 to many & many to many relationships
+
 @implementation FSDataManager
 
 @synthesize managedObjectModel = _managedObjectModel;
