@@ -10,13 +10,13 @@ Build requirements:
 
 Some screenshots of the app
 - portrait orientation
-![Alt text](Screenshots/Screenshots/teams.png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshots/characters.png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshots/character_detail.png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshots/comic_detail.png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshots/image_viewer.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/teams.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/characters.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/character_detail.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/comic_detail.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/image_viewer.png?raw=true "Optional Title")
 
 - landscape orientation
-![Alt text](/Screenshots/Screenshots/character_detail_landscape.png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshots/comic_detail_landscape.png?raw=true "Optional Title")
-![Alt text](/Screenshots/Screenshots/all_characters_landscape.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/character_detail_landscape.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/comic_detail_landscape.png?raw=true "Optional Title")
+![Alt text](/../Screenshots/Screenshots/all_characters_landscape.png?raw=true "Optional Title")
