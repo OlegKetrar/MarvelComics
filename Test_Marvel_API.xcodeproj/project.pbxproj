@@ -21,6 +21,14 @@
 		474291621BB0B42700D7E757 /* FSCharactersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 474291611BB0B42700D7E757 /* FSCharactersViewController.m */; settings = {ASSET_TAGS = (); }; };
 		474291651BB1480000D7E757 /* FSCharacterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 474291641BB1480000D7E757 /* FSCharacterDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 476F45351BAEBE9A00E3E638 /* TableViewController.m */; };
+		47AA3AA01BBED934005A90B2 /* all_characters_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A981BBED934005A90B2 /* all_characters_landscape.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA11BBED934005A90B2 /* character_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A991BBED934005A90B2 /* character_detail.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA21BBED934005A90B2 /* character_detail_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9A1BBED934005A90B2 /* character_detail_landscape.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA31BBED934005A90B2 /* characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9B1BBED934005A90B2 /* characters.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA41BBED934005A90B2 /* comic_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9C1BBED934005A90B2 /* comic_detail.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA51BBED934005A90B2 /* comic_detail_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9D1BBED934005A90B2 /* comic_detail_landscape.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA61BBED934005A90B2 /* image_viewer.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9E1BBED934005A90B2 /* image_viewer.png */; settings = {ASSET_TAGS = (); }; };
+		47AA3AA71BBED934005A90B2 /* teams.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9F1BBED934005A90B2 /* teams.png */; settings = {ASSET_TAGS = (); }; };
 		47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */; };
 		47B3DA6F1BAC879600970D12 /* FSCharactersByTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6E1BAC879600970D12 /* FSCharactersByTeamViewController.m */; };
 		47B3DA711BAC8E4700970D12 /* Teams.json in Resources */ = {isa = PBXBuildFile; fileRef = 47B3DA701BAC8E4700970D12 /* Teams.json */; };
@@ -72,6 +80,14 @@
 		474291641BB1480000D7E757 /* FSCharacterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharacterDetailViewController.m; sourceTree = "<group>"; };
 		476F45341BAEBE9A00E3E638 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		476F45351BAEBE9A00E3E638 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		47AA3A981BBED934005A90B2 /* all_characters_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all_characters_landscape.png; sourceTree = "<group>"; };
+		47AA3A991BBED934005A90B2 /* character_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = character_detail.png; sourceTree = "<group>"; };
+		47AA3A9A1BBED934005A90B2 /* character_detail_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = character_detail_landscape.png; sourceTree = "<group>"; };
+		47AA3A9B1BBED934005A90B2 /* characters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = characters.png; sourceTree = "<group>"; };
+		47AA3A9C1BBED934005A90B2 /* comic_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comic_detail.png; sourceTree = "<group>"; };
+		47AA3A9D1BBED934005A90B2 /* comic_detail_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comic_detail_landscape.png; sourceTree = "<group>"; };
+		47AA3A9E1BBED934005A90B2 /* image_viewer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_viewer.png; sourceTree = "<group>"; };
+		47AA3A9F1BBED934005A90B2 /* teams.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teams.png; sourceTree = "<group>"; };
 		47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamsViewController.h; sourceTree = "<group>"; };
 		47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamsViewController.m; sourceTree = "<group>"; };
 		47B3DA6D1BAC879600970D12 /* FSCharactersByTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharactersByTeamViewController.h; sourceTree = "<group>"; };
@@ -210,9 +226,25 @@
 			name = base;
 			sourceTree = "<group>";
 		};
+		47AA3A971BBED934005A90B2 /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				47AA3A981BBED934005A90B2 /* all_characters_landscape.png */,
+				47AA3A991BBED934005A90B2 /* character_detail.png */,
+				47AA3A9A1BBED934005A90B2 /* character_detail_landscape.png */,
+				47AA3A9B1BBED934005A90B2 /* characters.png */,
+				47AA3A9C1BBED934005A90B2 /* comic_detail.png */,
+				47AA3A9D1BBED934005A90B2 /* comic_detail_landscape.png */,
+				47AA3A9E1BBED934005A90B2 /* image_viewer.png */,
+				47AA3A9F1BBED934005A90B2 /* teams.png */,
+			);
+			path = Screenshots;
+			sourceTree = "<group>";
+		};
 		47BACADB1BAAB273005B2F61 = {
 			isa = PBXGroup;
 			children = (
+				47AA3A971BBED934005A90B2 /* Screenshots */,
 				47BACAE61BAAB273005B2F61 /* Test_Marvel_API */,
 				47BACAE51BAAB273005B2F61 /* Products */,
 				085CD11181ED6B2DE2F4FE96 /* Pods */,
@@ -328,10 +360,18 @@
 			files = (
 				47DD4B8A1BB5BE5D00A6776D /* ImageContainer.storyboard in Resources */,
 				4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */,
+				47AA3AA61BBED934005A90B2 /* image_viewer.png in Resources */,
 				47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */,
+				47AA3AA71BBED934005A90B2 /* teams.png in Resources */,
+				47AA3AA41BBED934005A90B2 /* comic_detail.png in Resources */,
 				47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */,
+				47AA3AA01BBED934005A90B2 /* all_characters_landscape.png in Resources */,
 				47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */,
+				47AA3AA11BBED934005A90B2 /* character_detail.png in Resources */,
+				47AA3AA51BBED934005A90B2 /* comic_detail_landscape.png in Resources */,
+				47AA3AA31BBED934005A90B2 /* characters.png in Resources */,
 				47B3DA711BAC8E4700970D12 /* Teams.json in Resources */,
+				47AA3AA21BBED934005A90B2 /* character_detail_landscape.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
