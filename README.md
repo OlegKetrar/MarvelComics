@@ -10,5 +10,4 @@ Build requirements:
 
 Some screenshots of the working app
 - portrait orientation
-- 
-<img src="/../Screenshots/Screenshots/teams.png" width="200" height="200"/>
+<img src="/../Screenshots/Screenshots/teams.png" width="250" height="445"/>
