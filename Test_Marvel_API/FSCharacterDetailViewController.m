@@ -125,6 +125,8 @@
 	self.comicsIndicatorView = comicsIndicatorView;
 	[self.comicsIndicatorView startAnimating];
 	
+	self.collectionView.hidden = YES;
+	 
 	[self shouldRequestMoreData];
 }
 
@@ -201,14 +203,17 @@
 		}
 
 		[weakSelf.comicsIndicatorView stopAnimating];
+		self.collectionView.hidden = NO;
 	};
 	
 	void (^failureBlock)(NSUInteger) = ^(NSUInteger statusCode) {
 		if (statusCode == 500) {
 			[weakSelf shouldRequestMoreData];
 		}
-		else
+		else {
 			NSLog(@"error with code %ld", statusCode);
+			self.collectionView.hidden = NO;
+		}
 	};
 	
 	self.currentDataTask = [[FSDataManager sharedManager] getComicsByCharacter:self.character

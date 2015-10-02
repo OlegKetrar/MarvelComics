@@ -27,9 +27,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *relatedLabel;
 @property (weak, nonatomic) IBOutlet UILabel *creatorsLabel;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *relatedLabelConstraint;
-
 @property (nonatomic) BOOL loadMore;
 @property (nonatomic) NSUInteger currentOffset;
 @property (nonatomic) NSURLSessionDataTask *currentDataTask;
@@ -89,40 +86,48 @@
 	
 	CGFloat verticalOffset = self.navigationController.navigationBar.frame.size.height;
 	verticalOffset += self.navigationController.navigationBar.frame.origin.y;
-	verticalOffset += self.nameBackgroundView.frame.size.height;
-	
-	scrollInsets.top = verticalOffset;
-	
-	self.nameConstraint.constant = self.navigationController.navigationBar.frame.size.height;
-	self.nameConstraint.constant += self.navigationController.navigationBar.frame.origin.y;
 	
 	if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+		
+			//name background Visual Effect View
+		self.navigationItem.title = self.nameLabel.text;
+		
 			// collection view
 		flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-		collectionInsets.top = self.navigationController.navigationBar.frame.size.height;
 		self.collectionView.alwaysBounceVertical = YES;
 		self.collectionView.alwaysBounceHorizontal = NO;
 		
-			// scroll view 
-		self.relatedLabelConstraint.constant = - self.tabBarController.tabBar.frame.size.height;
-		scrollInsets.bottom = self.tabBarController.tabBar.frame.size.height + self.relatedBackgroundView.frame.size.height;
+			// scroll view & collection view content insets
+		verticalOffset += self.relatedBackgroundView.frame.size.height;
+		scrollInsets.top = verticalOffset;
+		scrollInsets.bottom = self.tabBarController.tabBar.frame.size.height;
+		
+		self.collectionView.contentInset = scrollInsets;
+		self.collectionView.scrollIndicatorInsets = scrollInsets;
+		self.scrollView.contentInset = scrollInsets;
 	}
 	else {
+		
+			//name background Visual Effect View
+		self.navigationItem.title = @"";
+
 			//collection view
 		flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-		collectionInsets.top = 0;
 		self.collectionView.alwaysBounceHorizontal = YES;
 		self.collectionView.alwaysBounceVertical = NO;
+
+		collectionInsets.top = 0;
+		collectionInsets.bottom = 0;
+		self.collectionView.contentInset = collectionInsets;
+		self.collectionView.scrollIndicatorInsets = collectionInsets;
 		
 			// scroll view
-		self.relatedLabelConstraint.constant = 0;
+		verticalOffset += self.nameBackgroundView.frame.size.height;
+		scrollInsets.top = verticalOffset;
 		scrollInsets.bottom = self.relatedBackgroundView.frame.size.height;
+		
+		self.scrollView.contentInset = scrollInsets;
 	}
-	
-	self.collectionView.contentInset = collectionInsets;
-	self.collectionView.scrollIndicatorInsets = collectionInsets;
-	
-	self.scrollView.contentInset = scrollInsets;
 }
 
 - (NSManagedObjectContext *)managedObjectContext {

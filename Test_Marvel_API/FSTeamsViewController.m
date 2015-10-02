@@ -15,7 +15,7 @@
 
 #import "FSCharactersByTeamViewController.h"
 
-@interface FSTeamsViewController ()
+@interface FSTeamsViewController () <UICollectionViewDelegateFlowLayout>
 
 @end
 
@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+	 
 	self.navigationItem.title = @"Marvel Titanic Teams";
 	self.tabBarController.tabBar.tintColor = [UIColor whiteColor];
 	
