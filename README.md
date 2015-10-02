@@ -10,14 +10,14 @@ Build requirements:
 
 Some screenshots of the working app:
 
-<p> Portrait orientation </p>
+<p> - Portrait orientation: </p>
 <img src="/../Screenshots/Screenshots/teams.png" width="250" height="445"/>
 <img src="/../Screenshots/Screenshots/characters.png" width="250" height="445"/>
 <img src="/../Screenshots/Screenshots/character_detail.png" width="250" height="445"/>
 <img src="/../Screenshots/Screenshots/comic_detail.png" width="250" height="445"/>
 <img src="/../Screenshots/Screenshots/image_viewer.png" width="250" height="445"/>
 
-<p> Landscape orientation </p>
+<p> - Landscape orientation: </p>
 <img src="/../Screenshots/Screenshots/all_characters_landscape.png" width="445" height="250"/>
 <img src="/../Screenshots/Screenshots/character_detail_landscape.png" width="445" height="250"/>
 <img src="/../Screenshots/Screenshots/comic_detail_landscape.png" width="445" height="250"/>
