@@ -15,10 +15,4 @@
 	return [self.thumbnail.path stringByAppendingFormat:@".%@", self.thumbnail.extension];
 }
 
-- (void)configureWithResponse:(NSDictionary *)response {
-	self.id = [response objectForKey:@"id"];
-	self.name = [response objectForKey:@"name"];
-	self.text = [response objectForKey:@"description"];
-}
-
 @end

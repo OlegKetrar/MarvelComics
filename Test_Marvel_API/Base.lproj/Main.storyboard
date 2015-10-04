@@ -361,7 +361,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHD-k0-Pjo" userLabel="container">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="321"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPl-uG-Rff">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPl-uG-Rff">
                                         <rect key="frame" x="8" y="0.0" width="584" height="321"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35i-3g-2eh" userLabel="image_text_container">
@@ -802,7 +802,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="35m-L7-GOo"/>
         <segue reference="IqC-BP-Elc"/>
+        <segue reference="35m-L7-GOo"/>
     </inferredMetricsTieBreakers>
 </document>

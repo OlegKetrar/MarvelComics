@@ -130,6 +130,11 @@
 	[self shouldRequestMoreData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self updateViewConstraints];
+}
+
 - (void)updateViewConstraints {
 	
 	[super updateViewConstraints];

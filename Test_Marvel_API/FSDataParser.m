@@ -9,11 +9,15 @@
 #import "FSDataParser.h"
 @import CoreData;
 
+// TODO: subclass of NSOperation, child managedObjectContext
+
 @interface FSDataParser ()
 
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @property (nonatomic) NSMutableDictionary *parsingParams;
-@property (nonatomic) NSMutableDictionary *identificationAttributes;
+@property (nonatomic) NSMutableDictionary *relationsParams;
+@property (nonatomic) NSMutableDictionary *identificationParams;
 
 @property (nonatomic) NSError *parseError;
 
@@ -30,158 +34,229 @@
 	self = [super init];
 	if (self) {
 		self.managedObjectContext = context;
+		
 		self.parsingParams = [NSMutableDictionary dictionary];
-		self.identificationAttributes = [NSMutableDictionary dictionary];
+		self.identificationParams = [NSMutableDictionary dictionary];
+		self.relationsParams = [NSMutableDictionary dictionary];
 	}
 	return self;
 }
 
-- (void)addParsingForEntity:(NSString *)entityName
-			 identification:(NSArray *)attributes
-				 parameters:(NSDictionary *)params {
+- (void)removeParsingForEntity:(NSString *)entityName {
+	[self.parsingParams removeObjectForKey:entityName];
+	[self.identificationParams removeObjectForKey:entityName];
+	[self.relationsParams removeObjectForKey:entityName];
+}
+
+- (void)addParsingForEntityForName:(NSString *)entityName
+				withIdentification:(nullable NSArray *)attributes
+					 relationships:(nullable NSDictionary *)relationships
+						parameters:(NSDictionary *)params {
 	
 	NSDictionary *existingParsing = [self.parsingParams objectForKey:entityName];
-	NSArray *existingAttributes = [self.identificationAttributes objectForKey:entityName];
+	NSArray *existingAttributes = [self.identificationParams objectForKey:entityName];
+	NSDictionary *existingRelation = [self.relationsParams objectForKey:entityName];
 	
 	if (existingParsing) {
-		if ( ![existingParsing isEqualToDictionary:params] ) {
-			[self.parsingParams removeObjectForKey:entityName];
-		}
+		[self.parsingParams removeObjectForKey:entityName];
 	}
 	
 	if (existingAttributes) {
-		if ( ![existingAttributes isEqualToArray:attributes]) {
-			[self.identificationAttributes removeObjectForKey:entityName];
-		}
+		[self.identificationParams removeObjectForKey:entityName];
+	}
+	
+	if (existingRelation) {
+		[self.relationsParams removeObjectForKey:entityName];
 	}
 	
 	[self.parsingParams setObject:params forKey:entityName];
-	[self.identificationAttributes setObject:attributes forKey:entityName];
-}
-
-- (void)removeParsingForEntity:(NSString *)entityName {
-	[self.parsingParams removeObjectForKey:entityName];
-	[self.identificationAttributes removeObjectForKey:entityName];
-}
-
-- (void)parseData:(NSArray *)data
-	forEntityName:(NSString *)entityName
-   withComplition:(nullable void(^)(NSArray <__kindof NSManagedObject *> * _Nullable results))complition {
 	
-	if (self.parseError) {
-		self.parseError = nil;
+	if (attributes) {
+		[self.identificationParams setObject:attributes forKey:entityName];
 	}
 	
-	NSMutableArray *objects = [NSMutableArray array];
+	if (relationships) {
+		[self.relationsParams setObject:relationships forKey:entityName];
+	}
+}
+
+- (NSArray *)parseData:(NSArray *)data
+		 forEntityName:(NSString *)entityName
+		updateExisting:(BOOL)update {
+	
+	NSMutableArray *results = [NSMutableArray array];
 	
 	for (NSDictionary *dictionary in data) {
-		NSManagedObject *parsedObject = [self objectForEntityForName:entityName withDictionary:dictionary];
+		NSManagedObject *managedObject = [self parseEntityForName:entityName
+														 withData:dictionary
+												   updateExisting:update];
 		
-		if ([self validateObject:parsedObject forEntityName:entityName]) {
-			[self.managedObjectContext insertObject:parsedObject];
-			[objects addObject:parsedObject];
+		if (managedObject) {
+			[results addObject:managedObject];
 		}
 	}
 	
-//	[self.managedObjectContext save:nil];
-	
-	if (self.parseError) {
-		return;
-	}
-	
-	if (complition) {
-		complition(objects);
-	}
+	return results;
 }
 
-- (NSManagedObject *)objectForEntityForName:(NSString *)entityName
-							 withDictionary:(NSDictionary *)dictionary {
+- (nullable NSManagedObject *)parseEntityForName:(NSString *)entityName
+										withData:(NSDictionary *)data
+								  updateExisting:(BOOL)update {
 	
-	if (self.parseError) {
-		return nil;
-	}
+	NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:entityName
+																   inManagedObjectContext:self.managedObjectContext];
 	
-	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
-														 inManagedObjectContext:self.managedObjectContext];
-	
-	NSManagedObject *managedObject = [[NSManagedObject alloc] initWithEntity:entity
-											  insertIntoManagedObjectContext:nil];
-	
-		//TODO: handle error if parsing for entity is not exist
-		//TODO: handle error if dictionary is nil
 	NSDictionary *currentParsing = [self.parsingParams objectForKey:entityName];
+	NSDictionary *currentRelations = [self.relationsParams objectForKey:entityName];
 	
-	if ( currentParsing == nil ) {
-		self.parseError = [[NSError alloc] initWithDomain:@"empty parsing" code:0 userInfo:nil];
+	if (!data) {
+		NSLog(@"FSDataParser: input data for entity %@ is empty", entityName);
 		return nil;
 	}
 	
-	if ( dictionary == nil ) {
-		self.parseError = [[NSError alloc] initWithDomain:@"empty data" code:1 userInfo:nil];
+	if (!currentParsing) {
+		NSLog(@"FSDataParser: parsing for entity %@ is empty", entityName);
 		return nil;
 	}
 	
-		//TODO: validate dictionary (may content NSNull values)
-	NSMutableDictionary *currentObject = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-	for (NSString *key in [currentObject allKeys]) {
-		if ([[currentObject valueForKey:key] isKindOfClass:[NSNull class]])
-			[currentObject removeObjectForKey:key];
+	//remove keys which contains NSNull values
+	NSMutableDictionary *dataDictionary = [NSMutableDictionary dictionaryWithDictionary:data];
+	for (NSString *dataKey in [dataDictionary allKeys]) {
+		if ([[dataDictionary valueForKey:dataKey] isKindOfClass:[NSNull class]])
+			[dataDictionary removeObjectForKey:dataKey];
 	}
 	
-		//TODO: add more flexible relationships parsing
-	NSArray <NSString *> *keysToParse = [currentParsing allKeys];
-	for (NSString *key in keysToParse) {
-		id value = [currentObject valueForKey:key];
-	
-			// setup relationship (1 to 1)
-		if ([value isKindOfClass:[NSDictionary class]]) {
-			[managedObject setValue:[self objectForEntityForName:[currentParsing valueForKey:key] withDictionary:value]
-							 forKey:key];
+	for (NSString *dataKey in [currentParsing allKeys]) {
+		
+		NSString *objectKey = [currentParsing valueForKeyPath:dataKey];
+		NSString *relationEntity = [currentRelations valueForKeyPath:objectKey];
+		
+		id value = [dataDictionary valueForKeyPath:dataKey];
+		
+		if (relationEntity) { // parse like relationship
+			
+//			id relationProperty = [managedObject valueForKey:objectKey];
+//			if ([relationProperty isKindOfClass:[NSSet class]] || [relationProperty isKindOfClass:[NSOrderedSet class]]) {
+			
+			if ([value isKindOfClass:[NSArray class]]) { // relationship "to many"
+				
+				NSArray *valueArray = value;
+				for (id someValue in valueArray) {
+					
+					//TODO: may be NSOrderedSet
+					NSMutableSet *propertySet = [managedObject mutableSetValueForKeyPath:objectKey];
+					NSManagedObject *managedValue = [self parseEntityForName:relationEntity
+																	withData:someValue
+															  updateExisting:update];
+					
+					if (managedValue) {
+						[propertySet addObject:managedValue];
+					}
+				}
+			}
+			else { // relationship "to one"
+				NSManagedObject *managedValue = [self parseEntityForName:relationEntity
+																withData:value
+														  updateExisting:update];
+				
+				if (managedValue) {
+					[managedObject setValue:managedValue forKeyPath:objectKey];
+				}
+			}
 		}
-			// setup relationship (1 to many)
-		else if ([value isKindOfClass:[NSArray class]]) {
-//			NSSet *set = [managedObject valueForKey:key];
-//			
-//			if (!set) {
-//				set = [NSSet set]
-//			}
+		else { // parse like attribute
+			[managedObject setValue:value forKeyPath:objectKey];
 		}
-			// setup normal property
-		else
-			[managedObject setValue:value forKey:[currentParsing valueForKey:key]];
 	}
 	
- 	return managedObject;
+	return [self validateManagedObject:managedObject forName:entityName updateExisting:update];
 }
 
-- (BOOL)validateObject:(NSManagedObject *)object forEntityName:(NSString *)entityName {
+- (nullable NSManagedObject *)validateManagedObject:(NSManagedObject *)insertedObject
+											forName:(NSString *)entityName
+									 updateExisting:(BOOL)update {
 	
-	if (self.parseError) {
-		return NO;
+	NSArray <NSString *> *identificationAttributes = [self.identificationParams objectForKey:entityName];
+	
+	// if identification attributes are not set
+	if (!identificationAttributes) {
+		return insertedObject;
 	}
 	
-	NSArray *properties = [self.identificationAttributes objectForKey:entityName];
-	NSString *predicateString = [NSString string];
+	if (!insertedObject) {
+		NSLog(@"entity %@", entityName);
+		return nil;
+	}
 	
-	for (NSString *someProperty in properties) {
-		id propertyValue = [object valueForKey:someProperty];
-		predicateString = [predicateString stringByAppendingFormat:@"%@ = %@", someProperty, propertyValue];
+	// create predicate string to determine uniqueness of insertedObject by identification attributes
+	NSString *predicateString = [NSString string];
+	for (NSString *attribute in identificationAttributes) {
+		id attributeValue = [insertedObject valueForKey:attribute];
 		
-		if ( ![someProperty isEqual:[properties lastObject]]) {
+		if ([attributeValue isKindOfClass:[NSString class]]) {
+			attributeValue = [NSString stringWithFormat:@"'%@'", attributeValue];
+		}
+		
+		predicateString = [predicateString stringByAppendingFormat:@"%@ == %@", attribute, attributeValue];
+		
+		if ( ![attribute isEqual:[identificationAttributes lastObject]]) {
 			predicateString = [predicateString stringByAppendingString:@" AND "];
 		}
 	}
 	
+	// create fetch request with predicate
 	NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:entityName];
-	request.propertiesToFetch = properties;
+	request.propertiesToFetch = identificationAttributes;
+	request.predicate = [NSPredicate predicateWithFormat:predicateString];
 	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateString];
-	request.predicate = predicate;
+	// looking for objects with the same attributes of identification
+	if ([self.managedObjectContext countForFetchRequest:request error:nil] > 1) { //insertedObject is not unique
+		
+		NSManagedObject *originalObject = nil;
+		
+		if (update) { // find original object and update its attributes & relationships
+		
+			originalObject = [[self.managedObjectContext executeFetchRequest:request error:nil] firstObject];
+		
+			[self updateManagedObject:originalObject
+					withManagedObject:insertedObject
+					 forEntityForName:entityName];
+		}
+		
+		[self.managedObjectContext deleteObject:insertedObject];
+		return originalObject;
+	}
+	else { // insertedObject is unique, return it
+		return insertedObject;
+	}
+}
+
+- (void)updateManagedObject:(NSManagedObject *)updateTo
+		  withManagedObject:(NSManagedObject *)updateFrom
+		   forEntityForName:(NSString *)entityName {
 	
-	if ([self.managedObjectContext countForFetchRequest:request error:nil])
-		return NO;
-	else
-		return YES;
+	// which attributes needs to update
+	NSDictionary *currentParsing = [self.parsingParams objectForKey:entityName];
+	NSArray <NSString *> *attributesToUpdate = [currentParsing allValues];
+	
+	for (NSString *attribute in attributesToUpdate) {
+		
+		id value = [updateFrom valueForKey:attribute];
+		
+		//relationship "to many"
+		if ([value isKindOfClass:[NSSet class]]) { // set
+			
+			NSMutableSet *attributeSet = [updateTo mutableSetValueForKey:attribute];
+			[attributeSet addObjectsFromArray:[[updateFrom valueForKey:attribute] allObjects]];
+		}
+		else if ([value isKindOfClass:[NSOrderedSet class]]) { // ordered set
+			
+			NSMutableOrderedSet *values = [updateTo mutableOrderedSetValueForKey:attribute];
+			[values addObjectsFromArray:[[updateFrom valueForKey:attribute] array]];
+		}
+		else // attribute or relationship "to one"
+			[updateTo setValue:value forKey:attribute];
+	}
 }
 
 @end

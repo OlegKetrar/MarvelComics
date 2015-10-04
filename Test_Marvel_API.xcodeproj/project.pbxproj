@@ -11,7 +11,6 @@
 		4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */; };
 		4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB71BAAED4700B37CD5 /* FSCharacter.m */; };
 		4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABA1BAAED4700B37CD5 /* FSTeam.m */; };
-		4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABD1BAAED4700B37CD5 /* FSComic.m */; };
 		4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */; };
 		4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */; };
 		4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */; };
@@ -33,6 +32,10 @@
 		47DD4B8A1BB5BE5D00A6776D /* ImageContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */; settings = {ASSET_TAGS = (); }; };
 		47DD4B8D1BB5BF3E00A6776D /* FSImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		47DD4B901BB5C14B00A6776D /* FSPageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */; settings = {ASSET_TAGS = (); }; };
+		47DFFA9E1BC1A7DA00F601D6 /* FSComic+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DFFA971BC1A7DA00F601D6 /* FSComic+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		47DFFA9F1BC1A7DA00F601D6 /* FSComic.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DFFA991BC1A7DA00F601D6 /* FSComic.m */; settings = {ASSET_TAGS = (); }; };
+		47DFFAA01BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DFFA9B1BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		47DFFAA11BC1A7DA00F601D6 /* FSCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DFFA9D1BC1A7DA00F601D6 /* FSCreator.m */; settings = {ASSET_TAGS = (); }; };
 		47FAA3731BBD49470096A873 /* FSComicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FAA3721BBD49470096A873 /* FSComicDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		FAB53BCB7A595E0EE790D5DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A818CAF43442C896C51E2CB /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -52,9 +55,6 @@
 		4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSTeam+CoreDataProperties.h"; sourceTree = "<group>"; };
 		4719CAB91BAAED4700B37CD5 /* FSTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeam.h; sourceTree = "<group>"; };
 		4719CABA1BAAED4700B37CD5 /* FSTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeam.m; sourceTree = "<group>"; };
-		4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComic+CoreDataProperties.h"; sourceTree = "<group>"; };
-		4719CABC1BAAED4700B37CD5 /* FSComic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComic.h; sourceTree = "<group>"; };
-		4719CABD1BAAED4700B37CD5 /* FSComic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComic.m; sourceTree = "<group>"; };
 		4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDataManager.h; sourceTree = "<group>"; };
 		4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDataManager.m; sourceTree = "<group>"; };
 		4719CAC51BAAFAE400B37CD5 /* NSString+FSMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FSMD5.h"; sourceTree = "<group>"; };
@@ -91,6 +91,14 @@
 		47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSImageDetailViewController.m; sourceTree = "<group>"; };
 		47DD4B8E1BB5C14B00A6776D /* FSPageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPageContainer.h; sourceTree = "<group>"; };
 		47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContainer.m; sourceTree = "<group>"; };
+		47DFFA961BC1A7DA00F601D6 /* FSComic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComic+CoreDataProperties.h"; sourceTree = "<group>"; };
+		47DFFA971BC1A7DA00F601D6 /* FSComic+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSComic+CoreDataProperties.m"; sourceTree = "<group>"; };
+		47DFFA981BC1A7DA00F601D6 /* FSComic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComic.h; sourceTree = "<group>"; };
+		47DFFA991BC1A7DA00F601D6 /* FSComic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComic.m; sourceTree = "<group>"; };
+		47DFFA9A1BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSCreator+CoreDataProperties.h"; sourceTree = "<group>"; };
+		47DFFA9B1BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSCreator+CoreDataProperties.m"; sourceTree = "<group>"; };
+		47DFFA9C1BC1A7DA00F601D6 /* FSCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCreator.h; sourceTree = "<group>"; };
+		47DFFA9D1BC1A7DA00F601D6 /* FSCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCreator.m; sourceTree = "<group>"; };
 		47FAA3711BBD49470096A873 /* FSComicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComicDetailViewController.h; sourceTree = "<group>"; };
 		47FAA3721BBD49470096A873 /* FSComicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComicDetailViewController.m; sourceTree = "<group>"; };
 		6A818CAF43442C896C51E2CB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,8 +162,8 @@
 				47B3DA6D1BAC879600970D12 /* FSCharactersByTeamViewController.h */,
 				47B3DA6E1BAC879600970D12 /* FSCharactersByTeamViewController.m */,
 				474291631BB1480000D7E757 /* FSCharacterDetailViewController.h */,
-				47FAA3711BBD49470096A873 /* FSComicDetailViewController.h */,
 				474291641BB1480000D7E757 /* FSCharacterDetailViewController.m */,
+				47FAA3711BBD49470096A873 /* FSComicDetailViewController.h */,
 				47FAA3721BBD49470096A873 /* FSComicDetailViewController.m */,
 			);
 			name = Controller;
@@ -194,9 +202,14 @@
 				4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */,
 				4719CAB61BAAED4700B37CD5 /* FSCharacter.h */,
 				4719CAB71BAAED4700B37CD5 /* FSCharacter.m */,
-				4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */,
-				4719CABC1BAAED4700B37CD5 /* FSComic.h */,
-				4719CABD1BAAED4700B37CD5 /* FSComic.m */,
+				47DFFA961BC1A7DA00F601D6 /* FSComic+CoreDataProperties.h */,
+				47DFFA971BC1A7DA00F601D6 /* FSComic+CoreDataProperties.m */,
+				47DFFA981BC1A7DA00F601D6 /* FSComic.h */,
+				47DFFA991BC1A7DA00F601D6 /* FSComic.m */,
+				47DFFA9A1BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.h */,
+				47DFFA9B1BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.m */,
+				47DFFA9C1BC1A7DA00F601D6 /* FSCreator.h */,
+				47DFFA9D1BC1A7DA00F601D6 /* FSCreator.m */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -375,7 +388,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */,
 				47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */,
 				4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */,
 				4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */,
@@ -383,16 +395,20 @@
 				474291651BB1480000D7E757 /* FSCharacterDetailViewController.m in Sources */,
 				47FAA3731BBD49470096A873 /* FSComicDetailViewController.m in Sources */,
 				47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */,
+				47DFFAA11BC1A7DA00F601D6 /* FSCreator.m in Sources */,
 				4719CAD21BAB55DB00B37CD5 /* FSBaseCell.m in Sources */,
 				476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */,
 				4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */,
+				47DFFA9E1BC1A7DA00F601D6 /* FSComic+CoreDataProperties.m in Sources */,
 				4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */,
+				47DFFA9F1BC1A7DA00F601D6 /* FSComic.m in Sources */,
 				47BACAE91BAAB273005B2F61 /* main.m in Sources */,
 				4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */,
 				4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */,
 				47B3DA6F1BAC879600970D12 /* FSCharactersByTeamViewController.m in Sources */,
 				47DD4B8D1BB5BF3E00A6776D /* FSImageDetailViewController.m in Sources */,
 				4742915D1BB00C8900D7E757 /* FSDataParser.m in Sources */,
+				47DFFAA01BC1A7DA00F601D6 /* FSCreator+CoreDataProperties.m in Sources */,
 				47DD4B901BB5C14B00A6776D /* FSPageContainer.m in Sources */,
 				47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */,
 				4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */,

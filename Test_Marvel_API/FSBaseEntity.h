@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FSBaseEntity : NSManagedObject
 
 - (nullable NSString *)imageUrl;
-- (void)configureWithResponse:(NSDictionary *)response;
+
 @end
 
 NS_ASSUME_NONNULL_END

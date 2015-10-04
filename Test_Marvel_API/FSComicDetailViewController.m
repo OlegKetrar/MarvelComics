@@ -14,6 +14,8 @@
 #import "FSDataManager.h"
 #import "FSComic.h"
 #import "FSCharacter.h"
+#import "FSThumbnailImage.h"
+#import "FSCreator.h"
 
 @interface FSComicDetailViewController ()
 
@@ -53,13 +55,16 @@
 		self.descriptionLabel.text = @"Oops... Marvel has not provided a description :("
 									 " For more information, please visit www.marvel.com";
 	
-	self.creatorsLabel.text = @"Alan Patrik - director\n"
-							   "John Prinkle - designer\n"
-							   "Woody Alan - writter";
+	NSString *creatorsString = [NSString string];
+	for (FSCreator *creator in self.comic.creators) {
+		creatorsString = [creatorsString stringByAppendingFormat:@"%@ - %@\n", creator.name, creator.role];
+	}
 	
+	self.creatorsLabel.text = creatorsString;
+
 	self.imageView.layer.cornerRadius = 10;
-	self.imageView.layer.borderWidth = 1.0;
-	self.imageView.layer.borderColor = [UIColor grayColor].CGColor;
+//	self.imageView.layer.borderWidth = 1.0;
+//	self.imageView.layer.borderColor = [UIColor grayColor].CGColor;
 	self.imageView.layer.masksToBounds = YES;
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	
@@ -75,6 +80,11 @@
 										 }
 									 }];
 	[self shouldRequestMoreData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self updateViewConstraints];
 }
 
 - (void)updateViewConstraints {
@@ -254,8 +264,19 @@
 		FSPageContainer *pageVC = segue.destinationViewController;
 		NSString *urlString = [self.comic imageUrl];
 		
-		if (urlString)
-			pageVC.imageURLs = @[urlString];
+		NSArray *imageURLs = [NSArray array];
+		
+		if (urlString) {
+			imageURLs = [imageURLs arrayByAddingObject:urlString];
+		}
+		
+		if (self.comic.images.count) {
+			for (FSThumbnailImage *image in self.comic.images) {
+				imageURLs = [imageURLs arrayByAddingObject:[NSString stringWithFormat:@"%@", image]];
+			}
+		}
+		
+		pageVC.imageURLs = imageURLs;
 	}
 	else if ([segue.identifier isEqualToString:@"showCharacter"]) {
 		

@@ -17,9 +17,4 @@
 	return [NSString stringWithFormat:@"%@.%@", self.path, self.extension];
 }
 
-- (void)configureWithResponse:(NSDictionary *)response {
-	self.path = [response objectForKey:@"path"];
-	self.extension = [response objectForKey:@"extension"];
-}
-
 @end

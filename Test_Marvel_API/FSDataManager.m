@@ -85,31 +85,46 @@
 		self.parser = [FSDataParser parserWithManagedObjectContext:self.managedObjectContext];
 		
 			// configure parsing
-		[self.parser addParsingForEntity:@"Thumbnail"
-						  identification:@[@"path"]
-							  parameters:@{@"path"		: @"path",
-										   @"extension" : @"extension" }];
+		[self.parser addParsingForEntityForName:@"Thumbnail"
+							 withIdentification:nil
+								  relationships:nil
+									 parameters:@{@"path"	   : @"path",
+												  @"extension" : @"extension" }];
 		
-		[self.parser addParsingForEntity:@"Team"
-						  identification:@[@"id"]
-							  parameters:@{@"id"		  : @"id",
-										   @"name"		  : @"name",
-										   @"description" : @"text",
-										   @"thumbnail"   : @"Thumbnail" }];
+		[self.parser addParsingForEntityForName:@"Team"
+							 withIdentification:@[@"id"]
+								  relationships:@{@"thumbnail"   : @"Thumbnail" }
+									 parameters:@{@"id"		     : @"id",
+												  @"name"		 : @"name",
+												  @"description" : @"text",
+												  @"thumbnail"   : @"thumbnail"}];
 		
-		[self.parser addParsingForEntity:@"Character"
-						  identification:@[@"id"]
-							  parameters:@{@"id"		  : @"id",
-										   @"name"		  : @"name",
-										   @"description" : @"text",
-										   @"thumbnail"	  : @"Thumbnail" }];
+		[self.parser addParsingForEntityForName:@"Character"
+							 withIdentification:@[@"id"]
+								  relationships:@{@"thumbnail" : @"Thumbnail"}
+									 parameters:@{@"id"		     : @"id",
+												  @"name"		 : @"name",
+												  @"description" : @"text",
+												  @"thumbnail"	 : @"thumbnail" }];
 		
-		[self.parser addParsingForEntity:@"Comic"
-						  identification:@[@"id"]
-							  parameters:@{@"id"		  : @"id",
-										   @"title"		  : @"name",
-										   @"description" : @"text",
-										   @"thumbnail"	  : @"Thumbnail" }];
+		[self.parser addParsingForEntityForName:@"Comic"
+							 withIdentification:@[@"id"]
+								  relationships:@{@"thumbnail" : @"Thumbnail",
+												  @"images"    : @"Thumbnail",
+												  @"creators"  : @"Creator"}
+									 parameters:@{@"id"		        : @"id",
+												  @"title"		    : @"name",
+												  @"description"    : @"text",
+												  @"thumbnail"	    : @"thumbnail",
+												  @"images"         : @"images",
+												  @"creators.items" : @"creators"}];
+		
+		[self.parser addParsingForEntityForName:@"Creator"
+							 withIdentification:@[@"name", @"role"]
+								  relationships:nil
+									 parameters:@{@"name" : @"name",
+												  @"role" : @"role"}];
+		
 	}
 	return self;
 }
@@ -140,14 +155,14 @@
 		}
 		return;
 	}
-		
+
 	[self.parser parseData:[jsonObj objectForKey:@"Titanic"]
 			 forEntityName:@"Team"
-			withComplition:^(NSArray *results) {
-				if (complition) {
-					complition();
-				}
-			}];
+			updateExisting:NO];
+		
+	if (complition) {
+		complition();
+	}
 }
 
 #pragma mark - GET Characters
@@ -161,17 +176,16 @@
 							  @"orderBy" : @"name" };
 	
 	void (^successBlock)(NSURLSessionDataTask *task, id responseObject)
-					 = ^(NSURLSessionDataTask *task, id responseObject) {
+		= ^(NSURLSessionDataTask *task, id responseObject) {
 			
-		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-				 forEntityName:@"Character"
-				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
-					
-					if (success) {
-						NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
-						success(total, results.count);
-					}
-				}];
+			NSArray *results = [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+										forEntityName:@"Character"
+									   updateExisting:NO];
+			
+			if (success) {
+				NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
+				success(total, results.count);
+			}
 	};
 	
 	return [self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"characters"]
@@ -206,22 +220,18 @@
 			};
 		}
 		
-		/*NSURLSessionDataTask *task =*/ [self getCharacterByName:characterName
-												  withSuccess:^(FSCharacter * _Nonnull character) {
-													  character.team = team;
-													  addedCharacersCount++;
+		[self getCharacterByName:characterName
+					 withSuccess:^(FSCharacter * _Nonnull character) {
+						 character.team = team;
+						 addedCharacersCount++;
 													  
-													  NSLog(@"%@ -> %@", team.name, character.name);
+						 NSLog(@"%@ -> %@", team.name, character.name);
 			
-													  if (complitionBlock) complitionBlock();
-			
-												  } failure:^(NSUInteger statusCode) {
-//													  NSLog(@"status code %ld", statusCode);
-			
-													  if (complitionBlock)  complitionBlock();
-												  }];
-		
-//		NSLog(@"response: %@", task.originalRequest.URL.absoluteString);
+						 if (complitionBlock) complitionBlock();
+					 }
+						 failure:^(NSUInteger statusCode) {
+							 if (complitionBlock)  complitionBlock();
+						 }];
 	}
 }
 
@@ -232,20 +242,20 @@
 	void (^successBlock)(NSURLSessionDataTask *task, id responseObject);
 	
 	successBlock = ^(NSURLSessionDataTask *task, id responseObject) {
-		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-				 forEntityName:@"Character"
-				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
+		
+		NSArray *results = [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+									forEntityName:@"Character"
+								   updateExisting:NO];
 
-					if (results.count) {
-						if (success)
-							success([results firstObject]);
-					}
-					else {
-						//TODO: set up error
-						if (failure)
-							failure(9999);
-					}
-				}];
+		if (results.count) {
+			if (success)
+			success([results firstObject]);
+		}
+		else {
+			//TODO: set up error
+			if (failure)
+				failure(9999);
+		}
 	};
 	
 	return [self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"characters"]
@@ -261,14 +271,13 @@
 	void (^successBlock)(NSURLSessionDataTask *task, id responseObject);
 	
 	successBlock = ^(NSURLSessionDataTask *task, id responseObject) {
-		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-				 forEntityName:@"Character"
-				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
-					
-					if (success) {
-						success([results firstObject]);
-					}
-				}];
+		NSArray *results = [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+									forEntityName:@"Character"
+								   updateExisting:YES];
+		
+		if (success) {
+			success([results firstObject]);
+		}
 	};
 	
 	return [self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"characters"]
@@ -292,18 +301,18 @@
 	
 	void (^successBlock)(NSURLSessionDataTask*, id) = ^(NSURLSessionDataTask *task, id responseObject) {
 		
-		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-				 forEntityName:@"Character"
-				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
-					for (FSCharacter *character in results) {
-						[comic addCharactersObject:character];
-					}
-					
-					if (success) {
-						NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
-						success(total, results.count);
-					}
-				}];
+		NSArray *results = [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+									forEntityName:@"Character"
+								   updateExisting:NO];
+		
+		for (FSCharacter *character in results) {
+			[comic addCharactersObject:character];
+		}
+		
+		if (success) {
+			NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
+			success(total, results.count);
+		}
 	};
 	
 	return [self getDataAtPath:path withParameters:params success:successBlock failure:failure];
@@ -317,16 +326,15 @@
 	
 	void (^successBlock)(NSURLSessionDataTask *task, id responseObject);
 	successBlock = ^(NSURLSessionDataTask *task, id responseObject) {
+		
+		NSArray *results = [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+									forEntityName:@"Comic"
+								   updateExisting:NO];
 	
-		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-				 forEntityName:@"Comic"
-				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
-					
-					if (success) {
-						NSUInteger total = [[responseObject objectForKey:@"total"] unsignedIntegerValue];
-						success(total, results.count);
-					}
-				}];
+		if (success) {
+			NSUInteger total = [[responseObject objectForKey:@"total"] unsignedIntegerValue];
+			success(total, results.count);
+		}
 	};
 	
 	return [self getDataAtPath:[self.apiPattern stringByAppendingPathComponent:@"comics"]
@@ -348,18 +356,18 @@
 	
 	void (^successBlock)(NSURLSessionDataTask*, id) = ^(NSURLSessionDataTask *task, id responseObject) {
 		
-		[self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
-				 forEntityName:@"Comic"
-				withComplition:^(NSArray<__kindof NSManagedObject *> * _Nullable results) {
-					for (FSComic *comic in results) {
-						[character addComicsObject:comic];
-					}
-					
-					if (success) {
-						NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
-						success(total, results.count);
-					}
-				}];
+		NSArray *results = [self.parser parseData:[responseObject valueForKeyPath:@"data.results"]
+									forEntityName:@"Comic"
+								   updateExisting:NO];
+		
+		for (FSComic *comic in results) {
+			[character addComicsObject:comic];
+		}
+		
+		if (success) {
+			NSUInteger total = [[responseObject valueForKeyPath:@"data.total"] unsignedIntegerValue];
+			success(total, results.count);
+		}
 	};
 	
 	return [self getDataAtPath:path withParameters:params success:successBlock failure:failure];
@@ -543,19 +551,6 @@
 	[_managedObjectContext setPersistentStoreCoordinator:coordinator];
 	
 	return _managedObjectContext;
-}
-
-- (void)saveContext {
-	if (self.managedObjectContext != nil) {
-		NSError *error = nil;
-		if ([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
-			// Replace this implementation with code to handle the error appropriately.
-			// abort() causes the application to generate a crash log and terminate.
-			// You should not use this function in a shipping application, although it may be useful during development.
-			self.error = error;
-			return;
-		}
-	}
 }
 
 @end

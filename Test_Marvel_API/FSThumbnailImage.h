@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FSThumbnailImage : NSManagedObject
 
-- (void)configureWithResponse:(NSDictionary *)response;
-
 @end
 
 NS_ASSUME_NONNULL_END

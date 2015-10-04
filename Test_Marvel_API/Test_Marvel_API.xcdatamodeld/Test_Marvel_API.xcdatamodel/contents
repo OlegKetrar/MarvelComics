@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8175.2" systemVersion="15A279b" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A279b" minimumToolsVersion="Automatic">
     <entity name="BaseEntity" representedClassName="FSBaseEntity" isAbstract="YES" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,7 +12,13 @@
     </entity>
     <entity name="Comic" representedClassName="FSComic" parentEntity="BaseEntity" syncable="YES">
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="comics" inverseEntity="Character" syncable="YES"/>
+        <relationship name="creators" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Creator" inverseName="writtenComics" inverseEntity="Creator" syncable="YES"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="imageOwner" inverseEntity="Thumbnail" syncable="YES"/>
+    </entity>
+    <entity name="Creator" representedClassName="FSCreator" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="role" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="writtenComics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comic" inverseName="creators" inverseEntity="Comic" syncable="YES"/>
     </entity>
     <entity name="Team" representedClassName="FSTeam" parentEntity="BaseEntity" syncable="YES">
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Character" inverseName="team" inverseEntity="Character" syncable="YES"/>
@@ -26,8 +32,9 @@
     <elements>
         <element name="BaseEntity" positionX="-6689" positionY="-31" width="128" height="103"/>
         <element name="Character" positionX="-6732" positionY="156" width="128" height="73"/>
-        <element name="Comic" positionX="-6561" positionY="156" width="128" height="73"/>
+        <element name="Comic" positionX="-6561" positionY="156" width="128" height="88"/>
         <element name="Team" positionX="-6896" positionY="171" width="128" height="58"/>
-        <element name="Thumbnail" positionX="-6399" positionY="-9" width="128" height="103"/>
+        <element name="Thumbnail" positionX="-6374" positionY="-31" width="128" height="103"/>
+        <element name="Creator" positionX="-6363" positionY="141" width="128" height="88"/>
     </elements>
 </model>

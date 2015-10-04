@@ -1,5 +1,5 @@
 //
-//  FSComic.h
+//  FSCreator.h
 //  Test_Marvel_API
 //
 //  Created by Oleg Ketrar on 04.10.15.
@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FSBaseEntity.h"
+#import <CoreData/CoreData.h>
 
-@class FSCharacter, FSCreator, FSThumbnailImage;
+@class FSComic;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FSComic : FSBaseEntity
+@interface FSCreator : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -21,4 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "FSComic+CoreDataProperties.h"
+#import "FSCreator+CoreDataProperties.h"
