@@ -7,109 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */; };
-		4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */; };
-		4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAB71BAAED4700B37CD5 /* FSCharacter.m */; };
-		4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABA1BAAED4700B37CD5 /* FSTeam.m */; };
-		4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CABD1BAAED4700B37CD5 /* FSComic.m */; };
-		4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */; };
-		4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */; };
-		4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */; };
-		4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */; };
-		4719CAD21BAB55DB00B37CD5 /* FSBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4719CAD11BAB55DB00B37CD5 /* FSBaseCell.m */; };
-		4742915D1BB00C8900D7E757 /* FSDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4742915C1BB00C8900D7E757 /* FSDataParser.m */; settings = {ASSET_TAGS = (); }; };
-		474291621BB0B42700D7E757 /* FSCharactersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 474291611BB0B42700D7E757 /* FSCharactersViewController.m */; settings = {ASSET_TAGS = (); }; };
-		474291651BB1480000D7E757 /* FSCharacterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 474291641BB1480000D7E757 /* FSCharacterDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 476F45351BAEBE9A00E3E638 /* TableViewController.m */; };
 		47AA3AA01BBED934005A90B2 /* all_characters_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A981BBED934005A90B2 /* all_characters_landscape.png */; settings = {ASSET_TAGS = (); }; };
 		47AA3AA11BBED934005A90B2 /* character_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A991BBED934005A90B2 /* character_detail.png */; settings = {ASSET_TAGS = (); }; };
 		47AA3AA21BBED934005A90B2 /* character_detail_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9A1BBED934005A90B2 /* character_detail_landscape.png */; settings = {ASSET_TAGS = (); }; };
 		47AA3AA31BBED934005A90B2 /* characters.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9B1BBED934005A90B2 /* characters.png */; settings = {ASSET_TAGS = (); }; };
 		47AA3AA41BBED934005A90B2 /* comic_detail.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9C1BBED934005A90B2 /* comic_detail.png */; settings = {ASSET_TAGS = (); }; };
-		47AA3AA51BBED934005A90B2 /* comic_detail_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9D1BBED934005A90B2 /* comic_detail_landscape.png */; settings = {ASSET_TAGS = (); }; };
 		47AA3AA61BBED934005A90B2 /* image_viewer.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9E1BBED934005A90B2 /* image_viewer.png */; settings = {ASSET_TAGS = (); }; };
 		47AA3AA71BBED934005A90B2 /* teams.png in Resources */ = {isa = PBXBuildFile; fileRef = 47AA3A9F1BBED934005A90B2 /* teams.png */; settings = {ASSET_TAGS = (); }; };
-		47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */; };
-		47B3DA6F1BAC879600970D12 /* FSCharactersByTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B3DA6E1BAC879600970D12 /* FSCharactersByTeamViewController.m */; };
-		47B3DA711BAC8E4700970D12 /* Teams.json in Resources */ = {isa = PBXBuildFile; fileRef = 47B3DA701BAC8E4700970D12 /* Teams.json */; };
-		47BACAE91BAAB273005B2F61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAE81BAAB273005B2F61 /* main.m */; };
-		47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAEB1BAAB273005B2F61 /* AppDelegate.m */; };
-		47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF01BAAB273005B2F61 /* Main.storyboard */; };
-		47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */; };
-		47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF61BAAB273005B2F61 /* Assets.xcassets */; };
-		47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */; };
-		47DD4B8A1BB5BE5D00A6776D /* ImageContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */; settings = {ASSET_TAGS = (); }; };
-		47DD4B8D1BB5BF3E00A6776D /* FSImageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		47DD4B901BB5C14B00A6776D /* FSPageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */; settings = {ASSET_TAGS = (); }; };
-		47FAA3731BBD49470096A873 /* FSComicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FAA3721BBD49470096A873 /* FSComicDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		FAB53BCB7A595E0EE790D5DD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A818CAF43442C896C51E2CB /* libPods.a */; };
+		47DFFAA31BC1D98E00F601D6 /* comic_detail_landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = 47DFFAA21BC1D98E00F601D6 /* comic_detail_landscape.png */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0F9E913615790F0289C68541 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		20529E07818902C01AA94000 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSThumbnailImage+CoreDataProperties.h"; sourceTree = "<group>"; };
-		4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSThumbnailImage.h; sourceTree = "<group>"; };
-		4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSThumbnailImage.m; sourceTree = "<group>"; };
-		4719CAAF1BAAEC7200B37CD5 /* FSBaseEntity+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSBaseEntity+CoreDataProperties.h"; sourceTree = "<group>"; };
-		4719CAB01BAAEC7200B37CD5 /* FSBaseEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseEntity.h; sourceTree = "<group>"; };
-		4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseEntity.m; sourceTree = "<group>"; };
-		4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSCharacter+CoreDataProperties.h"; sourceTree = "<group>"; };
-		4719CAB61BAAED4700B37CD5 /* FSCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharacter.h; sourceTree = "<group>"; };
-		4719CAB71BAAED4700B37CD5 /* FSCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharacter.m; sourceTree = "<group>"; };
-		4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSTeam+CoreDataProperties.h"; sourceTree = "<group>"; };
-		4719CAB91BAAED4700B37CD5 /* FSTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeam.h; sourceTree = "<group>"; };
-		4719CABA1BAAED4700B37CD5 /* FSTeam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeam.m; sourceTree = "<group>"; };
-		4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSComic+CoreDataProperties.h"; sourceTree = "<group>"; };
-		4719CABC1BAAED4700B37CD5 /* FSComic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComic.h; sourceTree = "<group>"; };
-		4719CABD1BAAED4700B37CD5 /* FSComic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComic.m; sourceTree = "<group>"; };
-		4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDataManager.h; sourceTree = "<group>"; };
-		4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDataManager.m; sourceTree = "<group>"; };
-		4719CAC51BAAFAE400B37CD5 /* NSString+FSMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FSMD5.h"; sourceTree = "<group>"; };
-		4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FSMD5.m"; sourceTree = "<group>"; };
-		4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseViewController.h; sourceTree = "<group>"; };
-		4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseViewController.m; sourceTree = "<group>"; };
-		4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MarvelAPI.plist; sourceTree = "<group>"; };
-		4719CAD01BAB55DB00B37CD5 /* FSBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSBaseCell.h; sourceTree = "<group>"; };
-		4719CAD11BAB55DB00B37CD5 /* FSBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSBaseCell.m; sourceTree = "<group>"; };
-		4742915B1BB00C8900D7E757 /* FSDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSDataParser.h; sourceTree = "<group>"; };
-		4742915C1BB00C8900D7E757 /* FSDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSDataParser.m; sourceTree = "<group>"; };
-		474291601BB0B42700D7E757 /* FSCharactersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharactersViewController.h; sourceTree = "<group>"; };
-		474291611BB0B42700D7E757 /* FSCharactersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharactersViewController.m; sourceTree = "<group>"; };
-		474291631BB1480000D7E757 /* FSCharacterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharacterDetailViewController.h; sourceTree = "<group>"; };
-		474291641BB1480000D7E757 /* FSCharacterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharacterDetailViewController.m; sourceTree = "<group>"; };
-		476F45341BAEBE9A00E3E638 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		476F45351BAEBE9A00E3E638 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		47AA3A981BBED934005A90B2 /* all_characters_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = all_characters_landscape.png; sourceTree = "<group>"; };
 		47AA3A991BBED934005A90B2 /* character_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = character_detail.png; sourceTree = "<group>"; };
 		47AA3A9A1BBED934005A90B2 /* character_detail_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = character_detail_landscape.png; sourceTree = "<group>"; };
 		47AA3A9B1BBED934005A90B2 /* characters.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = characters.png; sourceTree = "<group>"; };
 		47AA3A9C1BBED934005A90B2 /* comic_detail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comic_detail.png; sourceTree = "<group>"; };
-		47AA3A9D1BBED934005A90B2 /* comic_detail_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comic_detail_landscape.png; sourceTree = "<group>"; };
 		47AA3A9E1BBED934005A90B2 /* image_viewer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_viewer.png; sourceTree = "<group>"; };
 		47AA3A9F1BBED934005A90B2 /* teams.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teams.png; sourceTree = "<group>"; };
-		47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTeamsViewController.h; sourceTree = "<group>"; };
-		47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTeamsViewController.m; sourceTree = "<group>"; };
-		47B3DA6D1BAC879600970D12 /* FSCharactersByTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCharactersByTeamViewController.h; sourceTree = "<group>"; };
-		47B3DA6E1BAC879600970D12 /* FSCharactersByTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCharactersByTeamViewController.m; sourceTree = "<group>"; };
-		47B3DA701BAC8E4700970D12 /* Teams.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Teams.json; sourceTree = "<group>"; };
-		47BACAE41BAAB273005B2F61 /* Test_Marvel_API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test_Marvel_API.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		47BACAE81BAAB273005B2F61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		47BACAEA1BAAB273005B2F61 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		47BACAEB1BAAB273005B2F61 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		47BACAF11BAAB273005B2F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		47BACAF41BAAB273005B2F61 /* Test_Marvel_API.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test_Marvel_API.xcdatamodel; sourceTree = "<group>"; };
-		47BACAF61BAAB273005B2F61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		47BACAF91BAAB273005B2F61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		47BACAFB1BAAB273005B2F61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ImageContainer.storyboard; sourceTree = "<group>"; };
-		47DD4B8B1BB5BF3E00A6776D /* FSImageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSImageDetailViewController.h; sourceTree = "<group>"; };
-		47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSImageDetailViewController.m; sourceTree = "<group>"; };
-		47DD4B8E1BB5C14B00A6776D /* FSPageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPageContainer.h; sourceTree = "<group>"; };
-		47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContainer.m; sourceTree = "<group>"; };
-		47FAA3711BBD49470096A873 /* FSComicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSComicDetailViewController.h; sourceTree = "<group>"; };
-		47FAA3721BBD49470096A873 /* FSComicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSComicDetailViewController.m; sourceTree = "<group>"; };
-		6A818CAF43442C896C51E2CB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		47BACAE41BAAB273005B2F61 /* Test_Marvel_API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Test_Marvel_API.app; path = "/Users/palmer/Library/Mobile Documents/com~apple~CloudDocs/xCode/xCode7.proj/Test_Marvel_API/build/Debug-iphoneos/Test_Marvel_API.app"; sourceTree = "<absolute>"; };
+		47DFFAA21BC1D98E00F601D6 /* comic_detail_landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comic_detail_landscape.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,115 +34,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB53BCB7A595E0EE790D5DD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		085CD11181ED6B2DE2F4FE96 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0F9E913615790F0289C68541 /* Pods.debug.xcconfig */,
-				20529E07818902C01AA94000 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		4719CAB41BAAEC7700B37CD5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				4742915E1BB08F5E00D7E757 /* Entities */,
-				4742915B1BB00C8900D7E757 /* FSDataParser.h */,
-				4742915C1BB00C8900D7E757 /* FSDataParser.m */,
-				4719CAC11BAAFAB200B37CD5 /* FSDataManager.h */,
-				4719CAC21BAAFAB200B37CD5 /* FSDataManager.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		4719CAC81BAAFAE900B37CD5 /* Cathegories */ = {
-			isa = PBXGroup;
-			children = (
-				4719CAC51BAAFAE400B37CD5 /* NSString+FSMD5.h */,
-				4719CAC61BAAFAE400B37CD5 /* NSString+FSMD5.m */,
-			);
-			name = Cathegories;
-			sourceTree = "<group>";
-		};
-		4719CAC91BAAFB1700B37CD5 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				47DD4B8E1BB5C14B00A6776D /* FSPageContainer.h */,
-				47DD4B8F1BB5C14B00A6776D /* FSPageContainer.m */,
-				47DD4B8B1BB5BF3E00A6776D /* FSImageDetailViewController.h */,
-				47DD4B8C1BB5BF3E00A6776D /* FSImageDetailViewController.m */,
-				4742915A1BB009CA00D7E757 /* test */,
-				4742915F1BB08FC600D7E757 /* base */,
-				47B3DA6A1BAC697900970D12 /* FSTeamsViewController.h */,
-				47B3DA6B1BAC697900970D12 /* FSTeamsViewController.m */,
-				474291601BB0B42700D7E757 /* FSCharactersViewController.h */,
-				474291611BB0B42700D7E757 /* FSCharactersViewController.m */,
-				47B3DA6D1BAC879600970D12 /* FSCharactersByTeamViewController.h */,
-				47B3DA6E1BAC879600970D12 /* FSCharactersByTeamViewController.m */,
-				474291631BB1480000D7E757 /* FSCharacterDetailViewController.h */,
-				47FAA3711BBD49470096A873 /* FSComicDetailViewController.h */,
-				474291641BB1480000D7E757 /* FSCharacterDetailViewController.m */,
-				47FAA3721BBD49470096A873 /* FSComicDetailViewController.m */,
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		4719CAD31BAB55DF00B37CD5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4719CAD01BAB55DB00B37CD5 /* FSBaseCell.h */,
-				4719CAD11BAB55DB00B37CD5 /* FSBaseCell.m */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		4742915A1BB009CA00D7E757 /* test */ = {
-			isa = PBXGroup;
-			children = (
-				476F45341BAEBE9A00E3E638 /* TableViewController.h */,
-				476F45351BAEBE9A00E3E638 /* TableViewController.m */,
-			);
-			name = test;
-			sourceTree = "<group>";
-		};
-		4742915E1BB08F5E00D7E757 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				4719CAAC1BAAEC7200B37CD5 /* FSThumbnailImage+CoreDataProperties.h */,
-				4719CAAD1BAAEC7200B37CD5 /* FSThumbnailImage.h */,
-				4719CAAE1BAAEC7200B37CD5 /* FSThumbnailImage.m */,
-				4719CAAF1BAAEC7200B37CD5 /* FSBaseEntity+CoreDataProperties.h */,
-				4719CAB01BAAEC7200B37CD5 /* FSBaseEntity.h */,
-				4719CAB11BAAEC7200B37CD5 /* FSBaseEntity.m */,
-				4719CAB81BAAED4700B37CD5 /* FSTeam+CoreDataProperties.h */,
-				4719CAB91BAAED4700B37CD5 /* FSTeam.h */,
-				4719CABA1BAAED4700B37CD5 /* FSTeam.m */,
-				4719CAB51BAAED4700B37CD5 /* FSCharacter+CoreDataProperties.h */,
-				4719CAB61BAAED4700B37CD5 /* FSCharacter.h */,
-				4719CAB71BAAED4700B37CD5 /* FSCharacter.m */,
-				4719CABB1BAAED4700B37CD5 /* FSComic+CoreDataProperties.h */,
-				4719CABC1BAAED4700B37CD5 /* FSComic.h */,
-				4719CABD1BAAED4700B37CD5 /* FSComic.m */,
-			);
-			name = Entities;
-			sourceTree = "<group>";
-		};
-		4742915F1BB08FC600D7E757 /* base */ = {
-			isa = PBXGroup;
-			children = (
-				4719CACB1BAB394A00B37CD5 /* FSBaseViewController.h */,
-				4719CACC1BAB394A00B37CD5 /* FSBaseViewController.m */,
-			);
-			name = base;
-			sourceTree = "<group>";
-		};
 		47AA3A971BBED934005A90B2 /* Screenshots */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,7 +48,7 @@
 				47AA3A9A1BBED934005A90B2 /* character_detail_landscape.png */,
 				47AA3A9B1BBED934005A90B2 /* characters.png */,
 				47AA3A9C1BBED934005A90B2 /* comic_detail.png */,
-				47AA3A9D1BBED934005A90B2 /* comic_detail_landscape.png */,
+				47DFFAA21BC1D98E00F601D6 /* comic_detail_landscape.png */,
 				47AA3A9E1BBED934005A90B2 /* image_viewer.png */,
 				47AA3A9F1BBED934005A90B2 /* teams.png */,
 			);
@@ -245,57 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				47AA3A971BBED934005A90B2 /* Screenshots */,
-				47BACAE61BAAB273005B2F61 /* Test_Marvel_API */,
-				47BACAE51BAAB273005B2F61 /* Products */,
-				085CD11181ED6B2DE2F4FE96 /* Pods */,
-				6F7262535BA98190D0FF871F /* Frameworks */,
 			);
-			sourceTree = "<group>";
-		};
-		47BACAE51BAAB273005B2F61 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				47BACAE41BAAB273005B2F61 /* Test_Marvel_API.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		47BACAE61BAAB273005B2F61 /* Test_Marvel_API */ = {
-			isa = PBXGroup;
-			children = (
-				4719CAC81BAAFAE900B37CD5 /* Cathegories */,
-				4719CAD31BAB55DF00B37CD5 /* View */,
-				4719CAB41BAAEC7700B37CD5 /* Model */,
-				4719CAC91BAAFB1700B37CD5 /* Controller */,
-				47BACAE71BAAB273005B2F61 /* Supporting Files */,
-			);
-			path = Test_Marvel_API;
-			sourceTree = "<group>";
-		};
-		47BACAE71BAAB273005B2F61 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				47BACAEA1BAAB273005B2F61 /* AppDelegate.h */,
-				47BACAEB1BAAB273005B2F61 /* AppDelegate.m */,
-				47BACAE81BAAB273005B2F61 /* main.m */,
-				47BACAF01BAAB273005B2F61 /* Main.storyboard */,
-				47DD4B891BB5BE5C00A6776D /* ImageContainer.storyboard */,
-				47BACAF61BAAB273005B2F61 /* Assets.xcassets */,
-				47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */,
-				47BACAFB1BAAB273005B2F61 /* Info.plist */,
-				47B3DA701BAC8E4700970D12 /* Teams.json */,
-				4719CACE1BAB3B9E00B37CD5 /* MarvelAPI.plist */,
-				47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		6F7262535BA98190D0FF871F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6A818CAF43442C896C51E2CB /* libPods.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,7 +108,7 @@
 				Base,
 			);
 			mainGroup = 47BACADB1BAAB273005B2F61;
-			productRefGroup = 47BACAE51BAAB273005B2F61 /* Products */;
+			productRefGroup = 47BACADB1BAAB273005B2F61;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -358,19 +122,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47DD4B8A1BB5BE5D00A6776D /* ImageContainer.storyboard in Resources */,
-				4719CACF1BAB3B9E00B37CD5 /* MarvelAPI.plist in Resources */,
+				47DFFAA31BC1D98E00F601D6 /* comic_detail_landscape.png in Resources */,
 				47AA3AA61BBED934005A90B2 /* image_viewer.png in Resources */,
-				47BACAFA1BAAB273005B2F61 /* LaunchScreen.storyboard in Resources */,
 				47AA3AA71BBED934005A90B2 /* teams.png in Resources */,
 				47AA3AA41BBED934005A90B2 /* comic_detail.png in Resources */,
-				47BACAF71BAAB273005B2F61 /* Assets.xcassets in Resources */,
 				47AA3AA01BBED934005A90B2 /* all_characters_landscape.png in Resources */,
-				47BACAF21BAAB273005B2F61 /* Main.storyboard in Resources */,
 				47AA3AA11BBED934005A90B2 /* character_detail.png in Resources */,
-				47AA3AA51BBED934005A90B2 /* comic_detail_landscape.png in Resources */,
 				47AA3AA31BBED934005A90B2 /* characters.png in Resources */,
-				47B3DA711BAC8E4700970D12 /* Teams.json in Resources */,
 				47AA3AA21BBED934005A90B2 /* character_detail_landscape.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,50 +173,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4719CAC01BAAED4700B37CD5 /* FSComic.m in Sources */,
-				47B3DA6C1BAC697900970D12 /* FSTeamsViewController.m in Sources */,
-				4719CAC71BAAFAE400B37CD5 /* NSString+FSMD5.m in Sources */,
-				4719CAB31BAAEC7200B37CD5 /* FSBaseEntity.m in Sources */,
-				474291621BB0B42700D7E757 /* FSCharactersViewController.m in Sources */,
-				474291651BB1480000D7E757 /* FSCharacterDetailViewController.m in Sources */,
-				47FAA3731BBD49470096A873 /* FSComicDetailViewController.m in Sources */,
-				47BACAEC1BAAB273005B2F61 /* AppDelegate.m in Sources */,
-				4719CAD21BAB55DB00B37CD5 /* FSBaseCell.m in Sources */,
-				476F45361BAEBE9A00E3E638 /* TableViewController.m in Sources */,
-				4719CABF1BAAED4700B37CD5 /* FSTeam.m in Sources */,
-				4719CAB21BAAEC7200B37CD5 /* FSThumbnailImage.m in Sources */,
-				47BACAE91BAAB273005B2F61 /* main.m in Sources */,
-				4719CABE1BAAED4700B37CD5 /* FSCharacter.m in Sources */,
-				4719CACD1BAB394A00B37CD5 /* FSBaseViewController.m in Sources */,
-				47B3DA6F1BAC879600970D12 /* FSCharactersByTeamViewController.m in Sources */,
-				47DD4B8D1BB5BF3E00A6776D /* FSImageDetailViewController.m in Sources */,
-				4742915D1BB00C8900D7E757 /* FSDataParser.m in Sources */,
-				47DD4B901BB5C14B00A6776D /* FSPageContainer.m in Sources */,
-				47BACAF51BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld in Sources */,
-				4719CAC31BAAFAB200B37CD5 /* FSDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		47BACAF01BAAB273005B2F61 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				47BACAF11BAAB273005B2F61 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		47BACAF81BAAB273005B2F61 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				47BACAF91BAAB273005B2F61 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		47BACAFC1BAAB273005B2F61 /* Debug */ = {
@@ -545,7 +263,6 @@
 		};
 		47BACAFF1BAAB273005B2F61 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F9E913615790F0289C68541 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Test_Marvel_API/Info.plist;
@@ -558,7 +275,6 @@
 		};
 		47BACB001BAAB273005B2F61 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20529E07818902C01AA94000 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Test_Marvel_API/Info.plist;
@@ -591,19 +307,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		47BACAF31BAAB273005B2F61 /* Test_Marvel_API.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				47BACAF41BAAB273005B2F61 /* Test_Marvel_API.xcdatamodel */,
-			);
-			currentVersion = 47BACAF41BAAB273005B2F61 /* Test_Marvel_API.xcdatamodel */;
-			path = Test_Marvel_API.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 47BACADC1BAAB273005B2F61 /* Project object */;
 }

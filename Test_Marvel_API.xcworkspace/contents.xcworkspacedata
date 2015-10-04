@@ -4,7 +4,4 @@
    <FileRef
       location = "group:Test_Marvel_API.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Pods/Pods.xcodeproj">
-   </FileRef>
 </Workspace>
