@@ -60,6 +60,10 @@
 		creatorsString = [creatorsString stringByAppendingFormat:@"%@ - %@\n", creator.name, creator.role];
 	}
 	
+	if ([creatorsString isEqualToString:@""]) {
+		creatorsString = @"creators not found :(";
+	}
+	
 	self.creatorsLabel.text = creatorsString;
 
 	self.imageView.layer.cornerRadius = 10;
