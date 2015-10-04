@@ -365,10 +365,10 @@
                                         <rect key="frame" x="8" y="0.0" width="584" height="321"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35i-3g-2eh" userLabel="image_text_container">
-                                                <rect key="frame" x="0.0" y="0.0" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="584" height="160"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nZ-qA-tI7">
-                                                        <rect key="frame" x="160" y="0.0" width="424" height="21"/>
+                                                        <rect key="frame" x="160" y="10" width="424" height="150"/>
                                                         <animations/>
                                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -376,7 +376,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p9k-Xx-JFF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="0.0" y="10" width="150" height="150"/>
                                                         <animations/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="150" id="QHn-vk-1GP"/>
@@ -392,14 +392,15 @@
                                                 <constraints>
                                                     <constraint firstItem="4nZ-qA-tI7" firstAttribute="bottom" secondItem="35i-3g-2eh" secondAttribute="bottom" id="BWv-6j-plc"/>
                                                     <constraint firstItem="p9k-Xx-JFF" firstAttribute="top" secondItem="4nZ-qA-tI7" secondAttribute="top" id="Gkr-yz-T6A"/>
-                                                    <constraint firstItem="4nZ-qA-tI7" firstAttribute="top" secondItem="35i-3g-2eh" secondAttribute="top" id="MRA-1h-gUs"/>
+                                                    <constraint firstItem="4nZ-qA-tI7" firstAttribute="top" secondItem="35i-3g-2eh" secondAttribute="top" constant="10" id="MRA-1h-gUs"/>
                                                     <constraint firstItem="4nZ-qA-tI7" firstAttribute="leading" secondItem="p9k-Xx-JFF" secondAttribute="trailing" constant="10" id="MUh-e9-muI"/>
+                                                    <constraint firstItem="4nZ-qA-tI7" firstAttribute="height" relation="greaterThanOrEqual" secondItem="p9k-Xx-JFF" secondAttribute="height" id="Ulb-HP-4Jk"/>
                                                     <constraint firstItem="p9k-Xx-JFF" firstAttribute="leading" secondItem="35i-3g-2eh" secondAttribute="leading" id="aVu-Dy-aC2"/>
                                                     <constraint firstItem="4nZ-qA-tI7" firstAttribute="trailing" secondItem="35i-3g-2eh" secondAttribute="trailing" id="gEI-fq-7Hk"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uaP-J3-FXo" userLabel="label_container">
-                                                <rect key="frame" x="0.0" y="41" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="180" width="584" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creators:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X12-3p-6gB">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="21"/>
@@ -437,7 +438,7 @@
                                             <constraint firstItem="35i-3g-2eh" firstAttribute="width" secondItem="jPl-uG-Rff" secondAttribute="width" id="6xK-kE-vdq"/>
                                             <constraint firstItem="uaP-J3-FXo" firstAttribute="top" secondItem="35i-3g-2eh" secondAttribute="bottom" constant="20" id="9nJ-RY-XY8"/>
                                             <constraint firstItem="35i-3g-2eh" firstAttribute="top" secondItem="jPl-uG-Rff" secondAttribute="top" id="SYR-9j-zjA"/>
-                                            <constraint firstItem="uaP-J3-FXo" firstAttribute="bottom" secondItem="jPl-uG-Rff" secondAttribute="bottom" id="SeU-Kf-dka"/>
+                                            <constraint firstItem="uaP-J3-FXo" firstAttribute="bottom" secondItem="jPl-uG-Rff" secondAttribute="bottom" constant="10" id="SeU-Kf-dka"/>
                                             <constraint firstItem="uaP-J3-FXo" firstAttribute="centerX" secondItem="jPl-uG-Rff" secondAttribute="centerX" id="WvW-0N-gSE"/>
                                             <constraint firstAttribute="trailing" secondItem="uaP-J3-FXo" secondAttribute="trailing" id="dQn-C5-4iP"/>
                                             <constraint firstItem="35i-3g-2eh" firstAttribute="centerX" secondItem="jPl-uG-Rff" secondAttribute="centerX" id="uyM-Yr-yYs"/>
@@ -476,7 +477,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="210"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q3u-49-31v">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q3u-49-31v">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="170"/>
                                                     <animations/>
                                                 </imageView>
