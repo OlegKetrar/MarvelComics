@@ -1,14 +1,15 @@
-# Test_Marvel_API
-Marvel superheroes and comics
+# Marvel Comics
+The MarvelComics app shows detailed info about Marvel comics and characters (like comics viewer). All data, that shows in app, is provided by Marvel (www.marvel.com). Marvel provide RESTful API for it. Check it at http://developer.marvel.com/documentation/getting_started.
 
-The project uses a RESTful API to access the Marvel database of superheroes and comics. 
+# Technical review
+The App uses AFNetworking for download data from Marvel database. After downloading data parsed by FSDataParser ( AFNetworking return JSON, FSDataParser return array of NSManagedObject subclass after parsing is finished). App uses CoreData just for cache (in-memory CoreData storage type). Each ViewController in app use NSFetchedResultController for automatically update views with new data.
 
-Build requirements:
+# Build requirements:
 - iOS SDK 9.0
 - xCode 7
 - AFNetworking 2.6
 
-Some screenshots of the working app:
+# Some screenshots of the working app:
 
 <p> - Portrait orientation: </p>
 <img src="/../Screenshots/Screenshots/teams.png" width="250" height="445"/>
